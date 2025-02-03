@@ -7,8 +7,11 @@
 
 ## 02-Feb 
 
-1.  d
-2.  dd
-3.  ddd
+1. What is a primary key, and why is it important?
+2. What is the difference between a primary key and a foreign key?
+3. Explain the difference between DELETE, TRUNCATE, and DROP.
+4. What are SQL constraints? Provide examples (e.g., NOT NULL, UNIQUE, CHECK).
+5. suppose Amazon has stored much information about customers, products, orders, categories or more in the database tables. Customers want to change their information, which Sql commands should you use to solve this problem?
+6. I have users or posts tables and I want a relationship between both tables and get information, so what is your approach, and how do you solve this problem ?
 
 ## 03-Feb
