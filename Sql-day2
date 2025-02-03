@@ -28,21 +28,20 @@ within that database
    - Installing a database.
    - Using database interfaces: Command Line, GUI tools like MySQL Workbench or pgAdmin, online platforms.
 
-
+C  R U  D Operations:- 
 C    -> Create or new information store in the database.
 
-Create  or CREATE or CrEate or create
+Create  or CREATE or CrEate or create ( command )
 
 R   -> Read or retrive 
-Select 
+Select  ( command )
 
 U  -> Update or edit information store in the database
-
-Update 
+Update  ( command ) 
 
 D  -> Delete information from the database
 
-Delete 
+Delete  ( command )
 
 
 
@@ -101,9 +100,7 @@ composite Keys
 
 ## Design of database or table 
 
-
-## SQL query 
-
+## SQL query  ( Basic examples ) how to crated database and drop and show all database names.
  
 create database if not exists sql_course ;
 
