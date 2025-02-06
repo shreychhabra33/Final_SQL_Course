@@ -1,4 +1,21 @@
 06-Feb-2025
+
+-- How to created database
+create Database Practice;
+
+-- How to created database if already exists  otherwise showing warning not any errors
+create database if not exists Practice;
+
+-- show name of all database which alrady created in these schemas
+Show databases;
+
+-- Drop database ( it is very serious command )
+Drop database Practice;
+
+-- Drop Database if exits otherwise showing warning not any errors 
+Drop database if exists Practice;
+
+
 C R  U  D ( delling with data )
 
 ## how many tupes of sql or other words characters in the SQL 
