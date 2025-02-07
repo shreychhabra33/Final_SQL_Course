@@ -1,0 +1,11 @@
+Popular Database Management Systems (DBMS)
+MySQL:
+Open-source relational database known for its speed and reliability. Widely used in web applications.
+PostgreSQL:
+An advanced, open-source relational database with support for more complex operations such as JSON data types and advanced indexing.
+Microsoft SQL Server:
+A commercial relational database developed by Microsoft, offering robust integration with Microsoft’s technology stack and enterprise-grade features.
+Oracle Database:
+A powerful relational database known for handling large-scale enterprise systems. It offers advanced security and performance features.
+MongoDB:
+A popular NoSQL database that stores data in JSON-like documents. Used in applications requiring fast, flexible, and scalable data storage
