@@ -15,4 +15,10 @@
 5. suppose Amazon has stored much information about customers, products, orders, categories or more in the database tables. Customers want to change their information, which Sql commands should you use to solve this problem?
 6. I have users or posts tables and I want a relationship between both tables and get information, so what is your approach, and how do you solve this problem ?
 
-## 03-Feb
+## 06-Feb
+1. Write a sql query delete employees and posts tables from database.
+2. what is the use case of ALTER TABLE and DROP TABLE?
+3. write a sql query for DROP and TRUNCATE TABLE?
+4. Let's suppose I have customers tables with customer_id, customer_name , salary, address, email, and phone and our clients need to change the customer_name columns what is your approach for solved these problems ?
+5. Why we use  IF EXISTS or IF NOT EXISTS in SQL queries?
+6. How do understand ADD and MODIFY Commands in Mysql?
