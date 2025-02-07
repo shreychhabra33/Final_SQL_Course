@@ -1,0 +1,41 @@
+# 2025-Feb-07
+ADD and MODIFY
+- ADD ( Add new column in the existing tables  )
+Modify ( Changed data type or other structure of the )
+
+
+-- Create table with show all tables in existing database
+use sql_course;
+show tables;
+
+-- columna name, type(size) , key constraints
+create table if not exists students(
+student_id int primary key,
+name varchar(30) not null,
+email varchar(50) not null unique,
+password varchar(30) not null,
+phone int(10) not null,
+des text default('You are here')
+);
+
+-- with load datbase created new tables 
+-- use course;
+create database if not exists course;
+
+
+create table if not exists course.course(
+course_id int primary key,
+name varchar(50) unique ,
+des  varchar(256) not null,
+price int(20) not null,
+create_at datetime,
+update_at datetime
+)
+
+use course; show tables;
+
+-- show students tables structure 
+describe students
+
+-- table format
+select * from students
