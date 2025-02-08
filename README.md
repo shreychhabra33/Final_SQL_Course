@@ -24,11 +24,10 @@
 6. How do understand ADD and MODIFY Commands in Mysql?
 
 ## 07-Feb 
-1. How to Create Database abc if this database have already exists ?
-2. Write a commands display all database name ?
-3. Created Students table with id,s_name, age,email, phone and address attributes makes sure id is primary key and any columns have never store null values?
+1. How to Create a Database abc if this database have already exists ?
+2. Write a command to display all database name ?
+3. Created Students table with id,s_name, age, email, phone and address attributes makes sure id is primary key and any columns have never store null values?
 4. What is output of the code ( select * from students )
 5. Explane this SQL query ( Truncate table ABC; )
-6. What is advantage or disadvantage of using drop commands ?
+6. What is the advantages or disadvantages of using drop commands ?
    
-7. 
