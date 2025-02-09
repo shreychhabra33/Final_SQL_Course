@@ -1,0 +1,96 @@
+#2025-Feb-09
+20:21:31	alter table students add column created_at	
+Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds 
+to your MySQL server version for the right syntax to use near '' at line 1	0.000 sec
+
+20:22:52	alter table students add column  created_at	
+Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds 
+to your MySQL server version for the right syntax to use near '' at line 2	0.000 sec
+
+why we don't use attribute for create new columns as well as column commadns ? 
+
+
+
+use sql_course;
+show tables;
+
+-- columna name, type(size) , key constraints
+create table if not exists students(
+student_id int primary key,
+name varchar(30) not null,
+email varchar(50) not null unique,
+password varchar(30) not null,
+phone int(10) not null,
+des text default('You are here')
+);
+
+-- Add new coluns in exitsting table ( studetns ) 
+alter table students add column created_at datetime;
+
+-- Drop columns which already presents
+alter table students drop column created_at;
+
+-- add new column address 
+ALTER TABLE students ADD COLUMN address VARCHAR(255) not null;
+
+-- Rename column address to class 
+Alter table students rename column address to class;
+
+
+-- add one column 
+alter table students add column address text;
+
+-- Modify datatypes of a column 
+ALTER TABLE students
+MODIFY COLUMN address varchar(100);
+
+
+## task:- 
+-- Creating a new table called 'Books'
+CREATE TABLE Books (
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(100) NOT NULL,
+    Author VARCHAR(100),
+    Genre VARCHAR(50),
+    PublishedYear INT
+);
+
+
+-- Adding a new column 'PageCount' to the 'Books' table
+ALTER TABLE Books
+ADD PageCount INT;
+
+-- Modifying the data type of 'PublishedYear' from INT to DATE
+ALTER TABLE Books
+MODIFY PublishedYear DATE;
+
+
+-- Dropping the 'Books' table
+DROP TABLE Books;
+
+
+-- Removing all data from the 'Books' table, but keeping the structure intact
+TRUNCATE TABLE Books;
+
+
+-- Renaming the 'Books' table to 'LibraryBooks'
+RENAME TABLE Books TO LibraryBooks;
+
+
+-- Renaming a column in the 'LibraryBooks' table
+ALTER TABLE LibraryBooks
+RENAME COLUMN Author TO Writer;
+
+
+
+ALTER TABLE my_sql_course.students
+ADD COLUMN city VARCHAR(50) CHECK (city IN ('delhi', 'm'));
+
+
+
+ALTER TABLE my_sql_course.students
+ADD COLUMN city VARCHAR(50) CONSTRAINT city_check CHECK (city IN ('delhi', 'm'));
+
+
+ALTER TABLE my_sql_course.students
+ADD COLUMN city VARCHAR(50) CHECK (LOWER(city) IN ('delhi', 'm'));
