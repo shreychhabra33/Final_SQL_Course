@@ -31,3 +31,6 @@
 5. Explane this SQL query ( Truncate table ABC; )
 6. What is the advantages or disadvantages of using drop commands ?
    
+## 09-Feb
+Mentions in your sql-day5 file at line numbers 48
+   
