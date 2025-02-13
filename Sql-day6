@@ -1,0 +1,91 @@
+
+#2025-Feb-13
+
+Data Types 
+
+Int , Varchar, text, boolean char ,string,date, time, datetime, current_timestamp
+
+
+Numeric Data Types  -> number ( decimal points, integers)
+
+Character Data Types -> varchar  ( store any kind of character)
+
+Date/Time Data Types -> date/time, datetime, current_timestamp
+
+Binary Data Types -> True, False 
+
+NULL Values  -> Null value 
+
+Data Types
+Data types in SQL define the kind of values that can be stored in a column of a table. 
+They help maintain data integrity and ensure that the correct type of data is used for specific operations. 
+SQL provides a wide range of data types that can be categorized into three main groups: 
+Character Types, Numeric Types, and Date/Time Types. 
+These categories cover various kinds of data, from text and numbers to dates and times.
+
+Person(table)-> name Column varachar ( 30 )
+
+Here are the key reasons why careful consideration is essential:
+
+1. Data Integrity
+Choosing the right data type helps ensure that the data stored in the database aligns with its intended format. 
+For example, using a numeric data type for storing ages ensures that only valid numerical values are entered, reducing the risk of data corruption.
+
+2. Storage Efficiency
+Selecting the appropriate size for character strings or numeric data types is critical for optimizing storage space within your database. 
+By using data types that accurately reflect the expected data size, you can minimize waste and improve overall database performance.
+
+3. Performance
+Database performance can be significantly enhanced by effectively choosing data types. 
+Queries can execute faster when the data types align with the operations performed. 
+For instance, calculations involving numeric data types are generally more efficient than those using string representations, 
+leading to improved query execution times.
+
+Person(table) -> email varchar(50) (not null) -> key constants  default('indian@gmail.com')
+
+id , name, age, email  phone , address , created_at , updated_at
+1     A    19    Null  133     XYZ        13-02-2025   2025-02-13
+2     B    20          134     PQR        13-02-2025   2025-02-13
+3
+
+## Form Validation , data validation, Columns validation , 
+
+
+AUTO_INCREMENT
+
+This constraint automatically generates a unique value for a specified column when a new record is inserted into the table. 
+It is often used for primary keys to simplify ID assignment.
+
+-- Creating a new table called 'Books'
+CREATE TABLE Books (
+    BookID INT PRIMARY KEY auto_increment,
+    Title VARCHAR(100) NOT NULL,
+    Author VARCHAR(100),
+    Genre VARCHAR(50),
+    PublishedYear INT
+);
+show tables
+describe books;
+
+
+insert into books(BookID,Title,Author,Genre,PublishedYear)
+values(11,"Duplicate id",null,null,null)
+
+insert into books(Title,Author,Genre,PublishedYear)
+values("Duplicate id 1",null,null,null)
+-- values("SQl Course","ABC","Coding",2025),
+-- ("Content","1234","Horror",2025),
+-- ("Pages","Text","AZaz",2024)
+
+0	25	20:58:47	insert into books(Title,Author,Genre,PublishedYear)
+ values(7,"Duplicate id",null,null,null)	
+ Error Code: 1136. Column count doesn't match value count at row 1	
+ 0.000 sec
+ 
+ 0	26	20:59:46	insert into books(BookID,Title,Author,Genre,PublishedYear)
+ values(7,"Duplicate id",null,null,null)	
+ Error Code: 1062. Duplicate entry '7' for key 
+ 'books.PRIMARY'	0.000 sec
+ 
+ 
+select * from books
