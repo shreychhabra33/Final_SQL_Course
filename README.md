@@ -39,7 +39,8 @@ Mentions in your sql-day5 file at line numbers 48
 2. What kind of data types should be defined for sotre name, email or phone number ?
 3. How to store multiple records at a time ?
 4. Write an SQL query for the created new column with datatypes varchar(30) and then changed this column into another names?
-5. what do you understand about this query ( alter table employees to emp;)
+5. what do you understand about this query ( alter table employees to emp; )
+6. what is output of this Sql query ( ADD COLUMN city VARCHAR(50) CHECK (city IN ('delhi', 'm')); )
    
 
    
