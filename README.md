@@ -35,5 +35,11 @@
 Mentions in your sql-day5 file at line numbers 48
 
 ## 13-Feb
+1. What is Char or Varchar ?
+2. What kind of data types should be defined for sotre name, email or phone number ?
+3. How to store multiple records at a time ?
+4. Write an SQL query for the created new column with datatypes varchar(30) and then changed this column into another names?
+5. what do you understand about this query ( alter table employees to emp;)
+   
 
    
