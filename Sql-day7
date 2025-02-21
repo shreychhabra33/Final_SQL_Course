@@ -1,0 +1,53 @@
+use quiz_app;
+show tables;
+describe loan_data;
+
+-- Read the data from loan_data 
+ -- * all columns
+select * from loan_data;
+
+-- Read specific colummns 
+select person_education,person_income , person_age , 
+loan_amnt, loan_int_rate,loan_status
+from loan_data;
+
+-- Read Data with specific conditions 
+select person_education,person_income , person_age , 
+loan_amnt, loan_int_rate,loan_status from loan_data 
+where loan_status = 1
+
+select person_education,person_income , person_age , 
+loan_amnt, loan_int_rate,loan_status from loan_data 
+where person_education = 'Master' or person_education = 'Bachelor'
+
+select person_education,person_income , person_age , 
+loan_amnt, loan_int_rate,loan_status from loan_data 
+where person_education = 'Master' and loan_status = 1
+
+-- Order by asc( ascending )  or desc (descending )
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_age
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_age desc
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_education desc
+
+-- Limit 
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_age limit 10
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_income desc limit 10
+
+
+
+-- from , join , where - group by - having - select -> order by -> 
+-- limit -> 
