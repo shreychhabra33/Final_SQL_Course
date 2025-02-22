@@ -1,0 +1,39 @@
+#2025 - Feb 22
+
+use sql_course;
+show tables;
+describe library_dataset_random;
+rename table library_dataset_random to library;
+select * from library;
+
+-- Read data with stauts Missing 
+
+select * from library where status ='Missing';
+
+-- What is highest book Id 
+select * from library order by Book_Id desc limit 10;
+
+-- What is higheset top 10 Cabinet which status have Present 
+select * from library where status ='Present' order by Cabinet desc limit 10;
+
+-- Edit or Udpate and Delete  ( with conditions ) 
+
+select * from abc;
+update abc set name ='_F',text='pqr' where id =1;
+
+
+SET SQL_SAFE_UPDATES = 0;
+
+describe library;
+
+select * from library where Book_id ='B100';
+update library set Author ='india' where Author='Casey Clark';
+
+select * from bikeindia
+update bikeindia set season = '2' where instant ='1'
+
+Permanently Disable Safe Update Mode (Not Recommended)
+If you want to permanently disable safe update mode in MySQL, you can do so by modifying your MySQL client settings. For example, in MySQL Workbench:
+Go to Edit > Preferences > SQL Editor.
+Uncheck the option Safe Updates (rejects UPDATEs and DELETEs with no restrictions).
+Reconnect to the database.
