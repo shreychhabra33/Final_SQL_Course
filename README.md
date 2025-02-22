@@ -41,6 +41,14 @@ Mentions in your sql-day5 file at line numbers 48
 4. Write an SQL query for the created new column with datatypes varchar(30) and then changed this column into another names?
 5. what do you understand about this query ( alter table employees to emp; )
 6. what is output of this Sql query ( ADD COLUMN city VARCHAR(50) CHECK (city IN ('delhi', 'm')); )
-   
+
+## 22-Feb 
+1. Write a SQL query to insert a new record into the "employees" table.
+2. Write a SQL query to update the "quantity" column of the "products" table to 10 where the "product_id" is 5.
+3. Write a SQL query to delete all records from the "orders" table where the "status" is 'cancelled'.
+4. Write a SQL query to retrieve the names of all customers from the "customers" table in alphabetical order.
+5. https://www.sqlzoo.net/wiki/SQL_Tutorial ( More practice ) 
+6. https://www.w3schools.com/mySQl/mysql_create_db.asp ( DDL practice ) 
+7. 
 
    
