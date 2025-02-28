@@ -51,6 +51,17 @@ Mentions in your sql-day5 file at line numbers 48
 6. https://www.w3schools.com/mySQl/mysql_create_db.asp ( DDL practice ) 
 
 ## 27-Feb 
-1. null vs 'null' 
+1. null vs 'null'
+
+## 28-Feb 
+1. Write a SQL query to update the "price" column of the "course" table to 299 where the "course_id" is 5.
+2. Write a SQL query to delete all records from the "orders" table where the "status" is 'cancelled'.
+3. What is Filtering and Sorting?
+4. Write a SQL query to retrieve all the columns from the "products" table where the "category" is 'Electronics' and the "price" is less than 1000.
+5. Write a SQL query to retrieve the names of all customers from the "customers" table in alphabetical order.
+6. Write a SQL query to retrieve the total number of course from the "course" table.
+8. Write a SQL query to delete all records from the "customers" table where the "last_login_date" is older than 1 year. ( Optional ) 
+9. Write a SQL query to insert new records into the "employees" table, selecting data from the "temp_employees" table.
+10. Write a SQL query to update the "discount" column of the "orders" table by increasing it by 5% for all orders placed before a specific date.
 
    
