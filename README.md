@@ -49,6 +49,8 @@ Mentions in your sql-day5 file at line numbers 48
 4. Write a SQL query to retrieve the names of all customers from the "customers" table in alphabetical order.
 5. https://www.sqlzoo.net/wiki/SQL_Tutorial ( More practice ) 
 6. https://www.w3schools.com/mySQl/mysql_create_db.asp ( DDL practice ) 
-7. 
+
+## 27-Feb 
+1. null vs 'null' 
 
    
