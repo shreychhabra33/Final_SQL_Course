@@ -63,5 +63,6 @@ Mentions in your sql-day5 file at line numbers 48
 8. Write a SQL query to delete all records from the "customers" table where the "last_login_date" is older than 1 year. ( Optional ) 
 9. Write a SQL query to insert new records into the "employees" table, selecting data from the "temp_employees" table.
 10. Write a SQL query to update the "discount" column of the "orders" table by increasing it by 5% for all orders placed before a specific date.
+11. What is different between Temporay table and View table ?
 
    
