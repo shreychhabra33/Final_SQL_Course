@@ -1,0 +1,62 @@
+#2025- Feb 28 
+
+use sql_course
+show tables
+
+select * from library order by Book_ID desc limit 10
+SET SQL_SAFE_UPDATES = 0;
+
+insert into library(Book_ID,Title,Author,Category,Cabinet ,
+Rack,Row,Signal_Strength,Timestamp,Status)
+values()
+-- Update and Delete 
+
+-- Update by single column
+update library set Author ='testing author' where Book_ID='B200'
+            
+-- Update by multiple columns
+
+update library set Author ='testing author 1',Title='testing Title'
+where Book_ID in('B200','B199')
+
+select * from library order by Book_ID desc limit 10
+
+-- Delete Commands 
+
+delete from Library where Book_ID='B200'
+            
+-- Distinct ( remove duplicate row ) 
+select distinct(Category),Book_ID from library;
+select distinct(Category) from library;
+
+-- Operators
+
+-- arithmetic(+ ,-,*,/,%)
+select * from quiz_app.loan_data
+select loan_amnt + 100 from quiz_app.loan_data
+
+-- loan_amnt increase by 100 and order by desc limnit 10
+select (loan_amnt + 100) as total_amt from quiz_app.loan_data 
+order by total_amt desc limit 10
+
+
+-- / means find quotient and % means find reminder
+-- 8 / 5 -> 5 * 1 + 3 
+-- here 1 is quotient and 3 is remanider  
+ 
+
+select (loan_amnt + 100) as total_amt,(loan_amnt - 100) as decreased_amnt ,
+(loan_amnt * 2 ) as multiply, (loan_amnt / 10) as divided , 
+(loan_amnt % 10 ) as modular 
+from quiz_app.loan_data
+
+
+
+-- Assignment Operators 
+
+select * from quiz_app.loan_data 
+where person_age = 21
+
+-- comparison(=,>,>=,<=,<>,!=,!<,!>)
+
+-- compound(+=,-=,*=,/=,%=,&=,^=,|=)
