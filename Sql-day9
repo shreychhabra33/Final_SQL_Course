@@ -1,0 +1,18 @@
+# 2025 - Feb 28 
+
+Refresher ( revision ) 
+
+Students -> student_id, name, email, password, phone
+               1         A    abc@     1123     xyz  
+               2         B    bcd@     2345     pqr
+
+course -> couser_id, name ,  description,  price , validation
+            S1       SQL      des          100000    3 months 
+            S2       Python   python des   500000    6 months 
+            S3       EXCEL    excel des    200000    2 months 
+
+purchase -> purchsae_Id, student_id, course_id ,purchase_date 
+			p1              1            S2        25-Feb
+
+
+How to relationships between more then two tables.
