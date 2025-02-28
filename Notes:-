@@ -79,4 +79,26 @@
   MongoDB:
   A popular NoSQL database that stores data in JSON-like documents. Used in applications requiring fast, flexible, and scalable data storage
 
+# Example 1: Creating a Temporary Table Manually
+CREATE TEMPORARY TABLE temp_employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50),
+    salary DECIMAL(10,2)
+);
+
+# Example 2: Creating a Temporary Table Based on Another Table
+CREATE TEMPORARY TABLE temp_orders AS
+SELECT order_id, customer_id, total_amount
+FROM orders
+WHERE order_date > '2024-01-01';
+
+# Example 3: Inserting Data into a Temporary Table
+INSERT INTO temp_employees (id, name, department, salary)
+VALUES (1, 'John Doe', 'IT', 75000.00);
+
+# Example 4: Dropping a Temporary Table (if needed before session ends)
+DROP TEMPORARY TABLE IF EXISTS temp_employees;
+
+
 
