@@ -60,3 +60,16 @@ where person_age = 21
 -- comparison(=,>,>=,<=,<>,!=,!<,!>)
 
 -- compound(+=,-=,*=,/=,%=,&=,^=,|=)
+
+
+-- How to Create View 
+
+create view calculation as 
+select (loan_amnt + 100) as total_amt,(loan_amnt - 100) as decreased_amnt ,
+(loan_amnt * 2 ) as multiply, (loan_amnt / 10) as divided , 
+(loan_amnt % 10 ) as modular 
+from quiz_app.loan_data
+
+CREATE VIEW person_view AS
+SELECT * FROM quiz_app.loan_data
+WHERE loan_amnt > 20000;
