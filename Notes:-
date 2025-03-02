@@ -79,6 +79,15 @@
   MongoDB:
   A popular NoSQL database that stores data in JSON-like documents. Used in applications requiring fast, flexible, and scalable data storage
 
+What is a VIEW in SQL?
+A VIEW in SQL is a virtual table that is based on the result of a SQL query. It does not store data itself but provides a stored query that dynamically pulls data from underlying tables.
+
+🔹 Why Use a VIEW?
+✅ Simplifies complex queries – You can store complex joins, filters, and aggregations in a view.
+✅ Enhances security – You can restrict access to sensitive columns while allowing users to query specific data.
+✅ Improves maintainability – Instead of writing long SQL queries repeatedly, you can reference a view.
+✅ Abstracts database schema changes – If table structures change, you can update views without modifying application queries.
+
 # Example 1: Creating a Temporary Table Manually
 CREATE TEMPORARY TABLE temp_employees (
     id INT PRIMARY KEY,
