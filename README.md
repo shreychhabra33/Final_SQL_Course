@@ -65,4 +65,14 @@ Mentions in your sql-day5 file at line numbers 48
 10. Write a SQL query to update the "discount" column of the "orders" table by increasing it by 5% for all orders placed before a specific date.
 11. What is different between Temporay table and View table ?
 
-   
+## 02-Mar
+1. Let's suppose we have table structure like ,
+   CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+  What is query for define the size of the dataset so what is your approach ?
+2. d
+3. d
