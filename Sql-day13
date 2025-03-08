@@ -1,0 +1,112 @@
+##2025 - March 07
+
+-- **** Examples of check and default ****
+use sql_course;
+   
+create table testing(
+t_id int primary key auto_increment,
+age varchar(30) check (age >18 and age < 24),
+categories varchar(30) not null check(categories in ('fashion' , 'tech' , 'modeling' , 'food','other')),
+tech varchar(30) default('other'),
+active varchar(5) default(false),
+order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+   
+-- ****  Insert into ****  
+insert into testing(age,categories,tech)
+values(24,'tech','laptop')
+
+-- **** Check constraint value entry errors ****
+
+-- 0	15	20:52:38	
+-- insert into testing(age,categories,tech)
+-- values(24,'tech','laptop')	
+-- Error Code: 3819. Check constraint 'testing_chk_1' is violated.	0.000 sec
+ 
+-- 0	13	20:50:10	
+-- insert into testing(age,categories,tech,active)
+-- values(24,'tech','laptop')	
+-- Error Code: 1136. Column count doesn't match value count at row 1	0.000 sec
+ 
+-- 0	12	20:46:25	
+-- insert into testing(age,categories,tech,active)
+-- values(24,'shoes','laptop',True)	
+-- Error Code: 3819. Check constraint 'testing_chk_1' is violated.	0.000 sec
+ 
+-- 0	11	20:45:11	insert into testing(age,categories,tech,active)
+--  values(25,'fashion','laptop',True)	
+--  Error Code: 3819. Check constraint 'testing_chk_1' is violated.	0.000 sec
+ 
+select * from testing
+select * from testing where t_id>100
+
+
+show tables
+describe testing
+
+-- importnat points :_ 
+unique and not null
+   
+-- ##   Student ( Entity )
+-- student_id , Name , Age , Gender , Email_Id , Phone number , Course , Active  or deacitve 
+            M/F/O               +91 1234567896544              True or False
+
+
+-- ## Course ( Entity )
+-- course_id , course_name , duration , course_fee , course_description , course_image , course_video
+
+
+-- **** Primary key ( unique and not null ) ****
+
+-- ## Product ( Entity )
+-- product_id , product_name, categories , Price, weight or quantity or etc.  
+   p1 ->      ( mouse          tech       299       200  )  
+   p2 ->       ( light pan      tech       299       200  )
+   
+   p2        light pan      tech       299       200  
+   p2        light          tech       299       200 
+   null      abc           pqr         10       123
+-- ## Product ( Entity )
+-- product_id , product_name, categories , Price, weight or quantity or etc.  
+
+-- **** why use pirmary key , unique , not null ,  check and default ****
+                    
+-- fashion , tech , modeling , food 
+create table products (
+product_id primary key, 
+product_name not null,
+categories not null check(categories in ('fashion' , 'tech' , 'modeling' , 'food')) , 
+Price unique not null, 
+weight  or quantity,
+created_at,
+updated_at
+)
+primary key -> unique and not null
+
+4. checks  gender    ( gendre in('Male', 'Female' ,'Other']) 
+-- CHECK (city IN ('delhi', 'm')); )
+
+age check (age >18 and age < 24)
+
+5. Defatult  ( False ) eg.. active  users 
+Salary   ( base salry by default 10000)
+
+call_records -> default('Delhi')
+otherwise -> 'Mumbai' 
+
+or 
+
+comments - default('This is your temporay') 
+otherwise -> entere like this
+
+users(entity) -> active default(False)
+jroshan123 -> active -> True  (login )
+jroshan123 -> 
+
+False -> 0  -> OFF
+True -> 1  -> ON
+
+
+
+
+
