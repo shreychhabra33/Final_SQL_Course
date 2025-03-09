@@ -1,4 +1,4 @@
-06-Feb-2025
+## 06-Feb-2025
 
 -- How to created database
 create Database Practice;
@@ -21,13 +21,21 @@ C R  U  D ( delling with data )
 ## how many tupes of sql or other words characters in the SQL 
 
 1. DDL ( Data Definition Language )
+-- Database and table
+-- Create , Truncate , drop , alter 
+-- alter -> rename 
+-- alter -> add 
+-- alter -> column drop 
+-- alter -> changes data types 
+-- alter -> add size of the particular columns   
+-- alter table abc nename abc to pqr 
+
 
 2. DML ( Data Manipulate Language )
 3. DCL ( Data Control Language )
 4. TCL ( Transaction Control Language )
 
-5. DQL ( Data Query Language )
-
+5. DQL ( Data Query Language ) -> select 
 
 1. DDL ( Data Definition Language )
 
