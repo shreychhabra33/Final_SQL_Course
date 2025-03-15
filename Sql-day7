@@ -1,3 +1,4 @@
+
 use quiz_app;
 show tables;
 describe loan_data;
@@ -7,27 +8,98 @@ describe loan_data;
 select * from loan_data;
 
 -- Read specific colummns 
-select person_education,person_income , person_age , 
+select person_education,person_income, person_age , 
 loan_amnt, loan_int_rate,loan_status
 from loan_data;
+
 
 -- Read Data with specific conditions 
 select person_education,person_income , person_age , 
 loan_amnt, loan_int_rate,loan_status from loan_data 
 where loan_status = 1
 
+-- Get records who's person have educatiosn is masete or Bachelor 
 select person_education,person_income , person_age , 
 loan_amnt, loan_int_rate,loan_status from loan_data 
 where person_education = 'Master' or person_education = 'Bachelor'
 
+-- Get records who's person have educatiosn is masete or Bachelor using in operators
+select person_education,person_income , person_age , 
+loan_amnt, loan_int_rate,loan_status from loan_data 
+where person_education in('Master','Bachelor')
+
+select person_education,person_income , person_age , 
+loan_amnt, loan_int_rate,loan_status from loan_data 
+where person_education = 'Master' and person_education = 'Bachelor'
+
+-- AND 
+TRUE and FALSE -> FALSE 
+FALSE and FALSE -> FALSE 
+TRUE and TRUE -> TRUE 
+False and True -> False
+
+-- OR  ( any one conditions ) 
+True or False -> True 
+False or False -> False 
+False or True -> True 
+True or True -> True 
+
+-- XOR ( should be only one conditons true )
+
+True or False -> True 
+False or False -> False 
+False or True -> True 
+True or True -> False
+
+
+-- NOT 
+True -> False 
+false -> True
+
+-- Get top 10 person info who have edcations mater and loan status has 1 for minimin salary  
 select person_education,person_income , person_age , 
 loan_amnt, loan_int_rate,loan_status from loan_data 
 where person_education = 'Master' and loan_status = 1
+order by person_income limit 10
+
+-- Get top 10 person info who have edcations mater and loan status has 1 for maximum salary  
+select person_education,person_income , person_age , 
+loan_amnt, loan_int_rate,loan_status from loan_data 
+where person_education = 'Master' and loan_status = 1
+order by person_income desc limit 10
+
 
 -- Order by asc( ascending )  or desc (descending )
 select person_education,person_income , person_age , 
 loan_amnt 
 from loan_data order by person_age
+
+select * from loan_data order by person_age
+
+
+-- Get recoers with order by perosn age and perons income
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_age , person_income
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_income,person_age 
+
+-- Order by Acecnding and descending 
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_age , person_income desc
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_age ,loan_amnt, person_income desc
+
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_age ,person_education, person_income desc
+
 
 select person_education,person_income , person_age , 
 loan_amnt 
@@ -37,7 +109,7 @@ select person_education,person_income , person_age ,
 loan_amnt 
 from loan_data order by person_education desc
 
--- Limit 
+-- Limit and offset
 
 select person_education,person_income , person_age , 
 loan_amnt 
@@ -45,9 +117,49 @@ from loan_data order by person_age limit 10
 
 select person_education,person_income , person_age , 
 loan_amnt 
+from loan_data order by person_age limit 10 offset 10
+
+select person_education,person_income , person_age , 
+loan_amnt 
+from loan_data order by person_income limit 10 offset 30
+
+select person_education,person_income , person_age , 
+loan_amnt 
 from loan_data order by person_income desc limit 10
+
+
+-- I want to get top 10 highest salary income for those peroson who's income more than 10000
+
+--  Write a sql query for minimun perosn income who's education is Bachelor or High school and age is more than 21
+
+
+Select * from loan_data where person_education 
+in ('Bachelor', 'High School') 
+and person_age <= 21 order by person_income
+
+select * from loan_data
+where person_age >21 and 
+
+person_education="bachelor" or person_education="high school"
+order by person_income
+
+-- person_age > 21 more than 
+-- person_age < 21 less than 
+-- person_age >= 21 more than or equal
+-- person_age <= 21 less than or equal 
+ 
+
+-- Alias name 
+
+select person_education,person_income as income , person_age , 
+loan_amnt 
+from loan_data order by person_income limit 10
+
+select person_education,person_income as income , person_age , 
+loan_amnt 
+from loan_data order by income limit 10
 
 
 
 -- from , join , where - group by - having - select -> order by -> 
--- limit -> 
+-- limit -> offset  
