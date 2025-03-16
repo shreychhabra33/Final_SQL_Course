@@ -74,5 +74,10 @@ Mentions in your sql-day5 file at line numbers 48
     Age int
 );
   What is query for define the size of the dataset so what is your approach ?
-2. d
-3. d
+## 16-Mar
+1. https://leetcode.com/problems/recyclable-and-low-fat-products/?envType=study-plan-v2&envId=top-sql-50
+2. https://www.hackerrank.com/challenges/revising-the-select-query/problem?isFullScreen=true
+3. https://www.hackerrank.com/challenges/revising-the-select-query-2/problem?isFullScreen=true
+4. https://www.hackerrank.com/challenges/weather-observation-station-1/problem?isFullScreen=true
+5. https://www.hackerrank.com/challenges/weather-observation-station-3/problem?isFullScreen=true
+6. https://leetcode.com/problems/big-countries/?envType=study-plan-v2&envId=top-sql-50
