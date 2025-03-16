@@ -1,0 +1,54 @@
+#2025 - Mar 16
+use sql_course
+
+show tables
+
+select * from data_loan
+
+-- Numerical 
+-- Catogorical
+
+-- Null records 
+null
+
+select * from data_loan 
+where purpose is not null
+
+select * from data_loan 
+where `credit.policy` is null
+
+-- Update the fico with null for all debt consolidastion purose
+update data_loan set fico = null where purpose = 'debt_consolidation'
+
+select * from data_loan 
+where 'credit.policy' is null 
+or purpose is null 
+or 'int.rate' is null
+or installment is null
+or 'log.annual.inc' is null
+or dti is null
+or fico is null
+or 'days.with.cr.line' is null
+or 'revol.bal' is null
+or 'revol.util' is null
+or 'inq.last.6mths' is null
+or 'delinq.2yrs' is null
+or 'pub.rec' is null
+or 'not.fully.paid' is null
+
+-- Duplicated 
+-- distinct
+select * from quiz_app.loan_data
+
+select distinct person_education from quiz_app.loan_data
+
+select distinct * from quiz_app.loan_data
+
+-- Handle duplicated records
+select distinct person_age, person_education from quiz_app.loan_data
+order by person_age 
+
+select person_age, person_education from quiz_app.loan_data
+order by person_age 
+       
+       
