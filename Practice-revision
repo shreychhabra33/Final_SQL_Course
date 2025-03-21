@@ -1,0 +1,89 @@
+#2025 - 03- 21
+
+use sql_course;
+
+show tables;
+
+describe sales_data;
+
+select * from sales_data order by `Order ID` desc;
+
+-- is , is not , in , in not , null, operators , edit and delete
+-- distinct and unique 
+-- New between or ( more than and less than  )
+
+-- range between 1 and 3  ( exclude ) 
+-- >= 1 and <=3
+-- include and exclude
+-- 1 and 3 -> 1 , 2, not 3 
+-- 1 and 5 -> 1 , 2,3,4 , not 5
+-- 1 and 3 -> 2 
+select * from sales_data where `order Date` between '2019-03-01'  
+and '2019-01-01'
+
+-- 2019-03-01
+-- 2019-02- 28/29
+
+-- from , where
+
+-- find the sales data for order date more than or equal 2019 -01 -01 
+-- and less then 2019-03-01
+
+select * from sales_data where `order Date` between '2019-01-01' 
+and '2019-03-02' order by `order Date`;
+
+select * from sales_data where `order Date` >= '2019-01-01' 
+and `order Date` < '2019-03-02' order by `order Date`;
+
+-- find the sales data for order date more than or equal 2019 -01 -01 
+-- and less then or equal 2019-03-01
+select * from sales_data where `order Date` >= '2019-01-01' 
+and `order Date` <= '2019-03-02' order by `order Date`;
+
+-- Find the records for order date 2019-01-02 
+select * from sales_data where `order Date` ='2019-01-01'
+
+-- find the records for order ID 
+select * from sales_data where `order ID` ='147268'
+
+-- 1 = 1  right
+-- 1 = 12  wrong 
+-- Joyti rajput'
+
+name ='Joyti'
+
+-- is and is not 
+
+select * from sales_data
+-- Write an query for product is iphone
+select * from sales_data where `Product`= 'iPhone'
+
+In MySQL, IS and IS NOT are used to compare NULL values 
+because = and != do not work with NULL.
+!= , <>
+
+-- write a query for find unique purchase address
+-- Reatrive sales data for product Wired Headphones and iPhone 
+-- Fetch the sales data for order data between 2019-01 and 2019-03
+
+Select distinct `Purchase address` from sales_data
+
+select * from sales_data where product ='Wired Headphones' 
+and product ='iPhone' 
+
+
+select * from sales_data where `order date` 
+between '2019-01-01' and '2019-03-31'
+
+Select * from sales_data where `order date` 
+between '2019-01' and '2019-03'
+
+Select * from sales_data where `order date` 
+between '2019' and '2019'
+
+
+
+
+-- Like or Wild card 
+-- should be practice on edit and delete 
+
