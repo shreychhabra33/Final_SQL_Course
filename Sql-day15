@@ -1,0 +1,178 @@
+#2025 - 03 - 22
+
+
+use sql_course;
+
+show tables;
+
+describe sales_data;
+
+select * from sales_data order by `Order ID` desc;
+
+-- is , is not , in , in not , null, operators , edit and delete
+-- distinct and unique 
+-- New between or ( more than and less than  )
+
+-- range between 1 and 3  ( exclude ) 
+-- >= 1 and <=3
+-- include and exclude
+-- 1 and 3 -> 1 , 2, not 3 
+-- 1 and 5 -> 1 , 2,3,4 , not 5
+-- 1 and 3 -> 2 
+select * from sales_data where `order Date` between '2019-03-01'  
+and '2019-01-01'
+
+-- 2019-03-01
+-- 2019-02- 28/29
+
+-- from , where
+
+-- find the sales data for order date more than or equal 2019 -01 -01 
+-- and less then 2019-03-01
+
+select * from sales_data where `order Date` between '2019-01-01' 
+and '2019-03-02' order by `order Date`;
+
+select * from sales_data where `order Date` >= '2019-01-01' 
+and `order Date` < '2019-03-02' order by `order Date`;
+
+-- find the sales data for order date more than or equal 2019 -01 -01 
+-- and less then or equal 2019-03-01
+select * from sales_data where `order Date` >= '2019-01-01' 
+and `order Date` <= '2019-03-02' order by `order Date`;
+
+-- Find the records for order date 2019-01-02 
+select * from sales_data where `order Date` ='2019-01-01'
+
+-- find the records for order ID 
+select * from sales_data where `order ID` ='147268'
+
+-- 1 = 1  right
+-- 1 = 12  wrong 
+-- Joyti rajput'
+
+name ='Joyti'
+
+-- is and is not 
+
+select * from sales_data
+-- Write an query for product is iphone
+select * from sales_data where `Product`= 'iPhone'
+
+In MySQL, IS and IS NOT are used to compare NULL values 
+because = and != do not work with NULL.
+!= , <>
+
+-- write a query for find unique purchase address
+-- Reatrive sales data for product Wired Headphones and iPhone 
+-- Fetch the sales data for order data between 2019-01 and 2019-03
+
+Select distinct `Purchase address` from sales_data
+
+select * from sales_data where product ='Wired Headphones' 
+and product ='iPhone' 
+
+
+select * from sales_data where `order date` 
+between '2019-01-01' and '2019-03-31'
+
+Select * from sales_data where `order date` 
+between '2019-01' and '2019-03'
+
+Select * from sales_data where `order date` 
+between '2019' and '2020'
+
+Select * from sales_data where `order date` 
+between '01' and '02'
+
+
+-- Like or Wild card 
+-- should be practice on edit and delete 
+describe emp_data
+
+-- analaysis data
+
+select * from emp_data;
+select * from emp_data where WTC_Floor =''
+
+select distinct Victims,`Location_on_9/11` from emp_data;
+
+ALTER TABLE emp_data
+ADD PRIMARY KEY (`Victims`,`Location_on_9/11`);
+
+-- 0	14	20:41:20	ALTER TABLE emp_data
+-- ADD PRIMARY KEY (`Victims`,`Location_on_9/11`)	
+--  Error Code: 1170. BLOB/TEXT column 'Victims' 
+--   used in key specification without a key length	0.000 sec
+  
+ alter table emp_data add column _id int primary key auto_increment
+ 
+ select * from emp_data;
+
+-- LIKE and WILD CARD 
+-- WILD CARD 
+-- _(underscore)   -> fixed postions 
+-- %% -> any things
+ 
+ -- get records for palce they work shold be start with Wi
+ select * from emp_data where place_they_work like 'Wi%'
+ 
+ -- Get the records for palce the work should be start i at second postions
+ select * from emp_data where place_they_work like '_i%'
+ 
+ -- Get the records for Victioms name should be start have thrid lette as i
+select * from emp_data where `Victims` like '__i%'
+
+-- Get the records for Victioms name should start with first two letter as a
+
+select * from emp_data where Victims like 'aa%'
+
+-- Get the records for Victioms name should end with last two letter as a
+
+select * from emp_data where Victims like '%aa'
+ 
+select * from emp_data where `Victims` like '__i%' 
+
+select * from emp_data where Victims like '%a_'
+
+-- AND or OR 
+
+select * from emp_data where Victims like '%a_' or Victims like '_a%'
+
+select * from emp_data where Victims like '%a_' and Victims like '_a%'
+
+-- in -> array -> list of value or collections of value
+[1,True,'TECH']
+
+in('A','B','C','D','E')
+
+-- I want to get those Victioms name who's name should be starts 
+-- as vowels or end with vowels
+
+-- In , Like 
+
+Select * from `emp_data` where `victims` 
+like 'a%'  or `victims` like '%a'
+or `victims` like 'e%' or `victims` like '%e'
+or `victims` like 'i%' or `victims` like '%i'
+or `victims` like 'o%' or `victims` like '%o'
+or `victims` like 'u%' or `victims` like '%u'
+
+
+select * from emp_data where victims regexp '^[aeiou]' 
+or victims regexp '[aeiou]&' 
+
+select * from emp_data where victims regexp '^[aeiou]' 
+or victims regexp '[aeiou]&' 
+
+
+bitwise(&,|,^,~),
+
+compound(+=,-=,*=,/=,%=,&=,^=,|=)
+
+
+
+ 
+ 
+ 
+
