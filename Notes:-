@@ -110,4 +110,49 @@ VALUES (1, 'John Doe', 'IT', 75000.00);
 DROP TEMPORARY TABLE IF EXISTS temp_employees;
 
 
+✅ Compound Assignment Operators in SQL
+Compound Operators (+=, -=, *=, /=, %=, &=, ^=, |=) are commonly found in programming languages like Python, Java, C++ but are not universally supported in SQL.
+However, some RDBMS (like SQL Server, PostgreSQL) offer alternatives.
+
+-- 🔹 Example Usage in SQL
+-- 📌 Increment a Column (+= Equivalent)
+
+UPDATE emp_data
+SET salary = salary + 1000 
+WHERE department = 'IT';
+
+-- 📌 Decrement a Column (-= Equivalent)
+
+UPDATE employees 
+SET bonus = bonus - 500 
+WHERE performance = 'low';
+
+-- 📌 Multiply a Column (*= Equivalent)
+UPDATE products 
+SET price = price * 1.10 
+WHERE category = 'Electronics';
+
+-- 📌 Divide a Column (/= Equivalent)
+
+UPDATE sales 
+SET discount = discount / 2 
+WHERE season = 'Winter';
+
+-- 📌 Use Modulus (%= Equivalent)
+UPDATE students 
+SET roll_number = roll_number % 5;
+
+-- 🔹 Bitwise Compound Operators (&=, ^=, |=)
+-- hese are mainly used in SQL Server for bitwise operations.
+-- 📌 Bitwise AND (&= Equivalent)
+
+UPDATE users 
+SET permissions = permissions & 4 
+WHERE role = 'editor';
+
+-- 📌 Bitwise XOR (^= Equivalent)
+UPDATE users 
+SET flags = flags ^ 2 
+WHERE status = 'active';
+
 
