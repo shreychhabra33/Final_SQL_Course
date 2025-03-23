@@ -81,3 +81,14 @@ Mentions in your sql-day5 file at line numbers 48
 4. https://www.hackerrank.com/challenges/weather-observation-station-1/problem?isFullScreen=true
 5. https://www.hackerrank.com/challenges/weather-observation-station-3/problem?isFullScreen=true
 6. https://leetcode.com/problems/big-countries/?envType=study-plan-v2&envId=top-sql-50
+
+## 23-Mar 
+1. What is the meaning of LIKE ‘%0%0%’ in SQL?
+2. What do you mean by Data Sharing in DBMS?
+Options: Pick one correct answer from below
+a) Same data visible to everyone
+b) Different data for everyone
+c) Multiple versions of data
+d) Anyone can access data
+Solution description:- 
+The act of sharing the same data resource with multiple applications or users is known as data sharing. In the case of DBMS when the same information is visible to everyone , it is called data sharing.
