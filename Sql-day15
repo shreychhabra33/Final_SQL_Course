@@ -88,6 +88,20 @@ between '01' and '02'
 
 -- Like or Wild card 
 -- should be practice on edit and delete 
+
+-- LIKE and WILD CARD 
+-- WILD CARD 
+-- _(underscore)   -> fixed postions 
+-- shrey -> first charactor is -> s  ( This is know what ever ) 
+-- abcdefghijklmnopqurstuvwxyz
+
+-- shrey -> second charactor is -> h  ( _h fixed ) 
+-- abcdefghijklmnopqurstuvwxyz
+
+-- % % -> any things
+
+-- What is the meaning of LIKE ‘%0%0%’ in SQL?
+
 describe emp_data
 
 -- analaysis data
@@ -108,36 +122,48 @@ ADD PRIMARY KEY (`Victims`,`Location_on_9/11`);
  alter table emp_data add column _id int primary key auto_increment
  
  select * from emp_data;
-
--- LIKE and WILD CARD 
--- WILD CARD 
--- _(underscore)   -> fixed postions 
--- %% -> any things
  
- -- get records for palce they work shold be start with Wi
+ -- Get records for palce they work shold be start with Wi
  select * from emp_data where place_they_work like 'Wi%'
  
- -- Get the records for palce the work should be start i at second postions
- select * from emp_data where place_they_work like '_i%'
+ -- Get the records for palce the work should be start b letter at second postions
+ select * from emp_data where place_they_work like '_b%'
+ 
+ -- Get the records for palce the work should be start b letter at third postions
+ select * from emp_data where place_they_work like '__b%'
  
  -- Get the records for Victioms name should be start have thrid lette as i
 select * from emp_data where `Victims` like '__i%'
 
 -- Get the records for Victioms name should start with first two letter as a
-
 select * from emp_data where Victims like 'aa%'
+
+-- Get the records for Victioms name should start with first two letter at postion third and fourth as a letters
+select * from emp_data where Victims like '__aa%'
+select * from emp_data where Place_they_work like '__aa%'
 
 -- Get the records for Victioms name should end with last two letter as a
 
 select * from emp_data where Victims like '%aa'
  
-select * from emp_data where `Victims` like '__i%' 
+-- Victims name shoul be third letter i 
+select * from emp_data where `Victims` like '__i' 
 
+-- second last charactor should be a 
 select * from emp_data where Victims like '%a_'
 
--- AND or OR 
+-- third last charactor should be r
+select * from emp_data where Place_they_work like '%r__'
 
+-- second  , third charactor should be r
+select * from emp_data where Place_they_work like '_rr%'
+
+-- AND or OR 
+-- Shoud be  start second charactor a of a victims  or second last charactor of victims is a
 select * from emp_data where Victims like '%a_' or Victims like '_a%'
+
+-- Shoud be  start second charactor a of a victims and second last charactor of victims is a
+select * from emp_data where Victims like '%a_' and Victims like '_a%'
 
 select * from emp_data where Victims like '%a_' and Victims like '_a%'
 
@@ -158,12 +184,40 @@ or `victims` like 'i%' or `victims` like '%i'
 or `victims` like 'o%' or `victims` like '%o'
 or `victims` like 'u%' or `victims` like '%u'
 
+-- Get those employees email infomations which domain is .in
+
+select * from emp_data where email like "%.in%"
+
+select * from emp_data where email like "%.in"
+
+
+
+
+-- OR
+select * from emp_data where victims regexp '^[aeiou]' 
+or victims regexp '[aeiou]&' 
+
+-- And 
+select * from emp_data where victims regexp '^[aeiou]' 
+and victims regexp '[aeiou]&' 
 
 select * from emp_data where victims regexp '^[aeiou]' 
 or victims regexp '[aeiou]&' 
 
-select * from emp_data where victims regexp '^[aeiou]' 
-or victims regexp '[aeiou]&' 
+
+-- Bitwise operators 
+bitwise(&,|,^,~),
+
+-- Component operatiors 
+compound(+=,-=,*=,/=,%=,&=,^=,|=)
+
+
+
+ 
+ 
+ 
+
+
 
 
 bitwise(&,|,^,~),
