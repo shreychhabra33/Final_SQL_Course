@@ -92,3 +92,11 @@ c) Multiple versions of data
 d) Anyone can access data
 Solution description:- 
 The act of sharing the same data resource with multiple applications or users is known as data sharing. In the case of DBMS when the same information is visible to everyone , it is called data sharing.
+
+## 27-Mar
+1. https://leetcode.com/problems/find-customer-referee/?envType=study-plan-v2&envId=top-sql-50
+2. https://leetcode.com/problems/article-views-i/?envType=study-plan-v2&envId=top-sql-50
+3. https://leetcode.com/problems/invalid-tweets/?envType=study-plan-v2&envId=top-sql-50
+4. https://leetcode.com/problems/patients-with-a-condition/?envType=study-plan-v2&envId=top-sql-50
+5. What claue use for filter the records ?
+6. How can remove or handle duplicated records from database tables ?
