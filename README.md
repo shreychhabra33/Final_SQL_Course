@@ -98,5 +98,5 @@ The act of sharing the same data resource with multiple applications or users is
 2. https://leetcode.com/problems/article-views-i/?envType=study-plan-v2&envId=top-sql-50
 3. https://leetcode.com/problems/invalid-tweets/?envType=study-plan-v2&envId=top-sql-50
 4. https://leetcode.com/problems/patients-with-a-condition/?envType=study-plan-v2&envId=top-sql-50
-5. What claue use for filter the records ?
-6. How can remove or handle duplicated records from database tables ?
+5. Which clause use for filter the records?
+6. How can you remove or handle duplicated records from database tables?
