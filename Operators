@@ -1,0 +1,59 @@
+select * from quiz_app.loan_data limit 100;
+
+-- Arthmatical 
+select person_income, person_income + 10 from quiz_app.loan_data limit 100
+-- / or % 
+-- Asssignment
+select * from quiz_app.loan_data limit 100;
+
+select * from quiz_app.loan_data where person_income > 10000
+
+-- = , > , < , >= , <=, !=
+
+-- Logical 
+-- AND , OR , XOR , NOT
+-- AND 
+# True , True -> True 
+# True, false -> false
+# false , false -> false 
+# false , true -> false
+
+-- OR ( atleast one conditons should be true ) 
+# True , True -> True 
+# True, false -> True
+# false , false -> false 
+# false , true -> True 
+
+-- XOR ( shoud Only one condtions true not more than one )
+# True , True -> Fale
+# True, false -> True
+# false , false -> false 
+# false , true -> true 
+
+-- NOT 
+
+# True  -> false
+# false -> ture
+
+-- >= ,<= , < ,> ,= , != ,<>
+
+
+
+-- Component Operator 
+
+-- 100 -> 100 + 100*5/100
+-- 100 -> 100 + 5 
+-- 100 -> 105
+
+alter table quiz_app.loan_data add column test varchar (30) 
+select * from quiz_app.loan_data
+
+select person_income, test = person_income + person_income * 5/100
+from quiz_app.loan_data limit 100
+
+update quiz_app.loan_data set test = person_income + person_income * 5/100
+
+
+select person_income,test from quiz_app.loan_data 
+
+-- 71948 -> 71948 + 71948*5/100
