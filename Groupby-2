@@ -1,0 +1,57 @@
+#2025 April 03
+
+use sql_course;
+
+select * from bikeindia;
+select * from data_loan;   
+select * from library; 
+select * from sales_data; 
+select * from retail_sales_dataset;
+
+
+-- Find distinct product 
+select distinct product  from sales_data
+
+-- Group by 
+
+-- Get the maximum, minimum , average, sum, and total records for each Product Category.
+select Product,max(turnover),min(turnover),avg(turnover),
+sum(turnover),count(turnover)
+from sales_data group by Product
+
+-- Get the top 5 maximum, minimum, average, sum, and total records for each Product Category.
+select Product,max(turnover),min(turnover),avg(turnover),
+sum(turnover),count(turnover)
+from sales_data group by Product limit 5
+
+-- retial salesl dataset
+select * from retail_sales_dataset;
+
+
+-- Get the maximum, minimum , average, sum, and total records for each Gender.
+select Gender,max(`Total Amount`),min(`Total Amount`),avg(`Total Amount`),
+sum(`Total Amount`),count(`Total Amount`)
+from retail_sales_dataset group by Gender
+
+-- Get the maximum, minimum, average, sum, and total records for each Age category
+select Age,max(`Total Amount`),min(`Total Amount`),avg(`Total Amount`),
+sum(`Total Amount`),count(`Total Amount`)
+from retail_sales_dataset group by Age
+
+-- Get the maximum, minimum, average, sum, and total records for every Product Category
+select Age,max(`Total Amount`),min(`Total Amount`),avg(`Total Amount`),
+sum(`Total Amount`),count(`Total Amount`)
+from retail_sales_dataset group by `Product Category`
+
+
+-- Wrong Methods with Group by
+select `Customer ID` from retail_sales_dataset
+
+select `Customer ID`,`Product Category`,max(`Total Amount`),min(`Total Amount`),avg(`Total Amount`),
+sum(`Total Amount`),count(`Total Amount`)
+from retail_sales_dataset group by `Customer ID` , `Product Category`
+
+
+select *,max(`Total Amount`),min(`Total Amount`),avg(`Total Amount`),
+sum(`Total Amount`),count(`Total Amount`)
+from retail_sales_dataset group by Gender
