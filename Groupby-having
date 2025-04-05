@@ -1,0 +1,87 @@
+#2025 April 04 
+use sql_course;
+
+-- Fetch the records
+select * from retail_sales_dataset;
+
+-- distinct 
+select distinct `Product Category` from retail_sales_dataset
+
+-- Apply Aggregations functions for Each category 
+select  `Product Category`,sum(`Total Amount`) as total_amount,
+min(`Total Amount`) as minimum ,max(`Total Amount`) as maximim ,
+avg(`Total Amount`) as average , count(`Total Amount`) as total_records
+from retail_sales_dataset group by `Product Category`
+
+--  Beauty  -- 100
+--  Clothing  -- 80 
+--  Electronics  -- 20
+
+
+-- A1, A2, A3, A4, A5
+-- 67, 65 , 69 , 87, 60
+
+SELECT (67 + 65 + 69 + 87 + 60 + 77 +23) AS total_sum; -- 348  , 425
+
+SELECT (67 + 65 + 69 + 87 + 60 + 77+23)/7 AS average; -- 69 , 70.833
+
+
+-- Describe the Clothing Category` detail for each gender.
+
+select Gender, sum(`Total Amount`) as total_amount,
+min(`Total Amount`) as minimum ,max(`Total Amount`) as maximim ,
+avg(`Total Amount`) as average , count(`Total Amount`) as total_records
+
+from retail_sales_dataset where `Product Category` ='Clothing'
+group by Gender
+
+
+-- Describe the informations for Category is Clothing and Gender is Female for each Age groups
+select Age, sum(`Total Amount`) as total_amount,
+min(`Total Amount`) as minimum ,max(`Total Amount`) as maximim ,
+avg(`Total Amount`) as average , count(`Total Amount`) as total_records
+
+from retail_sales_dataset where `Product Category` ='Clothing' and Gender='Female'
+group by Age order by total_records desc
+
+
+-- Where or having  Clause ( it is with use with help of aggregations functions ) 
+
+-- Get the Product 'Clothing' and genrder 'Female' for each Age groups who's total reocrds More than 5
+select Age, sum(`Total Amount`) as total_amount,
+min(`Total Amount`) as minimum ,max(`Total Amount`) as maximim ,
+avg(`Total Amount`) as average , count(`Total Amount`) as total_records
+
+from retail_sales_dataset where `Product Category` ='Clothing' and Gender='Female'
+group by Age having total_records >5
+order by total_records desc
+
+
+
+select Age, sum(`Total Amount`) as total_amount,
+min(`Total Amount`) as minimum ,max(`Total Amount`) as maximim ,
+avg(`Total Amount`) as average 
+-- count(`Total Amount`) as total_records
+
+from retail_sales_dataset where `Product Category` ='Clothing' and Gender='Female'
+group by Age having count(`Total Amount`) >5
+-- order by total_records desc
+-- total_amount desc,Age asc
+
+select  `Product Category`,sum(`Total Amount`) as total_amount,
+min(`Total Amount`) as minimum ,max(`Total Amount`) as maximim ,
+avg(`Total Amount`) as average 
+-- , count(`Total Amount`) as total_records
+from retail_sales_dataset group by `Product Category`
+having count(`Total Amount`) > 340
+
+select  `Product Category`,sum(`Total Amount`) as total_amount,
+min(`Total Amount`) as minimum ,max(`Total Amount`) as maximim ,
+avg(`Total Amount`) as average , count(`Total Amount`) as total_records
+from retail_sales_dataset group by `Product Category`
+having sum(`Total Amount`) > 150000
+
+
+
+
+-- from , where, group , having , select, order , limit 
