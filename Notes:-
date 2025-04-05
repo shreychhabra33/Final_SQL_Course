@@ -155,4 +155,79 @@ UPDATE users
 SET flags = flags ^ 2 
 WHERE status = 'active';
 
+Certainly! Designing a database schema for an online merchandise store requires considering the primary entities involved and the relationships between them. Below is a basic schema for such a store:
+
+1. **Entities**:
+
+   - **Users**:
+     - `user_id` (Primary Key)
+     - `username`
+     - `password` (store as hashed)
+     - `email`
+     - `first_name`
+     - `last_name`
+     - `address`
+     - `city`
+     - `state`
+     - `country`
+     - `zip_code`
+     - `phone_number`
+     - `date_joined`
+ 
+   - **Products**:
+     - `product_id` (Primary Key)
+     - `product_name`
+     - `description`
+     - `price`
+     - `stock_quantity`
+     - `image_url` (or you can maintain a separate table for product images if multiple images are needed per product)
+     - `category_id` (Foreign Key)
+ 
+   - **Categories**:
+     - `category_id` (Primary Key)
+     - `category_name`
+     - `description`
+ 
+   - **Orders**:
+     - `order_id` (Primary Key)
+     - `user_id` (Foreign Key)
+     - `date_ordered`
+     - `total_amount`
+     - `status` (e.g., Pending, Shipped, Delivered, Cancelled)
+     - `shipping_address`
+     - `payment_id` (Foreign Key)
+ 
+   - **OrderDetails**:
+     - `order_detail_id` (Primary Key)
+     - `order_id` (Foreign Key)
+     - `product_id` (Foreign Key)
+     - `quantity`
+     - `price` (to ensure historical data is kept even if product prices change)
+ 
+   - **Payments**:
+     - `payment_id` (Primary Key)
+     - `user_id` (Foreign Key)
+     - `payment_method` (e.g., Credit Card, PayPal, Stripe)
+     - `payment_status` (e.g., Paid, Failed)
+     - `payment_date`
+     - `amount`
+ 
+   - **Reviews**:
+     - `review_id` (Primary Key)
+     - `product_id` (Foreign Key)
+     - `user_id` (Foreign Key)
+     - `rating` (e.g., 1-5 stars)
+     - `comment`
+     - `review_date`
+
+2. **Relationships**:
+   
+   - **Users to Orders**: One-to-Many (One user can have multiple orders)
+   - **Users to Payments**: One-to-Many (One user can make multiple payments)
+   - **Users to Reviews**: One-to-Many (One user can give multiple reviews, but each review is for a unique product)
+   - **Products to Categories**: Many-to-One (Multiple products can belong to a single category)
+   - **Products to OrderDetails**: One-to-Many (One product can be part of multiple order details)
+   - **Orders to OrderDetails**: One-to-Many (One order can have multiple products/details)
+   - **Orders to Payments**: One-to-One (Each order is associated with one payment)
+   - **Products to Reviews**: One-to-Many (One product can have multiple reviews)
 
