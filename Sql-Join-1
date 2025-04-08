@@ -28,23 +28,46 @@ INSERT INTO Departments VALUES
 (103, 'Finance'),
 (106, 'Marketing');
 
-🔹 1. INNER JOIN (only matching records)
+🔍 INNER JOIN 🔹INNER JOIN (only matching records)
+🔗 Returns only matching records from both tables
 
 SELECT e.Emp_Name, d.Dept_Name
 FROM Employees e
 JOIN Departments d ON e.Dept_ID = d.Dept_ID;
 
-🔹 2. LEFT JOIN (all from left + matches from right)
+
+📌 Example: List of customers who placed an order
+SELECT * FROM Customers c 
+INNER JOIN Orders o ON c.CustomerID = o.CustomerID;
+
+
+
+📦 LEFT JOIN  🔹 LEFT JOIN (all from left + matches from right)
+🧱 All records from the left + matched from the right
+
 SELECT e.Emp_Name, d.Dept_Name
 FROM Employees e
 LEFT JOIN Departments d ON e.Dept_ID = d.Dept_ID;
 
-🔹 3. RIGHT JOIN (all from right + matches from left)
+📌 Example: List all products, even those with no sales
+SELECT * FROM Products p 
+LEFT JOIN Orders o ON p.ProductID = o.ProductID;
+
+
+📩 RIGHT JOIN 🔹 RIGHT JOIN (all from right + matches from left)
+🧲 All from the right + matched from the left
 SELECT e.Emp_Name, d.Dept_Name
 FROM Employees e
 RIGHT JOIN Departments d ON e.Dept_ID = d.Dept_ID;
 
-🔹 4. FULL OUTER JOIN (all from both sides)
+
+📌 Example: List all orders, even if the customer data is missing
+SELECT * FROM Customers c 
+RIGHT JOIN Orders o ON c.CustomerID = o.CustomerID;
+
+🌐 FULL OUTER JOIN 🔹 FULL OUTER JOIN (all from both sides)
+💫 All records from both tables – matches & non-matches
+
 -- Some databases (e.g., MySQL) don’t support FULL OUTER JOIN directly.
 -- Use UNION of LEFT and RIGHT JOIN.
 
@@ -58,8 +81,13 @@ SELECT e.Emp_Name, d.Dept_Name
 FROM Employees e
 RIGHT JOIN Departments d ON e.Dept_ID = d.Dept_ID;
 
+📌 Example: List of all employees and projects, whether assigned or not
+SELECT * FROM Employees e 
+FULL OUTER JOIN Projects p ON e.EmpID = p.EmpID;
 
-🔹 5. SELF JOIN (join a table to itself)
+
+🔁 SELF JOIN 🔹SELF JOIN (join a table to itself)
+🪞 Joins a table to itself (e.g., hierarchy)
 
 CREATE TABLE Employees (
     Emp_ID INT PRIMARY KEY,
@@ -78,6 +106,14 @@ INSERT INTO Employees VALUES
 SELECT e.Emp_Name AS Employee, m.Emp_Name AS Manager
 FROM Employees e
 LEFT JOIN Employees m ON e.Manager_ID = m.Emp_ID;
+
+
+📌 Example: Find managers and their direct reports
+
+SELECT e1.Name AS Employee, e2.Name AS Manager 
+FROM Employees e1 
+JOIN Employees e2 ON e1.ManagerID = e2.EmpID;
+
 
 
 🔹 6. CROSS JOIN (cartesian product)
