@@ -28,6 +28,32 @@ INSERT INTO Departments VALUES
 (103, 'Finance'),
 (106, 'Marketing');
 
+
+🧍‍♂️ Customers Table
+customer_id	name	email	city
+1	Alice	alice@example.com	New York
+2	Bob	bob@example.com	Chicago
+3	Charlie	charlie@xyz.com	San Diego
+4	Diana	diana@abc.com	Boston
+5	Evan	evan@domain.com	Austin
+
+📦 Products Table
+product_id	product_name	price
+101	Wireless Mouse	25.99
+102	USB-C Cable	9.99
+103	Mechanical Keyboard	89.99
+104	Monitor 24"	149.99
+105	Laptop Stand	29.99
+
+🧾 Orders Table
+order_id	customer_id	product_id	quantity	order_date
+1001	1	101	2	2024-12-01
+1002	2	103	1	2024-12-03
+1003	1	102	3	2024-12-05
+1004	3	104	1	2024-12-06
+1005	5	105	2	2024-12-07
+
+
 🔍 INNER JOIN 🔹INNER JOIN (only matching records)
 🔗 Returns only matching records from both tables
 
