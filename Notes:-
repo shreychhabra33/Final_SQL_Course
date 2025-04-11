@@ -306,4 +306,46 @@ SELECT * FROM orders;
 -- ON UPDATE CASCADE	Automatically updates child FK when parent key updates
 
 
+Great question — let’s clear up a common confusion in SQL around:
 
+❓ Can you use TRUNCATE with ON DELETE CASCADE?
+
+❌ Short Answer: No, TRUNCATE does NOT trigger ON DELETE CASCADE
+Here's why:
+TRUNCATE is not the same as DELETE.
+
+TRUNCATE is a DDL (Data Definition Language) command — it's like dropping and recreating a table under the hood.
+
+So, foreign key constraints (like ON DELETE CASCADE) are not enforced.
+
+✅ Workaround Options
+✅ Option 1: Use DELETE Instead of TRUNCATE
+If your child table uses ON DELETE CASCADE, this will work:
+
+DELETE FROM parent_table;
+-- Automatically deletes related child rows
+
+💡 This respects foreign key constraints and triggers the cascade.
+
+✅ Option 2: Temporarily Disable Foreign Key Checks (if needed)
+You can forcefully truncate both tables — but you must do it in order:
+
+
+-- Step 1: Disable foreign key checks (MySQL)
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Step 2: Truncate child table first, then parent
+TRUNCATE TABLE child_table;
+TRUNCATE TABLE parent_table;
+
+-- Step 3: Re-enable
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+If you want to keep FK logic but still clear tables:
+-- Delete child rows first, then parent
+DELETE FROM child_table;
+DELETE FROM parent_table;
+
+DELETE FROM parent_table;
+-- If FK has ON DELETE CASCADE, it handles the children.
