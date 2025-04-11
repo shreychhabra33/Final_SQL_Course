@@ -231,3 +231,79 @@ Certainly! Designing a database schema for an online merchandise store requires 
    - **Orders to Payments**: One-to-One (Each order is associated with one payment)
    - **Products to Reviews**: One-to-Many (One product can have multiple reviews)
 
+
+
+## Foreign Key concept on Parent or child table
+use quiz_app;
+
+-- 🛠️ 1. SQL Schema with Foreign Key + Cascade Rules
+-- A customers table (parent)
+-- An orders table (child) that references customers.id
+
+
+-- Create parent table
+CREATE TABLE customers (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+-- Create child table with ON DELETE and ON UPDATE CASCADE
+CREATE TABLE orders (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    product VARCHAR(100),
+    FOREIGN KEY (customer_id)
+        REFERENCES customers(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- 🧪 2. Insert Dummy Data
+
+-- Insert customers
+INSERT INTO customers (id, name) VALUES
+(1, 'Alice'),
+(2, 'Bob');
+
+-- Insert orders (linked to customers)
+INSERT INTO orders (id, customer_id, product) VALUES
+(101, 1, 'Laptop'),
+(102, 1, 'Mouse'),
+(103, 2, 'Keyboard');
+
+select * from customers;
+select * from orders;
+
+-- 🔁 3. Cascade Example – UPDATE
+-- ✅ Change id=1 in customers → it will cascade to orders.customer_id
+
+-- truncate customers \
+-- Cannot truncate a table referenced in a foreign key constraint (`quiz_app`.`orders`, CONSTRAINT `orders_ibfk_1`)	0.015 sec
+
+
+UPDATE customers SET id = 10 WHERE id = 1;
+
+-- Check results
+SELECT * FROM customers;
+SELECT * FROM orders;
+
+-- customers.id changed to 10
+-- orders.customer_id changed from 1 to 10 (automatically)
+
+-- 🗑️ 4. Cascade Example – DELETE
+-- ✅ Delete id=2 from customers → related rows in orders will be deleted
+
+DELETE FROM customers WHERE id = 2;
+
+-- Check results
+SELECT * FROM customers;
+SELECT * FROM orders;
+
+-- Bob is deleted from customers
+-- orders with customer_id=2 are automatically deleted
+
+-- ON DELETE CASCADE	Automatically deletes child rows if parent deleted
+-- ON UPDATE CASCADE	Automatically updates child FK when parent key updates
+
+
+
