@@ -155,3 +155,100 @@ from Orders group by customer_id
  
  
 -- from ,join, where , group by  , having , select , order by 
+
+
+
+##2025 - April 13 
+
+
+use sql_course
+
+-- order -> customer 
+
+-- Employees ( left table ) -- Departments ( right table ) 
+
+-- Departments ( left table ) -- Employees ( right table )
+
+
+-- left join 
+-- or right join
+
+-- LEFT JOIN and RIGHT JOIN are mirror images.
+-- Anything you can do with a RIGHT JOIN, you can do with a LEFT JOIN 
+-- — just switch table positions.
+
+
+-- 🎯 So, Why Use RIGHT JOIN at All?
+-- Mostly readability or convention. If your primary table is on the right, 
+-- and you want to include all rows from it, you might choose RIGHT JOIN.
+
+-- But technically, LEFT JOIN is enough — just switch the table order.
+
+
+CREATE TABLE emp_details (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE salaries (
+    salary_id INT PRIMARY KEY,
+    emp_id INT,
+    amount INT
+);
+
+INSERT INTO emp_details VALUES (1, 'ABC'), (2, 'PQR'), (3, 'LMN');
+INSERT INTO salaries VALUES (1, 1, 50000), (2, 2, 60000), (3, NULL, 70000);
+
+
+select * from emp_details;
+select * from salaries;
+
+-- find all emp infomations with their salary 
+-- if salery is not mention then asssing null
+
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from emp_details as emp 
+left join salaries as s on s.emp_id = emp.emp_id;
+
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from salaries as s 
+right join emp_details as emp on emp.emp_id = s.emp_id
+
+select emp.*,s.*
+from salaries as s 
+right join emp_details as emp on emp.emp_id = s.emp_id
+
+
+-- Inner Join  or join
+select * from emp_details;
+select * from salaries;
+
+select emp.* , s.*
+from emp_details as emp 
+inner join salaries as s on s.emp_id = emp.emp_id
+
+
+-- quiz_app.loan_data
+
+select * from quiz_app.loan_data
+
+select avg(person_income ) 
+from quiz_app.loan_data
+
+select person_education ,person_income
+from quiz_app.loan_data 
+group by person_education , person_income
+
+select person_education , avg(person_income)
+from quiz_app.loan_data 
+group by person_education
+
+
+select person_education ,avg(person_income),count(loan_amnt)
+from quiz_app.loan_data 
+group by person_education
+
+
+select person_education ,avg(person_income),count(loan_amnt)
+from quiz_app.loan_data 
+group by person_education having count(loan_amnt) >22000
