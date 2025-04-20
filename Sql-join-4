@@ -1,0 +1,181 @@
+#2025 April 20
+
+use sql_course;
+
+--  INNER JOIN, LEFT JOIN, RIGHT JOIN,
+ 
+-- LEFT JOIN => All info from left table + match form right 
+-- with null value( which are not match from right table ) 
+
+-- RIGHT JOIN => All info from right table + match form left
+-- with null value( which are not match from left table ) 
+
+-- INNER JOIN => All info from left table + right table
+-- without null value( which are not match from both table ) 
+
+select * from emp_details;
+select * from salaries;
+
+-- LEFT 
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from emp_details as emp 
+left join salaries as s on s.emp_id = emp.emp_id;
+
+-- RIGHT 
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from emp_details as emp 
+right join salaries as s on s.emp_id = emp.emp_id;
+
+-- INNER 
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from emp_details as emp 
+inner join salaries as s on s.emp_id = emp.emp_id;
+
+
+-- INNER JOIN -> left table without not null value
+-- INNER JOIN -> right table without not null value
+
+select * from emp_details;
+select * from salaries;
+
+-- LEFT 
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from emp_details as emp 
+left join salaries as s on s.emp_id = emp.emp_id
+where s.emp_id is not null;
+
+-- RIGHT 
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from emp_details as emp 
+right join salaries as s on s.emp_id = emp.emp_id
+where emp.emp_id is not null;
+
+-- INNER 
+select emp.emp_id,emp.name,s.salary_id,s.amount
+from emp_details as emp 
+inner join salaries as s on s.emp_id = emp.emp_id;
+
+
+select * from Customers ;
+select * from Products; 
+select * from orders;
+ 
+ -- 📌 Example: List all products, even those with no sales
+SELECT p.*,o.* FROM Products p 
+LEFT JOIN orders o ON p.product_id = o.product_id;
+ 
+ 
+ -- 📌 Example: List all orders, even if the customer data is missing
+SELECT * FROM Customers c 
+RIGHT JOIN orders o ON c.customer_id = o.customer_id;
+
+
+-- SELF JOIN  ( table 1 join itsefl table 1 )
+
+select emp1.emp_id,emp1.name, emp2.*
+from emp_details as emp1 ,emp_details as emp2
+where emp1.emp_id = emp2.emp_id
+
+select emp1.emp_id,emp1.name, emp2.*
+from emp_details as emp1 ,emp_details as emp2
+-- on emp1.emp_id = emp2.emp_id
+
+select emp1.emp_id,emp1.name, emp2.*
+from emp_details as emp1
+-- where emp1.emp_id = emp2.emp_id
+join emp_details as emp2 on emp2.emp_id = emp1.emp_id;
+
+-- select * from emp_data;
+-- select * from employees;
+show tables;
+
+-- 🔁 SELF JOIN 🔹SELF JOIN (join a table to itself)
+-- 🪞 Joins a table to itself (e.g., hierarchy)
+
+CREATE TABLE emp_manager (
+    Emp_ID INT PRIMARY KEY,
+    Emp_Name VARCHAR(50),
+    Manager_ID INT
+);
+
+INSERT INTO emp_manager VALUES
+(1, 'Alice', NULL),
+(2, 'Bob', 1),
+(3, 'Charlie', 1),
+(4, 'David', 2),
+(5, 'Eve', 2);
+
+select * from emp_manager 
+
+select Manager_ID,count(Emp_ID) from emp_manager 
+group by Manager_ID
+
+select * from emp_manager ;
+
+-- 🧪 Query: Who is managed by whom?
+SELECT e.Emp_Name AS Employee,e.Emp_ID,e.Manager_ID,m.Emp_Name AS Manager,m.Emp_ID,
+m.Manager_ID
+FROM emp_manager e
+LEFT JOIN emp_manager m ON e.Manager_ID = m.Emp_ID;
+
+SELECT e.Emp_Name AS Employee,e.Emp_ID,e.Manager_ID,m.Emp_Name AS Manager,m.Emp_ID,
+m.Manager_ID
+FROM emp_manager e
+JOIN emp_manager m ON e.Manager_ID = m.Emp_ID;
+
+-- 🧪 Query: Who have no any manager?
+SELECT e.Emp_Name AS Employee, m.Emp_Name AS Manager
+FROM emp_manager e
+LEFT JOIN emp_manager m ON e.Manager_ID = m.Emp_ID
+where e.Manager_ID is null
+
+
+-- Cross join 
+
+select emp1.emp_id,emp1.name, emp2.*
+from emp_details as emp1 ,emp_details as emp2;
+
+select emp1.emp_id,emp1.name, emp2.*
+from emp_details as emp1 cross join emp_details as emp2
+
+
+select * from Customers ;
+select * from Products; 
+
+
+select * from Customers ;
+select * from orders;
+
+select cus.* , o.* ,p.*
+from Customers as cus cross join Orders as o
+cross join Products as p
+
+
+select * from Customers ;
+select * from Products; 
+select * from orders;
+
+select cus.* , o.* , p.*
+from Customers as cus 
+left join orders as o on o.customer_id = cus.customer_id
+
+right join Products as p on p.product_id = o.product_id
+
+
+-- FUll outer join
+(select cus.* , o.*
+from Customers as cus 
+left join orders as o on o.customer_id = cus.customer_id)
+
+union
+
+( select cus.* , o.*
+from Customers as cus 
+right join orders as o on o.customer_id = cus.customer_id )
+
+
+-- Left join , Right Join , Full outer join ( left join union Right join ) 
+-- Inner join ( join ) and self join, cross join 
+
+
+-- select * from learning_model.subscribers;
