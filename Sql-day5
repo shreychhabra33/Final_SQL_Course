@@ -75,6 +75,7 @@ TRUNCATE TABLE Books;
 
 -- Renaming the 'Books' table to 'LibraryBooks'
 RENAME TABLE Books TO LibraryBooks;
+ALTER TABLE users RENAME TO customers;
 
 
 -- Renaming a column in the 'LibraryBooks' table
