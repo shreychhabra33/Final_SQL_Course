@@ -1,0 +1,142 @@
+#2025 04 26 
+
+
+use sql_course;
+show tables;
+
+select * from Customers ;
+-- select * from Products; 
+select * from orders;
+
+-- ** Numbers of columns should be same ** ...
+
+-- Union ( get distinct rows from both tables)
+select Customer_id from Customers 
+union 
+select customer_id from orders;
+
+-- Union ( get all rows from both tables)
+select Customer_id,Name from Customers 
+union all
+select order_id,customer_id from orders;
+
+select Customer_id,Name as id from Customers 
+union all
+select order_id,customer_id as id from orders;
+
+select Customer_id id from Customers 
+union all
+select order_id id from orders ;
+
+-- Intersect ( exact match from both tables ) 
+select * from Customers ; 
+select * from orders;
+
+select Customer_id from Customers 
+intersect
+select customer_id from orders ;
+
+
+-- Except
+-- ( all informations from left table which are not include in right)
+select * from Customers ; 
+select * from orders;
+
+select Customer_id from Customers 
+except
+select customer_id from orders ;
+
+select customer_id from orders 
+except
+select Customer_id from Customers 
+
+
+select * from Customers ; 
+select * from orders;
+
+select Customer_id,Name as id from Customers 
+except
+select customer_id ,order_id as id from orders;
+
+
+.............................................................................................
+.............................................................................................
+# **How to write Complex queyr using Gropu by and Joins 
+
+use sql_course;
+
+-- group by  recall---
+
+-- categoies , sales
+-- Product , total sales , max sales, min sales , avg sales , total sales
+-- A           1200         5           1           45         5
+-- B           10000        8           2            65        7
+-- C           800          3           1            6         10
+-- D           40000       1200        800          1850       100
+-- E           10000        8           2            65        7
+-- F           800         3            1            6         10
+-- G          40000       1200        800          1850       100
+
+
+-- Get the product with maximum sales greater than 8
+select Product , total sales , max sales, min sales , avg sales , total sales
+from abc group by Product
+having max(sales) > 8
+
+
+-- from , join , where, group by , having , select, order by ,Limit/offset
+
+select * from Customers ;
+select * from Products; 
+select * from orders;
+-- select * from emp_details;
+-- select * from salaries;
+
+-- join 
+select c.* ,o.* from Customers as c
+left join orders as o on o.customer_id = c.Customer_id;
+
+
+-- Find all customers along with their total and average quantity purchased.
+select c.Customer_id ,avg(o.quantity) as average, sum(o.quantity) as total
+from Customers as c
+left join orders as o on o.customer_id = c.Customer_id
+group by c.Customer_id;
+
+
+-- Find those customers who have a total and average quantity of purchases.
+select c.Customer_id ,avg(o.quantity) as average, sum(o.quantity) as total
+from Customers as c
+left join orders as o on o.customer_id = c.Customer_id
+where o.order_id is not null
+group by c.Customer_id;
+
+select c.Customer_id ,avg(o.quantity) as average, sum(o.quantity) as total
+from Customers as c
+join orders as o on o.customer_id = c.Customer_id
+-- where o.order_id is not null
+group by c.Customer_id order by total desc;
+
+select c.Customer_id ,avg(o.quantity) as average, sum(o.quantity) as total
+from Customers as c
+join orders as o on o.customer_id = c.Customer_id
+-- where o.order_id is not null
+group by c.Customer_id order by sum(o.quantity) desc;
+
+-- Get customers whose average quantity is less than 2
+select c.Customer_id ,avg(o.quantity) as average, sum(o.quantity) as total
+from Customers as c
+join orders as o on o.customer_id = c.Customer_id
+group by c.Customer_id  having avg(o.quantity) <2
+order by sum(o.quantity) desc
+
+select c.Customer_id ,avg(o.quantity) as average, sum(o.quantity) as total
+from Customers as c
+join orders as o on o.customer_id = c.Customer_id
+group by c.Customer_id  having average <2
+order by sum(o.quantity) desc
+
+-- ? Retrieve each Product with the total,Maximum and average quantity of their sales.
+-- ? Retrieve Product along with the total and average quantity of their purchases.
+-- ? Retrieve product with an average sales quantity  whose sum is less than 2.
+
