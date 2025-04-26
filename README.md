@@ -100,3 +100,10 @@ The act of sharing the same data resource with multiple applications or users is
 4. https://leetcode.com/problems/patients-with-a-condition/?envType=study-plan-v2&envId=top-sql-50
 5. Which clause use for filter the records?
 6. How can you remove or handle duplicated records from database tables?
+
+## 26-April 
+1. -- Retrieve each Product with the total,Maximum and average quantity of their sales.
+2. -- Retrieve Product along with the total and average quantity of their purchases.
+3. -- Retrieve product with an average sales quantity  whose sum is less than 2.
+
+
