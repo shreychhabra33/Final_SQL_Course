@@ -1,0 +1,193 @@
+# 🔢 Basic Arithmetic Functions
+
+# -- Function	Description	Example	Output
+ABS(x) -> Absolute value	SELECT ABS(-10);	10 <br>
+CEIL(x) / CEILING(x)	Round up	SELECT CEIL(4.2);	5 <br>
+FLOOR(x)	Round down	SELECT FLOOR(4.9);	4 <br>
+ROUND(x, d)	Round to d decimals	SELECT ROUND(3.14159, 2);	3.14 <br>
+TRUNCATE(x, d)	Truncate to d decimals	SELECT TRUNCATE(3.14159, 2);	3.14 <br>
+SIGN(x)	Returns sign of number	SELECT SIGN(-5);	-1 <br>
+
+# 🔁 Modulus & Remainders
+# -- Function	Description	Example	Output
+MOD(x, y) or x % y	Modulus (remainder)	SELECT MOD(10, 3);	1 <br>
+%	Modulus operator	SELECT 10 % 3;	1  <br>
+
+
+# 📈 Exponents & Roots
+# -- Function	Description	Example	Output
+POWER(x, y) or POW(x, y)	x raised to power y	SELECT POWER(2, 3);	8 <br>
+SQRT(x)	Square root	SELECT SQRT(16);	4 <br>
+EXP(x)	e raised to power x	SELECT EXP(2);	7.389... <br>
+
+# 🔧 Other Math Functions
+
+# --Function	Description	Example	Output
+RAND()	Random number between 0 and 1	SELECT RAND();	Varies <Br>
+PI()	Returns π	SELECT PI();	3.141593  <br>
+DEGREES(x)	Radians → Degrees	SELECT DEGREES(PI());	180  <br>
+RADIANS(x)	Degrees → Radians	SELECT RADIANS(180);	3.141593 <br>
+
+# 🔐 Logarithmic Functions
+# --Function	Description	Example	Output
+LOG(x)	Natural log (base e)	SELECT LOG(2.71828);	~1 <br>
+LOG10(x)	Base-10 logarithm	SELECT LOG10(1000);	3 <br>
+LOG2(x)	Base-2 logarithm	SELECT LOG2(8);	3 <br>
+
+
+# 📐 Trigonometric Functions (Radian input)
+# --Function	Description	Example	Output
+ 
+SIN(x)	Sine	SELECT SIN(PI()/2);	1  <br>
+COS(x)	Cosine	SELECT COS(0);	1  <br>
+TAN(x)	Tangent	SELECT TAN(PI()/4);	1 <br>
+ASIN(x)	Arc sine	SELECT ASIN(1);	1.5707...  <br>
+ACOS(x)	Arc cosine	SELECT ACOS(1);	0 <br>
+ATAN(x)	Arc tangent	SELECT ATAN(1);	0.785... <br>
+ATAN2(y, x)	Arc tangent of y/x	SELECT ATAN2(1, 1);	0.785...  <br>
+
+........................................................................
+........................................................................
+# ✅ MySQL Date and Time Functions with Examples
+
+# 📆 Current Date and Time
+# -- Function	Description	Example	Output
+NOW()	Current date and time	SELECT NOW();	2025-04-24 15:30:45 <br>
+CURDATE()	Current date	SELECT CURDATE();	2025-04-24  <br>
+CURTIME()	Current time	SELECT CURTIME();	15:30:45  <br>
+SYSDATE()	Current date/time (executed when retrieved)	SELECT SYSDATE();	2025-04-24 15:30:45  <br>
+UTC_DATE()	Current UTC date	SELECT UTC_DATE();	2025-04-24  <br>
+UTC_TIME()	Current UTC time	SELECT UTC_TIME();	09:30:45  <br>
+UTC_TIMESTAMP()	Current UTC date & time	SELECT UTC_TIMESTAMP();	2025-04-24 09:30:45 <br>
+
+# 🕓 Extracting Parts of Date/Time
+# --Function	Description	Example	Output
+
+YEAR(date)	Year	SELECT YEAR('2025-04-24');	2025  <br>
+MONTH(date)	Month	SELECT MONTH('2025-04-24');	4   <br>
+DAY(date) / DAYOFMONTH(date)	Day of month	SELECT DAY('2025-04-24');	24  <br>
+DAYOFWEEK(date)	Sunday=1 to Saturday=7	SELECT DAYOFWEEK('2025-04-24');	5  <br>
+DAYOFYEAR(date)	Day of the year	SELECT DAYOFYEAR('2025-04-24');	114  <br>
+HOUR(time)	Hour	SELECT HOUR('15:30:45');	15   <br>
+MINUTE(time)	Minute	SELECT MINUTE('15:30:45');	30  <br>
+SECOND(time)	Second	SELECT SECOND('15:30:45');	45  <br>
+WEEK(date)	Week number	SELECT WEEK('2025-04-24');	17  <br>
+WEEKDAY(date)	Monday=0 to Sunday=6	SELECT WEEKDAY('2025-04-24');	3 <br>
+QUARTER(date)	Quarter of year	SELECT QUARTER('2025-04-24');	2  <br>
+
+
+# 🧮 Date/Time Calculations
+# -- Function	Description	Example	Output
+DATEDIFF(d1, d2)	Days between two dates	SELECT DATEDIFF('2025-05-01', '2025-04-24');	7 <br> 
+TIMEDIFF(t1, t2)	Time difference	SELECT TIMEDIFF('12:30:00', '11:45:00');	00:45:00   <br>
+ADDDATE(date, INTERVAL n unit)	Add days or time	SELECT ADDDATE('2025-04-24', INTERVAL 7 DAY);	2025-05-01  <br>
+SUBDATE(date, INTERVAL n unit)	Subtract days or time	SELECT SUBDATE('2025-04-24', INTERVAL 7 DAY);	2025-04-17 <br>
+DATE_ADD(date, INTERVAL n unit)	Add interval (same as ADDDATE)	SELECT DATE_ADD('2025-04-24', INTERVAL 1 MONTH);	2025-05-24  <br>
+DATE_SUB(date, INTERVAL n unit)	Subtract interval (same as SUBDATE)	SELECT DATE_SUB('2025-04-24', INTERVAL 1 MONTH);	2025-03-24 <br>
+
+
+# 🔀 Formatting and Conversion
+# --Function	Description	Example	Output
+DATE_FORMAT(date, format)	Format a date string	SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i');	2025-04-24 15:30 <br>
+STR_TO_DATE(str, format)	Convert string to date	SELECT STR_TO_DATE('24-04-2025','%d-%m-%Y');	2025-04-24 <br>
+TIME_FORMAT(time, format)	Format time	SELECT TIME_FORMAT('15:30:45', '%H:%i');	15:30 <br>
+EXTRACT(unit FROM date)	Extract date part	SELECT EXTRACT(YEAR FROM '2025-04-24');	2025  <br>
+
+# 🧭 Other Useful Functions
+# --Function	Description	Example	Output
+LAST_DAY(date)	Last day of month	SELECT LAST_DAY('2025-04-24');	2025-04-30 <br>
+MAKEDATE(year, dayofyear)	Create a date	SELECT MAKEDATE(2025, 100);	2025-04-09 <br>
+MAKETIME(h, m, s)	Create time	SELECT MAKETIME(14, 30, 0);	14:30:00 <br>
+TIMESTAMP(date, time)	Combine date and time	SELECT TIMESTAMP('2025-04-24', '12:00:00');	2025-04-24 12:00:00 <br>
+TO_DAYS(date)	Days since year 0	SELECT TO_DAYS('2025-04-24');	750000+  <br>
+FROM_DAYS(n)	Convert days to date	SELECT FROM_DAYS(750000);	2025-04-24 <br>
+
+................................................................................................
+................................................................................................
+# ✅ MySQL String Functions with Examples
+
+#🔤 Basic String Functions
+# -- Function	Description	Example	Output
+LENGTH(str)	Length in bytes	SELECT LENGTH('MySQL');	5 <br>
+CHAR_LENGTH(str) or CHARACTER_LENGTH(str)	Length in characters	SELECT CHAR_LENGTH('MýSQL');	5 <br>
+CONCAT(str1, str2, …)	Join strings	SELECT CONCAT('Hello', ' ', 'World');	Hello World  <br>
+CONCAT_WS(sep, str1, str2, …)	Join with separator	SELECT CONCAT_WS('-', '2025', '04', '24');	2025-04-24 <br>
+REVERSE(str)	Reverse string	SELECT REVERSE('MySQL');	LQSyM  <br>
+
+#🔠 Case Conversion
+# --Function	Description	Example	Output
+UPPER(str)	To uppercase	SELECT UPPER('mysql');	MYSQL <br>
+LOWER(str)	To lowercase	SELECT LOWER('MySQL');	mysql <br>
+
+# 🔍 Substring Extraction & Position
+# --Function	Description	Example	Output
+
+SUBSTRING(str, pos, len)	Extract part of string	SELECT SUBSTRING('MySQL Database', 1, 6);	MySQL <br>
+LEFT(str, len)	Left part	SELECT LEFT('MySQL', 2);	My  <br>
+RIGHT(str, len)	Right part	SELECT RIGHT('MySQL', 3);	SQL  <br>
+LOCATE(substr, str)	Position of substr	SELECT LOCATE('SQL', 'MySQL Database');	3  <br>
+INSTR(str, substr)	Position (same as LOCATE)	SELECT INSTR('MySQL', 'SQL');	3  <br> 
+POSITION(substr IN str)	Position using keyword	SELECT POSITION('SQL' IN 'MySQL');	3 <br>
+
+# ✂️ String Trimming & Padding
+# --Function	Description	Example	Output
+TRIM(str)	Remove leading/trailing spaces	SELECT TRIM(' Hello ');	Hello <br>
+TRIM(LEADING 'x' FROM str)	Trim from start	SELECT TRIM(LEADING 'x' FROM 'xxxHi');	Hi <br>
+LTRIM(str)	Trim left spaces	SELECT LTRIM(' Text');	Text  <br>
+RTRIM(str)	Trim right spaces	SELECT RTRIM('Text ');	Text <br>
+LPAD(str, len, pad)	Pad on left	SELECT LPAD('7', 4, '0');	0007  <br>
+RPAD(str, len, pad)	Pad on right	SELECT RPAD('Hi', 5, '!');	Hi!!! <br>
+
+#🔄 Search & Replace
+# --Function	Description	Example	Output
+REPLACE(str, from_str, to_str)	Replace substring	SELECT REPLACE('Hello World', 'World', 'MySQL');	Hello MySQL <br>
+REGEXP_LIKE(str, pattern)	Check regex match (MySQL 8+)	SELECT REGEXP_LIKE('abc123', '[0-9]+');	1 (true) <br>
+REGEXP_REPLACE(str, pattern, replace)	Regex replace	SELECT REGEXP_REPLACE('abc123', '[0-9]+', '');	abc <br>
+REGEXP_INSTR(str, pattern)	Position of regex match	SELECT REGEXP_INSTR('abc123', '[0-9]');  <br>
+
+
+# 🔗 Miscellaneous
+# --Function	Description	Example	Output
+ELT(n, str1, str2, ...)	Return the nth string	SELECT ELT(2, 'A', 'B', 'C');	B <br>
+FIELD(str, str1, str2, ...)	Position of str	SELECT FIELD('B', 'A', 'B', 'C');	2 <br>
+FIND_IN_SET(str, str_list)	Position in comma list	SELECT FIND_IN_SET('B', 'A,B,C');	2 <br>
+FORMAT(num, d)	Format number with commas	SELECT FORMAT(12345.6789, 2);	12,345.68  <br>
+QUOTE(str)	Add quotes and escape	SELECT QUOTE("O'Reilly");	'O\'Reilly'  <br>
+
+...................................................................................................
+..................................................................................................
+#✅ MySQL String Functions — Practice Problem Statements
+# 📚 1. Basic String Handling
+1.  Find the total number of characters (length) in each customer’s name from the customers table.
+2. Display all product names in uppercase from the products table.
+3. Display employee first names reversed from the employees table.
+4. Concatenate the first name and last name of each employee with a space in between.
+
+#🔍 2. Substrings & Extraction
+5. From the orders table, extract the first 5 characters of each order_id.
+6. Get the last 3 characters from the email field of all users from the users table.
+7. Find the position of the string "Inc" in each company's company_name from the companies table.
+
+#✂️ 3. Trimming & Padding
+8. Remove leading and trailing spaces from the address field in the customers table.
+9. Left pad each order number with zeros (0) so that all order numbers are 6 digits long in the orders table.
+10. Right pad the username field with * to make it 10 characters long in the users table.
+
+# 🔄 4. Search and Replace
+11. Replace all occurrences of "Ltd" with "Limited" in the company_name column of the companies table.
+12: From the articles table, remove any numeric characters from the title field using a regular expression.
+
+#🔠 5. Case Conversion
+13. Display all employee emails in lowercase from the employees table.
+14: Capitalize all department names from the departments table.
+
+#🔗 6. Set Membership and Pattern Matching
+15. Find out the index position of the value 'Manager' in a comma-separated list of roles in the employee_roles field.
+16. Check if the phone_number field contains only digits in the customers table using regex matching.
+
+#🎯 7. Bonus Advanced
+17. Format the salary to 2 decimal places and add commas for thousand separators in the employees table.
+18. Insert a quote (') inside a string safely and display it properly using SQL quoting.
+
+
+
