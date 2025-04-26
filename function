@@ -46,6 +46,45 @@ ACOS(x)	Arc cosine	SELECT ACOS(1);	0 <br>
 ATAN(x)	Arc tangent	SELECT ATAN(1);	0.785... <br>
 ATAN2(y, x)	Arc tangent of y/x	SELECT ATAN2(1, 1);	0.785...  <br>
 
+# --✅ MySQL Math Functions — Problem Statements
+#➕ 1. Basic Arithmetic Functions
+1: Calculate the sum of all product prices from the products table.
+2: Find the average salary of employees from the employees table.
+3: Subtract discount from the original price for each item in the orders table and show the final price.
+4: Multiply the quantity by price for each sale in the sales table to find the total value.
+
+#🧮 2. Rounding and Modulus
+5: Round all employee salaries to the nearest whole number in the employees table.
+6: Round the invoice_amount of the invoices table to two decimal places.
+7: Find the remainder when the order_id is divided by 5 in the orders table (use MOD).
+
+#📈 3. Absolute Values, Powers, and Roots
+8: Find the absolute value of the difference between budgeted_cost and actual_cost in the projects table.
+9: Square each number in a list of scores from the scores table.
+10: Find the square root of each product's weight in the products table.
+
+#🔢 4. Random Numbers and Trigonometric Functions
+11: Generate a random number between 0 and 1 for each row in a testing table.
+12: Generate a random number between 1 and 100 for each row using FLOOR and RAND().
+13: Find the sine of each angle (in radians) stored in an angles table.
+14: Find the cosine and tangent values of angles in a math_angles table.
+
+#🧠 5. Logarithmic and Exponential Functions
+15: Find the natural logarithm (log base e) of all values in the statistics table.
+16: Find log base 10 of the population numbers in the cities table.
+17: Calculate e^x (exponential) for a given value in the growth_rates table.
+
+#✍️ 6. Other Mathematical Operations
+18: Find the ceiling value of all product_prices (smallest integer greater than or equal).
+19: Find the floor value of all product_prices (largest integer less than or equal).
+20: Find the sign (positive, negative, or zero) of all account_balances in the accounts table.
+
+# 🌟 Bonus Challenges (Harder)
+Find the compound interest for investments using formulas with POW.
+Calculate hypotenuse of a triangle given sides A and B (Pythagoras theorem using SQRT and POW).
+Find which products have a price that is a perfect square.
+Find top 3 salespeople by total sales (requires SUM, ORDER BY, LIMIT).
+
 ........................................................................
 ........................................................................
 # ✅ MySQL Date and Time Functions with Examples
@@ -101,6 +140,42 @@ MAKETIME(h, m, s)	Create time	SELECT MAKETIME(14, 30, 0);	14:30:00 <br>
 TIMESTAMP(date, time)	Combine date and time	SELECT TIMESTAMP('2025-04-24', '12:00:00');	2025-04-24 12:00:00 <br>
 TO_DAYS(date)	Days since year 0	SELECT TO_DAYS('2025-04-24');	750000+  <br>
 FROM_DAYS(n)	Convert days to date	SELECT FROM_DAYS(750000);	2025-04-24 <br>
+
+✅ MySQL Date and Time Functions — Problem Statements
+
+#📅 1. Basic Date Extraction
+1: From the orders table, retrieve the year from each order_date.
+2: Extract the month name (e.g., January, February) from each hire_date in the employees table.
+3: Find the day of the week (Monday, Tuesday, etc.) from the booking_date field in the bookings table.
+4: Get only the time part (HH:MM:SS) from the created_at column in the logs table.
+
+#🗓️ 2. Date Modification
+5: Add 10 days to the shipment_date from the orders table.
+6: Subtract 3 months from the membership_start date in the customers table.
+7: Find the last day of the month for the invoice_date in the invoices table.
+
+# 🕐 3. Date Difference and Comparison
+8: Find how many days passed between order_date and delivery_date for each order.
+9: Calculate the number of months between start_date and end_date of all projects in the projects table.
+10: Retrieve all users whose subscription_end date is less than today's date.
+
+#⏳ 4. Current Date and Time
+11: Get the current date and time using a SQL query.
+12: Find all orders placed today from the orders table.
+13: Find all users who joined this week based on the join_date column.
+
+#🛠️ 5. Formatting Date and Time
+14: Format the order_date in "DD/MM/YYYY" format for the orders table.
+15: Display created_at date in "Month Day, Year" format (e.g., "April 26, 2025").
+16: Show only the year and month (YYYY-MM) of all the transactions from the transactions table.
+
+#⌚ 6. Extract Specific Time Parts
+17: Extract only the hour from the login_time field in the user_sessions table.
+18: Extract only the minutes part from the check_in_time in the attendance table.
+
+#📅 7. Special Date Handling
+19 Find the difference in seconds between two timestamps: start_time and end_time.
+20 Check if a date (delivery_date) falls on a weekend.
 
 ................................................................................................
 ................................................................................................
