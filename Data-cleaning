@@ -1,0 +1,120 @@
+#2025 04 27
+
+use sql_course;
+
+CREATE TABLE data_clean (
+    RecordID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID INT,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    City VARCHAR(50),
+    OrderDate DATE,
+    ProductName VARCHAR(100),
+    Quantity INT,
+    PricePerUnit DECIMAL(10, 2),
+    OrderStatus VARCHAR(20),
+    Description VARCHAR(255)
+);
+
+INSERT INTO data_clean (CustomerID, FirstName, LastName, Email, City, OrderDate, ProductName, Quantity, PricePerUnit, OrderStatus, Description) VALUES
+(1, 'Alice', 'Smith', 'alice.smith@email.com', 'New York', '2025-04-20', 'Laptop', 1, 1200.00, 'Shipped', 'High-performance laptop'),
+(2, 'Bob', 'Johnson', 'bob.johnson@email.com', 'London', '2025-04-21', 'Mouse', 2, 25.00, 'Delivered', 'Wireless mouse'),
+(1, 'Alice', 'Smith', 'alice.smith@email.com', 'New York', '2025-04-20', 'Laptop', 1, 1200.00, 'Shipped', 'High-performance laptop'), -- Duplicate Row
+(NULL, 'Charlie', 'Brown', 'charlie.brown@email.com', 'Paris', '2025-04-22', 'Keyboard', 1, 75.00, 'Pending', NULL),       -- Null CustomerID, Null Description
+(4, 'David', 'Lee', 'david.lee@email.com', 'Tokyo', '2025-04-23', 'Monitor', 1, NULL, 'Processing', '27-inch display'),       -- Null PricePerUnit
+(2, 'Bob', 'Johnson', 'bob.johnson@email.com', 'London', '2025-04-21', 'Mouse', 2, 25.00, 'Delivered', 'Wireless mouse'), -- Duplicate Row
+(5, 'Eve', 'Wilson', 'eve.wilson@email.com', 'London', '2025-04-24', 'Book - Fiction', 3, 15.99, 'Shipped', 'Bestselling novel'),
+(NULL, 'Fiona', 'Green', 'fiona.green@email.com', 'Berlin', NULL, 'Book - Sci-Fi', 2, NULL, 'Shipped', 'Exciting science fiction'), -- Null OrderDate, Null PricePerUnit
+(1, 'Alice', 'Smith', 'alice.smith@email.com', 'New York', '2025-04-25', 'T-Shirt', -1, 20.00, 'Delivered', 'Cotton t-shirt'),    -- Invalid Quantity
+(3, 'Charlie', 'Brown', 'charlie.brown@email.com', 'Paris', '2025-04-26', 'Jeans', 1, 55.00, 'processing', 'Denim jeans'),       -- Inconsistent OrderStatus
+(6, 'Fiona', 'Green', 'fiona.green@email.com', 'Berlin', '2025-04-27', 'Coffee Maker', 1, 80.00, 'Pending', NULL),
+(1, 'Alice', 'Smith', 'alice.smith@email.com', 'New York', '2025-04-20', 'Laptop', 1, 1200.00, 'Shipped', 'High-performance laptop');
+
+
+-- Cleaning 
+-- removed null value 
+-- null value replace by dummy data
+
+-- null , Boolean ( True, Fasle ) 
+select * from data_clean;
+
+
+-- who's customerId is null 
+select * from data_clean where CustomerId is null;
+-- who's Price Per Unit is null 
+select * from data_clean where PricePerUnit is null;
+
+-- mean , median , mode  ( category )
+
+
+-- total sales for each customers 
+
+select CustomerID,Email,sum( Quantity * PricePerUnit) as total,
+avg( Quantity * PricePerUnit) as average
+from data_clean group by CustomerID,Email;
+
+-- 2 Itesm and each items price have 20 => 2 * 20
+select CustomerID,Email,sum( Quantity * PricePerUnit) as total,
+avg( Quantity * PricePerUnit) as average
+from data_clean where CustomerID is not null group by CustomerID,Email;
+
+-- 
+
+-- select d.CustomerID,d.Email,sum( d.Quantity * d.PricePerUnit) as total,
+-- avg( d.Quantity * d.PricePerUnit) as average
+-- from data_clean  as d
+--  
+-- where exists( select d1.CustomerId from data_clean as d1 
+-- where d1.CustomerID = d.CustomerId and d1.CustomerId is not null)
+
+-- group by CustomerID,Email;
+
+-- Total sales for each City 
+
+select City,sum( Quantity * PricePerUnit) as total,
+avg( Quantity * PricePerUnit) as average
+from data_clean group by City;
+
+--  For Each customer and City
+select Email,City,sum( Quantity * PricePerUnit) as total,
+avg( Quantity * PricePerUnit) as average
+from data_clean group by Email,City;
+ 
+select * from data_clean where Email ='david.lee@email.com';
+
+
+select * from data_clean;
+
+-- For Each Prouct 
+select ProductName,sum( Quantity * PricePerUnit) as total,
+avg( Quantity * PricePerUnit) as average
+from data_clean group by ProductName order by total desc;
+
+-- For Each City and each Product
+select ProductName,City,sum( Quantity * PricePerUnit) as total,
+avg( Quantity * PricePerUnit) as average
+from data_clean group by ProductName,City order by total desc;
+
+-- 
+
+select ProductName,City,Email,sum( Quantity * PricePerUnit) as total,
+avg( Quantity * PricePerUnit) as average
+from data_clean group by ProductName,City,Email order by total desc;
+
+-- 
+
+-- jeasn 
+-- jeasn (480) +  t-shirt ( 199 ) 
+679 
+
+
+-- NOida -5 ( more ) -- next 5 to 10 or 15
+
+-- Notes :-
+
+-- Noida  ( 50 + ) cloths 
+-- Delhi  -> Electornic 
+
+
+
