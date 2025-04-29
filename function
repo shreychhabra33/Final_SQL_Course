@@ -1,3 +1,18 @@
+🔵 Quick Tips:
+
+DELETE removes specific rows (with conditions) but can be slow if the table is huge.
+
+TRUNCATE quickly clears all rows, resetting the table for fresh use.
+
+DROP completely removes the table itself — structure and data — from the database.
+
+🔵 When to use TRUNCATE?
+
+When you want a clean slate without deleting and recreating the table.
+
+When you don't need to log individual row deletions (faster than DELETE).
+
+
 # 🔢 Basic Arithmetic Functions
 
 # -- Function	Description	Example	Output
