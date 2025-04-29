@@ -1,0 +1,58 @@
+# 📝 Practice Assignments
+✅ Assignment 1: Banking System Database
+
+Tables:
+
+Customers (CustomerID, Name, Address, Phone)
+
+Accounts (AccountID, CustomerID, Balance, Branch)
+
+Transactions (TransactionID, AccountID, Amount, TransactionType, Date)
+
+Write queries:
+
+Insert new customers and accounts
+
+Transfer money between accounts
+
+Show account statement of customer
+
+✅ Assignment 2: Student Management Database
+
+Tables:
+
+Students (StudentID, Name, Age, DepartmentID)
+
+Departments (DepartmentID, DepartmentName)
+
+Courses (CourseID, CourseName)
+
+Enrollments (StudentID, CourseID)
+
+Tasks:
+
+Find all students enrolled in "Data Science"
+
+Count students in each department
+
+Insert enrollment records
+
+✅ Assignment 3: Inventory Management System
+
+Tables:
+
+Products (ProductID, ProductName, Price, QuantityInStock)
+
+Suppliers (SupplierID, SupplierName, City)
+
+Orders (OrderID, SupplierID, OrderDate)
+
+OrderDetails (OrderDetailID, OrderID, ProductID, QuantityOrdered)
+
+Tasks:
+
+List products low in stock (Quantity < 10)
+
+Insert new order with products
+
+Show total sales per product
