@@ -1,0 +1,126 @@
+#2025 - 05 - 02
+use sql_course;
+
+select * from employees;
+select  * from Departments; 
+
+-- all employee name with their dapartment 
+
+select emp.*,dep.*
+from employees as emp 
+left join Departments as dep 
+on dep.Dept_ID = emp.Dept_ID;
+
+select emp.*,dep.*
+from employees as emp 
+right join Departments as dep 
+on dep.Dept_ID = emp.Dept_ID;
+
+select emp.*,dep.*
+from employees as emp 
+inner join Departments as dep 
+on dep.Dept_ID = emp.Dept_ID;
+
+
+select * from employees;
+select  * from Departments; 
+-- Cross join 
+select  emp.*,dep.* -- count(*)
+from employees as emp 
+cross join Departments as dep 
+
+-- 5  * 4
+
+-- 1  ,  Alice , 101  *   101 ,  HR 
+-- 1  ,  Alice , 101  *   102 ,  IT 
+-- 1  ,  Alice , 101  *   102 ,  IT 
+
+-- 1  ,  Alice , 101 , 101 ,  HR 
+-- 1  ,  Alice , 101 ,  102 ,  IT 
+
+🌐 FULL OUTER JOIN 🔹 FULL OUTER JOIN (all from both sides)
+💫 All records from both tables – matches & non-matches
+
+-- Some databases (e.g., MySQL) don’t support FULL OUTER JOIN directly.
+-- Use UNION of LEFT and RIGHT JOIN.
+
+SELECT e.Emp_Name, d.Dept_Name
+FROM Employees e
+RIGHT JOIN Departments d ON e.Dept_ID = d.Dept_ID;
+
+SELECT e.Emp_Name, d.Dept_Name
+FROM Employees e
+LEFT JOIN Departments d ON e.Dept_ID = d.Dept_ID;
+
+SELECT e.Emp_Name, d.Dept_Name
+FROM Employees e
+LEFT JOIN Departments d ON e.Dept_ID = d.Dept_ID
+
+UNION
+
+SELECT e.Emp_Name, d.Dept_Name
+FROM Employees e
+RIGHT JOIN Departments d ON e.Dept_ID = d.Dept_ID;
+
+-- 🔁 SELF JOIN 🔹SELF JOIN (join a table to itself)
+-- 🪞 Joins a table to itself (e.g., hierarchy)
+
+select * from emp_manager;
+
+-- SELF JOIN  ( table 1 join itsefl table 1 )
+
+select emp1.emp_id, emp1.name, emp2.*
+from emp_details as emp1 ,emp_details as emp2
+where emp1.emp_id = emp2.emp_id ;
+
+select emp1.emp_id,emp1.name, emp2.*
+from emp_details as emp1 ,emp_details as emp2;
+-- on emp1.emp_id = emp2.emp_id
+
+select emp1.emp_id, emp1.name, emp2.*
+from emp_details as emp1
+-- where emp1.emp_id = emp2.emp_id
+join emp_details as emp2 on emp2.emp_id = emp1.emp_id;
+
+
+-- 🧪 Query: Who is managed by whom?
+SELECT e.Emp_Name AS Employee,e.Emp_ID,e.Manager_ID,
+m.Emp_Name AS Manager,m.Emp_ID,
+m.Manager_ID
+FROM emp_manager e
+LEFT JOIN emp_manager m ON e.Manager_ID = m.Emp_ID;
+
+
+select * from emp_manager;
+
+select e1.Emp_ID,e1.emp_name,e1.Manager_ID ,e3.emp_name -- ,e2.emp_name, e2.Manager_ID
+from emp_manager as e1  
+join emp_manager as e2 on e1.Manager_ID = e2.Manager_ID 
+join emp_manager as e3 on e3.Emp_ID = e1.Manager_ID
+where e1.emp_name!= e2.emp_name;
+
+
+select e1.Emp_ID,e1.emp_name,e2.emp_name,e1.Manager_ID -- , e2.Manager_ID
+from emp_manager as e1,emp_manager as e2
+where e1.Manager_ID = e2.Manager_ID and e1.emp_name!= e2.emp_name
+and e1.Emp_ID > e2.Emp_ID;
+
+select e1.Emp_ID,e1.emp_name,e2.emp_name,e1.Manager_ID -- , e2.Manager_ID
+from emp_manager as e1,emp_manager as e2
+where e1.Manager_ID = e2.Manager_ID and e1.emp_name!= e2.emp_name
+and e1.Emp_ID < e2.Emp_ID;
+-- join employees m
+
+select * from emp_manager;
+
+select e1.Manager_ID , e2.emp_name, group_concat(e1.emp_name) as employees 
+from emp_manager as e1 
+join emp_manager as e2 on e2.Emp_ID  = e1.Manager_ID
+group by e1.Manager_ID , e2.emp_name
+-- select e.emp_name, m.emp_name, em.emp_name
+-- from employees e
+-- join employees m
+-- on e.manager_id = m.manager_id
+-- join employees em
+-- on m.manager_id = em.emp_id
+-- where e.emp_name != m.emp_name and e.emp_id < m.emp_id;
