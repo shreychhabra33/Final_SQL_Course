@@ -1,0 +1,51 @@
+/*
+Enter your query here.
+*/
+
+-- with etc as (
+-- select code ,power,min(coins_needed) as coins
+-- from Wands group by code , power     
+-- ),
+
+-- final query 
+select id,age,coins_needed, power 
+from (
+select w.id, wp.age,w.coins_needed, w.power ,
+DENSE_RANK() over(PARTITION BY w.code,w.power ORDER BY w.coins_needed,w.power desc) as rn
+from wands w
+join wands_property wp
+on w.code = wp.code
+where wp.is_evil = 0  -- and (w.code,w.power)in(select code,power from etc)
+) as t 
+    
+where rn = 1 
+order by power desc, age desc
+
+
+with etc as(
+select wp.age, min(w.coins_needed)as coins, w.power
+from wands w
+join wands_property wp
+on w.code = wp.code
+where wp.is_evil = 0
+group by wp.age, w.power
+-- order by w.power desc, wp.age desc
+)
+
+select w.id, etc.age, etc.coins, w.power
+from wands as w
+join wands_property as wp
+on w.code = wp.code
+join etc
+on wp.age = etc.age and w.coins_needed = etc.coins and w.power = etc.power
+order by w.power desc, wp.age desc;
+
+
+-- select w.id, wp.age,w.coins_needed, w.power -- ,
+-- -- DENSE_RANK() over(PARTITION BY w.code,w.power ORDER BY w.coins_needed,w.power desc) as rn
+-- from wands w
+-- join wands_property wp
+-- on w.code = wp.code
+-- where wp.is_evil = 0
+-- group by w.id, wp.age, w.power
+-- order by w.power desc, wp.age desc
