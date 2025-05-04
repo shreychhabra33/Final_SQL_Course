@@ -1,0 +1,103 @@
+#2025 - 05 - 04 
+
+use sql_course;
+
+
+-- Group by ( count, sum )
+show tables;
+
+select * from orders;
+
+select count(*) from orders;  -- with null value -- number of rows
+
+select count(customer_id)  from orders; -- without nulll
+
+select (count(*) - count(customer_id) ) as diff from orders 
+
+select * from orders;
+
+-- salary    count  (Ouput :- 4 ) , sum( 2300  + 500 + 900  + 2000)
+--  2300 
+--  1500
+--   900 
+--  2000
+
+
+-- sum, min ,max ,avg 
+
+# -- Function	Description	Example	Output
+-- ABS(x) -> Absolute value	SELECT ABS(-10);	10 <br>
+-- CEIL(x) / CEILING(x)	Round up	SELECT CEIL(4.2);	5 <br>
+-- FLOOR(x)	Round down	SELECT FLOOR(4.9);	4 <br>
+-- ROUND(x, d)	Round to d decimals	SELECT ROUND(3.14159, 2);	3.14 <br>
+-- TRUNCATE(x, d)	Truncate to d decimals	SELECT TRUNCATE(3.14159, 2);	3.14 <br>
+-- SIGN(x)	Returns sign of number	SELECT SIGN(-5);	-1 <br>
+
+
+select * from bikeindia;
+
+SELECT ROUND(3.14159, 2), ROUND(3.14159, 3),ROUND(3.14659, 2);
+
+SELECT TRUNCATE(3.14159, 2), TRUNCATE(3.14159, 3),TRUNCATE(3.14659, 2);
+
+SELECT CEIL(4.2); -- Upper value
+
+SELECT FLOOR(4.9);  -- lower value
+
+SELECT ROUND(3.14159);  -- 
+SELECT ROUND(3.54159);
+
+Select ABS(-10);
+
+SELECT SIGN(5 * -1),sign(11 * 1),sign(0);
+select sign();
+select sign(temp) from bikeindia where sign(temp) = -1
+
+-- 10 * 1 => 10 
+-- -1 * 1 => -1
+
+-- # (-2) + (-2) => - 4
+-- # (2) + (-3) => -1
+# (-1) + (2) => 1
+# (2) + (2) => - 4
+
+# (-2) * (-2) => 4
+# (-2) * (2) => -4
+# (2) * (2) => 4 
+# (2) * (-2) => - 4
+
+-- Find the maximun atemp for each dteday with 2 decimal place 
+
+select dteday ,max(temp), round(max(temp),2)
+from bikeindia group by dteday
+
+
+
+select ( 2 /3 ) ,(3 % 2), ( 2 % 3 ) ,(9 % 203) # get 
+
+
+# 🔁 Modulus & Remainders
+# -- Function	Description	Example	Output
+-- MOD(x, y) or x % y	Modulus (remainder)	SELECT MOD(10, 3);	1 <br>
+-- %	Modulus operator	SELECT 10 % 3;	1  <br>
+
+SELECT (10 % 3),(3 % 10);
+select mod(10,3),mod(3,10);
+
+SELECT POWER(2, 3) , POWER(2, 5);   -- 2 ^ 3 => 2 * 2 * 2 ( 2 is base and 3 is power ) 
+
+SELECT SQRT(16),sqrt(26);  -- 
+
+# 📈 Exponents & Roots
+# -- Function	Description	Example	Output
+POWER(x, y) or POW(x, y)	x raised to power y	SELECT POWER(2, 3);	8 <br>
+SQRT(x)	Square root	SELECT SQRT(16);	4 <br>
+EXP(x)	e raised to power x	SELECT EXP(2);	7.389... <br>
+
+# 🔧 Other Math Functions
+# --Function	Description	Example	Output
+RAND()	Random number between 0 and 1	SELECT RAND();	Varies <Br>
+PI()	Returns π	SELECT PI();	3.141593  <br>
+DEGREES(x)	Radians → Degrees	SELECT DEGREES(PI());	180  <br>
+RADIANS(x)	Degrees → Radians	SELECT RADIANS(180);	3.141593 <br>
+
