@@ -38,16 +38,47 @@ select * from bikeindia;
 
 SELECT ROUND(3.14159, 2), ROUND(3.14159, 3),ROUND(3.14659, 2);
 
-SELECT TRUNCATE(3.14159, 2), TRUNCATE(3.14159, 3),TRUNCATE(3.14659, 2);
+SELECT TRUNCATE(3.15159, 2), TRUNCATE(3.14159, 3),TRUNCATE(3.14659, 2);
 
-SELECT CEIL(4.2); -- Upper value
+select round(avg(temp),2) as average -- , holiday,weekday,workingday 
+from bikeindia;
 
-SELECT FLOOR(4.9);  -- lower value
+select avg(temp), round(avg(temp),2) as average ,ceil(round(avg(temp),2)) as upper_val,
+floor(round(avg(temp),2)) as lower_val , ceil(avg(temp)) as up,
+floor(avg(temp)) as lo
+from bikeindia
+
+select ( 1/3)
+
+SELECT CEIL(4.1); -- Upper value
+
+SELECT FLOOR(4.9);  -- lower value ( Actual interger value ) 
 
 SELECT ROUND(3.14159);  -- 
 SELECT ROUND(3.54159);
 
+-- Sub query 
+select * from bikeindia;
+select * from bikeindia where workingday in(1)
+select * from bikeindia where workingday in(select weekday from bikeindia where weekday)
+
+select temp,atemp,(temp-atemp) as diff from bikeindia;
+-- Actural - predicitons 
 Select ABS(-10);
+
+
+
+select temp,atemp,abs(temp-atemp) as diff,sign(temp-atemp) as nature from bikeindia;
+-- Common table expression
+with etc as (
+select temp,atemp,abs(temp-atemp) as diff,
+sign(temp-atemp) as nature from bikeindia )
+
+select * from etc where nature = 1;
+
+create temporary table etc as (
+-- where exists (select sign(temp-atemp) as nature from bikeindia)
+
 
 SELECT SIGN(5 * -1),sign(11 * 1),sign(0);
 select sign();
@@ -71,9 +102,12 @@ select sign(temp) from bikeindia where sign(temp) = -1
 select dteday ,max(temp), round(max(temp),2)
 from bikeindia group by dteday
 
+-- 2 / 3 => quotient 
+-- 2 // 3 => means floor 
+-- % menas remainder 
+-- But when numenator is less then denominator then output will be as well numerator
+select ( 2 / 3 ) ,(3 % 2), ( 2 % 3 ) ,(9 % 203) # get 
 
-
-select ( 2 /3 ) ,(3 % 2), ( 2 % 3 ) ,(9 % 203) # get 
 
 
 # 🔁 Modulus & Remainders
@@ -83,6 +117,8 @@ select ( 2 /3 ) ,(3 % 2), ( 2 % 3 ) ,(9 % 203) # get
 
 SELECT (10 % 3),(3 % 10);
 select mod(10,3),mod(3,10);
+
+select mod(mod(10,3),3) , mod(3,mod(10,3));  -- 1,3 => 1
 
 SELECT POWER(2, 3) , POWER(2, 5);   -- 2 ^ 3 => 2 * 2 * 2 ( 2 is base and 3 is power ) 
 
@@ -94,10 +130,19 @@ POWER(x, y) or POW(x, y)	x raised to power y	SELECT POWER(2, 3);	8 <br>
 SQRT(x)	Square root	SELECT SQRT(16);	4 <br>
 EXP(x)	e raised to power x	SELECT EXP(2);	7.389... <br>
 
+select RAND() , FLOOR(RAND() * (5 - 2 + 1)) + 2;
+
+SELECT FLOOR(RAND() * (5 - 2 + 1)) + 2; -- 3 to 5
+
+select PI() 
 # 🔧 Other Math Functions
-# --Function	Description	Example	Output
+# --Function Description	Example	Output
 RAND()	Random number between 0 and 1	SELECT RAND();	Varies <Br>
 PI()	Returns π	SELECT PI();	3.141593  <br>
 DEGREES(x)	Radians → Degrees	SELECT DEGREES(PI());	180  <br>
 RADIANS(x)	Degrees → Radians	SELECT RADIANS(180);	3.141593 <br>
 
+
+measurement :- PI() => constant( fixed ) => PI * r ^ 2
+
+C = PI() * r /2 * r
