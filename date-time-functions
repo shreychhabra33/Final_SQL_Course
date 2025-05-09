@@ -1,0 +1,92 @@
+#2025 05 - 09 
+
+  
+use sql_course; 
+
+show tables;
+
+select * from customers;
+
+# 📆 Current Date and Time
+# -- Function	Description	Example	Output
+NOW()	Current date and time	SELECT NOW();	2025-04-24 15:30:45 <br>
+CURDATE()	Current date	SELECT CURDATE();	2025-04-24  <br>
+CURTIME()	Current time	SELECT CURTIME();	15:30:45  <br>
+SYSDATE()	Current date/time (executed when retrieved)	SELECT SYSDATE();	2025-04-24 15:30:45  <br>
+UTC_DATE()	Current UTC date	SELECT UTC_DATE();	2025-04-24  <br>
+UTC_TIME()	Current UTC time	SELECT UTC_TIME();	09:30:45  <br>
+UTC_TIMESTAMP()	Current UTC date & time	SELECT UTC_TIMESTAMP();	2025-04-24 09:30:45 <br>
+
+SELECT NOW();
+SELECT UTC_TIMESTAMP();
+SELECT SYSDATE();
+
+select dteday- now() from bikeindia;
+
+SELECT CURDATE();
+
+select dteday- CURDATE() , CURDATE()-dteday from bikeindia;
+
+SELECT CURTIME();
+
+select * from bikeindia  
+
+-- ✅ SYSDATE()
+-- Value is evaluated at the exact time the function is executed.
+
+-- If used in a query that takes time (e.g., processing many rows), SYSDATE() might return slightly different times for different rows.
+
+-- ✅ NOW()
+-- Value is constant during the entire execution of the query (or transaction, in some cases).
+-- Useful when you want a consistent timestamp across multiple rows in a query.
+
+CREATE TABLE test_date (
+    id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+insert into test_date(id) values(101),(102)
+
+select * from test_date
+
+
+
+# 🕓 Extracting Parts of Date/Time
+# --Function	Description	Example	Output
+
+YEAR(date)	Year	SELECT YEAR('2025-04-24');	2025  <br>
+MONTH(date)	Month	SELECT MONTH('2025-04-24');	4   <br>
+DAY(date) / DAYOFMONTH(date)	Day of month	SELECT DAY('2025-04-24');	24  <br>
+DAYOFWEEK(date)	Sunday=1 to Saturday=7	SELECT DAYOFWEEK('2025-04-24');	5  <br>
+DAYOFYEAR(date)	Day of the year	SELECT DAYOFYEAR('2025-04-24');	114  <br>
+HOUR(time)	Hour	SELECT HOUR('15:30:45');	15   <br>
+MINUTE(time)	Minute	SELECT MINUTE('15:30:45');	30  <br>
+SECOND(time)	Second	SELECT SECOND('15:30:45');	45  <br>
+WEEK(date)	Week number	SELECT WEEK('2025-04-24');	17  <br>
+WEEKDAY(date)	Monday=0 to Sunday=6	SELECT WEEKDAY('2025-04-24');	3 <br>
+QUARTER(date)	Quarter of year	SELECT QUARTER('2025-04-24');	2  <br>
+
+SELECT YEAR('2022-04-24'),year(now()),year(UTC_TIMESTAMP());
+
+SELECT month('02-04-2022'),month(now()),month(UTC_TIMESTAMP());
+
+select DAY(now()) ,DAYOFMONTH(now()) , day(UTC_TIMESTAMP());
+
+SELECT DAYOFWEEK('2025-04-24'),dayofweek(now()),WEEKDAY('2025-04-24'),weekday(now());
+
+select * from bikeindia 
+
+select QUARTER(str_to_date(dteday,'%y-%m-%d')),avg(atemp) as average,max(atemp) as maximum from bikeindia
+where year(str_to_date(dteday,'%y-%m-%d')) in(2018)
+group by QUARTER(str_to_date(dteday,'%y-%m-%d'))
+
+-- DATE_FORMAT(date, format)
+--  DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i');
+
+
+
+select * from quiz_app.loan_data
+
+select person_income,round(sqrt(person_income),2) as same_scale from quiz_app.loan_data
+
+select pow(287.13,2) => 82443
