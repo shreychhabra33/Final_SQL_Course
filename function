@@ -156,6 +156,15 @@ TIMESTAMP(date, time)	Combine date and time	SELECT TIMESTAMP('2025-04-24', '12:0
 TO_DAYS(date)	Days since year 0	SELECT TO_DAYS('2025-04-24');	750000+  <br>
 FROM_DAYS(n)	Convert days to date	SELECT FROM_DAYS(750000);	2025-04-24 <br>
 
+SELECT 
+    STR_TO_DATE(dteday, '%d-%m-%Y %r') AS full_datetime,
+    QUARTER(STR_TO_DATE(dteday, '%d-%m-%Y %r')) AS quarter,
+    HOUR(STR_TO_DATE(dteday, '%d-%m-%Y %r')) AS hour_24
+FROM 
+    bikeindia;
+SELECT STR_TO_DATE('12-05-2018 02:45:00 PM', '%d-%m-%Y %r');
+SELECT STR_TO_DATE('12-05-2018 02:45:00 PM', '%d-%m-%Y %p');
+
 ✅ MySQL Date and Time Functions — Problem Statements
 
 #📅 1. Basic Date Extraction
