@@ -90,3 +90,34 @@ select * from quiz_app.loan_data
 select person_income,round(sqrt(person_income),2) as same_scale from quiz_app.loan_data
 
 select pow(287.13,2) => 82443
+
+
+-- Mean 
+select sum(`Cost price`)/count(*),avg(`Cost price`) from sales_data;
+
+-- mode  ( Categories ) 
+
+select product,count(product) as total_rec from sales_data 
+group by product order by total_rec desc
+
+
+-- Median 
+-- order valeus 
+-- mid value 
+
+select count(*) from sales_data;
+
+with etc as (
+select *,row_number() over( order by `Cost price`) as rn from sales_data 
+-- order by `Cost price`
+)
+
+-- select case when count(*) % 2=0 then (count(*)/2) +1
+-- else (count(*) + 1)/2 end as 'median'
+-- from etc
+
+select * from etc 
+where rn in(
+select case when count(*) % 2=0 then (count(*)/2) +1
+else (count(*) + 1)/2 end as 'median'
+from etc )
