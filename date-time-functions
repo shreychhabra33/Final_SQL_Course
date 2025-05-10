@@ -92,6 +92,45 @@ select person_income,round(sqrt(person_income),2) as same_scale from quiz_app.lo
 select pow(287.13,2) => 82443
 
 
+
+use sql_course; 
+
+select * from bikeindia;
+select * from retail_sales_dataset;
+
+# 🧮 Date/Time Calculations
+# -- Function	Description	Example	Output
+DATEDIFF(d1, d2)	Days between two dates	SELECT DATEDIFF('2025-05-01', '2025-04-24');	7 <br> 
+TIMEDIFF(t1, t2)	Time difference	SELECT TIMEDIFF('12:30:00', '11:45:00');	00:45:00   <br>
+
+ADDDATE(date, INTERVAL n unit)	Add days or time	SELECT ADDDATE('2025-04-24', INTERVAL 7 DAY);	2025-05-01  <br>
+SUBDATE(date, INTERVAL n unit)	Subtract days or time	SELECT SUBDATE('2025-04-24', INTERVAL 7 DAY);	2025-04-17 <br>
+DATE_ADD(date, INTERVAL n unit)	Add interval (same as ADDDATE)	SELECT DATE_ADD('2025-04-24', INTERVAL 1 MONTH);	2025-05-24  <br>
+DATE_SUB(date, INTERVAL n unit)	Subtract interval (same as SUBDATE)	SELECT DATE_SUB('2025-04-24', INTERVAL 1 MONTH);	2025-03-24 <br>
+
+select * from sales_data;
+SELECT DATEDIFF('2025-05-01', '2025-04-24');
+
+SELECT TIMEDIFF('12:30:00', '11:45:00');
+
+select `Order Date`, date_add(`Order Date`,interval 1 month) 
+from sales_data;
+SELECT ADDDATE('2025-04-24', INTERVAL 7 DAY);
+
+select curdate() - (date_sub(curdate(),interval 5 day));
+
+select `Order Date`,date_format(`Order Date`,"%Y-%m-%d"),
+(date_sub(curdate(),interval 5 day)),
+date_format(`Order Date`,"%Y-%m-%d") - (date_sub(curdate(),interval 5 day)),
+DATEDIFF(date_format(`Order Date`,"%Y-%m-%d"),
+(date_sub(curdate(),interval 5 day))),
+DATEDIFF(date_format(`Order Date`,"%Y-%m-%d"),
+(date_sub(curdate(),interval 5 day))) / 365 * 12 * 30
+from sales_data;
+
+
+
+
 -- Mean 
 select sum(`Cost price`)/count(*),avg(`Cost price`) from sales_data;
 
