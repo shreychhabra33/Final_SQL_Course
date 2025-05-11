@@ -56,7 +56,7 @@ select * from test_date
 
 YEAR(date)	Year	SELECT YEAR('2025-04-24');	2025  <br>
 MONTH(date)	Month	SELECT MONTH('2025-04-24');	4   <br>
-DAY(date) / DAYOFMONTH(date)	Day of month	SELECT DAY('2025-04-24');	24  <br>
+DAY(date) / DAYOFMONTH(date)	Day of month	SELECT DAY('2025-04-24');	24  <br> 
 DAYOFWEEK(date)	Sunday=1 to Saturday=7	SELECT DAYOFWEEK('2025-04-24');	5  <br>
 DAYOFYEAR(date)	Day of the year	SELECT DAYOFYEAR('2025-04-24');	114  <br>
 HOUR(time)	Hour	SELECT HOUR('15:30:45');	15   <br>
@@ -127,6 +127,83 @@ DATEDIFF(date_format(`Order Date`,"%Y-%m-%d"),
 DATEDIFF(date_format(`Order Date`,"%Y-%m-%d"),
 (date_sub(curdate(),interval 5 day))) / 365 * 12 * 30
 from sales_data;
+
+
+use sql_course;
+select * from bikeindia;
+select * from retail_sales_dataset;
+select * from sales_data;
+
+-- Find the remainder when the order_id is divided by 5 in the orders table (use MOD).
+-- Find the square root and square of each product's weight in the products table.
+-- Find the day of the week (Monday, Tuesday, etc.) from the booking_date field in the bookings table.
+-- Get only the time part (HH:MM:SS) from the created_at column in the logs table.
+-- Find the difference in seconds between two timestamps: start_time and end_time.
+-- Check if a date (delivery_date) falls on a weekend.
+--  Calculate the number of months between start_date and end_date of all projects in the projects table.
+
+select * from bikeindia;
+select * from retail_sales_dataset;
+select * from sales_data;
+
+# 🔀 Formatting and Conversion
+# --Function	Description	Example	Output
+DATE_FORMAT(date, format)	Format a date string	SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i');	2025-04-24 15:30 <br>
+STR_TO_DATE(str, format)	Convert string to date	SELECT STR_TO_DATE('24-04-2025','%d-%m-%Y');	2025-04-24 <br>
+TIME_FORMAT(time, format)	Format time	SELECT TIME_FORMAT('15:30:45', '%H:%i');	15:30 <br>
+EXTRACT(unit FROM date)	Extract date part	SELECT EXTRACT(YEAR FROM '2025-04-24');	2025  <br>
+
+SELECT now(),DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),DATE_FORMAT(NOW(), '%y-%m-%d %h:%i:%s');
+
+-- Get only the time part (HH:MM:SS) from the created_at column in the logs table.
+
+-- %M -> month name ( may ) 
+-- %m -> montha number ( 5 ) 
+-- %i -> minutes 
+-- %I -> Hour number ( 12 hours time ) 
+-- %p -> Am/Pm ( 12 hours time )
+-- %r -> %h:%i:%s Am/Pm
+select now(),date_format(now(),"%H:%i:%s") , date_format(now(),"%H:%I:%S")
+
+select * from sales_data;
+select `Order Date`,date_format(`Order Date`,'%Y-%d %H:%i:%s'),
+date_format(`Order Date`,'%h:%i:%s %r') ,date_format(`Order Date`,'%h:%i:%s %p'), date_format(`Order Date`,'%d-%Y %H:%i:%s')
+from sales_data;
+
+SELECT TIME_FORMAT('15:30:45', '%H:%i'),time_format(`Order Date`,'%Y-%m-%d %H:%i') from sales_data
+
+SELECT EXTRACT(YEAR FROM `Order Date`)  , EXTRACT(hour FROM `Order Date`)
+from sales_data; 
+
+SELECT STR_TO_DATE('12-05-2018 02:45:00 PM', '%d-%m-%Y %r');
+SELECT STR_TO_DATE('12-05-2018 02:45:00 PM', '%d-%m-%Y %p');
+
+
+-- LAST_DAY(date)	Last day of month	SELECT LAST_DAY('2025-04-24');	2025-04-30 <br>
+-- TO_DAYS(date)	Days since year 0	SELECT TO_DAYS('2025-04-24');	750000+  <br>
+-- FROM_DAYS(n)	Convert days to date	SELECT FROM_DAYS(750000);	2025-04-24 <br>
+select * from sales_data;
+describe sales_data;
+
+select * from sales_data where `Order Date` between '2019-01-01' and '2019-02-28'
+
+select date_format("2019-01-01","%d-%m"),date_format('01-01-2019','%d-%m'),str_to_date('2019-01-01','%d-%m')
+
+-- select str_to_date(`Order Date`,'%y-%m-%d') from sales_data
+
+select QUARTER(date_format(dteday,'%y-%m-%d')),avg(atemp) as average,max(atemp) as maximum from bikeindia
+where year(date_format(dteday,'%y-%m-%d')) in(2018)
+group by QUARTER(date_format(dteday,'%y-%m-%d'))
+
+
+✅ Understanding the Issue
+STR_TO_DATE(dteday, '%y-%m-%d'):
+Parses a string into a date using the given format. 
+Ideal when dteday is stored as a string (e.g., '18-05-11').
+
+DATE_FORMAT(dteday, '%y-%m-%d'):
+Converts a date/datetime into a string, formatted accordingly. 
+It's not meant for parsing or extracting meaningful date components like QUARTER() or YEAR().
 
 
 
