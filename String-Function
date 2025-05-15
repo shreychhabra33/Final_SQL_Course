@@ -1,0 +1,93 @@
+#2025 -05 - 15
+
+use sql_course;
+
+select * from sales_data;
+
+select `order date` between day(str_to_date('2019-01-01','%Y-%m-%d')) and day(str_to_date('2019-01-28','%Y-%m-%d')) from sales_data
+
+select `order date` 
+from sales_data where `order date` >= '2019-01-01' and  `order date` <= '2019-01-28'
+
+select `order date` 
+from sales_data where `order date` between '2019-01-01' and  '2019-01-28'
+
+
+select `order date` 
+from sales_data where `order date` between '2019-01-01' and  '2019-01-28'
+
+select `order date` 
+from sales_data where day(`order date`) between day('2019-01-01') and  day('2019-01-28')
+
+select `order date`, str_to_date('01-01-2019','%Y-%m-%d') 
+, date_format('01-01-2019','%Y-%m-%d'),date_format(`order date`,"%d-%m-%Y"),
+str_to_date(`order date`,"%Y-%m-%d %h:%i:%s %p")
+-- , date_format('2019-01-01','%m-%Y-%d')  
+from sales_data
+--
+-- and day(str-to-date('2019-01-28',%Y-%m-%d)) 
+
+select Product ,min(`Quantity Ordered`) as minimum
+from sales_data 
+group by Product having minimum >1
+
+
+
+select date_format("2019-01-01","%d-%m-%y"),date_format("14-02-2019","%d-%m-%y");
+
+select str_to_date("24-12-2019","%d-%m-%y"),str_to_date("14-02-2019","%d-%m-%y"),
+str_to_date("2019-01-01","%d-%m-%y");
+
+
+select date_format(`order date`,"%d-%m-%y"),
+str_to_date(`order date`,"%d-%m-%y"),str_to_date("14-02-2019","%d-%m-%y"),
+str_to_date(`order date`,"%d-%m-%y") from sales_data
+
+-- ,date_format('01-01-2019','%d-%m'),str_to_date('2019-01-01','%d-%m')
+
+select `order date`, str_to_date('01-01-2019','%Y-%m-%d') 
+, date_format('01-01-2019','%Y-%m-%d'),date_format(`order date`,"%d-%m-%Y"),
+str_to_date(`order date`,"%Y-%m-%d %h:%i:%s %p")
+-- , date_format('2019-01-01','%m-%Y-%d')  
+from sales_data;
+
+select * from bikeindia
+describe bikeindia
+
+select dteday,STR_TO_DATE(dteday, '%y-%m-%d'),date_format(dteday, '%y-%m-%d') from bikeindia
+
+#🔠 Case Conversion
+# --Function	Description	Example	Output
+UPPER(str)	To uppercase	SELECT UPPER('mysql');	MYSQL <br>
+LOWER(str)	To lowercase	SELECT LOWER('MySQL');	mysql <br>
+
+#🔤 Basic String Functions
+# -- Function	Description	Example	Output
+LENGTH(str)	Length in bytes	SELECT LENGTH('MySQL');	5 <br>
+CHAR_LENGTH(str) or CHARACTER_LENGTH(str)	Length in characters	SELECT CHAR_LENGTH('MýSQL');	5 <br>
+CONCAT(str1, str2, …)	Join strings	SELECT CONCAT('Hello', ' ', 'World');	Hello World  <br>
+CONCAT_WS(sep, str1, str2, …)	Join with separator	SELECT CONCAT_WS('-', '2025', '04', '24');	2025-04-24 <br>
+REVERSE(str)	Reverse string	SELECT REVERSE('MySQL');	LQSyM  <br>
+
+
+# ✂️ String Trimming & Padding
+# --Function	Description	Example	Output
+TRIM(str)	Remove leading/trailing spaces	SELECT TRIM(' Hello ');	Hello <br>
+TRIM(LEADING 'x' FROM str)	Trim from start	SELECT TRIM(LEADING 'x' FROM 'xxxHi');	Hi <br>
+LTRIM(str)	Trim left spaces	SELECT LTRIM(' Text');	Text  <br>
+RTRIM(str)	Trim right spaces	SELECT RTRIM('Text ');	Text <br>
+LPAD(str, len, pad)	Pad on left	SELECT LPAD('7', 4, '0');	0007  <br>
+RPAD(str, len, pad)	Pad on right	SELECT RPAD('Hi', 5, '!');	Hi!!! <br>
+
+
+SELECT length('mysql is my first coding'),UPPER('mysql is my first coding'),lower('Jyoti is a coding girl!');
+select * from emp_data where length(Victims) <20;
+SELECT TRIM('     Hello    '),	LTRIM('       Hello '),RTRIM('            Hello ')
+select trim('i' from 'Mysql is first coding')
+SELECT TRIM(LEADING 'x' FROM TRIM(trailing 'x' FROM 'xxxHixxx')), 
+,trim(leading 'i' from 'iiicoding');
+
+
+select replace('Mysql is first coding','i','')
+
+select REGEXP_REPLACE('Mysql is first coding', 'i', '');
