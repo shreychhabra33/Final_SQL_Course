@@ -61,6 +61,17 @@ select dteday,STR_TO_DATE(dteday, '%y-%m-%d'),date_format(dteday, '%y-%m-%d') fr
 UPPER(str)	To uppercase	SELECT UPPER('mysql');	MYSQL <br>
 LOWER(str)	To lowercase	SELECT LOWER('MySQL');	mysql <br>
 
+SELECT length('mysql is my first coding'),UPPER('mysql is my first coding'),lower('Jyoti is a coding girl!');
+select * from emp_data where length(Victims) <20;
+
+SELECT CHAR_LENGTH('Mysql is my first coding') ,length('mysql is my first coding');
+
+select * from sales_data;
+
+select char_length(`Purchase Address`),length(`Purchase Address`) from sales_data 
+where char_length(`Product`) !=length(`Product`)
+order by `Order Id`
+
 #🔤 Basic String Functions
 # -- Function	Description	Example	Output
 LENGTH(str)	Length in bytes	SELECT LENGTH('MySQL');	5 <br>
@@ -68,6 +79,55 @@ CHAR_LENGTH(str) or CHARACTER_LENGTH(str)	Length in characters	SELECT CHAR_LENGT
 CONCAT(str1, str2, …)	Join strings	SELECT CONCAT('Hello', ' ', 'World');	Hello World  <br>
 CONCAT_WS(sep, str1, str2, …)	Join with separator	SELECT CONCAT_WS('-', '2025', '04', '24');	2025-04-24 <br>
 REVERSE(str)	Reverse string	SELECT REVERSE('MySQL');	LQSyM  <br>
+
+select * from sales_data;
+
+SELECT CONCAT('Hello', ' ', 'World','#');
+
+select concat(month(`Order Date`),"-",`Order ID`," ",year(`Order Date`)," ",Product)  as formate
+from sales_data;
+
+SELECT CONCAT_WS('-', '2025', '04', '24'),concat('-', '2025','-', '04','-', '24');
+
+select concat_ws(" " ,month(`Order Date`),`Order ID`,year(`Order Date`),Product)  as formate
+from sales_data;
+
+-- sql , my sql , postgre sql
+
+# 🔍 Substring Extraction & Position
+# --Function	Description	Example	Output
+
+substr(str,pos,len)
+SUBSTRING(str, pos, len)	Extract part of string	SELECT SUBSTRING('MySQL Database', 1, 6);	MySQL <br>
+LEFT(str, len)	Left part	SELECT LEFT('MySQL', 2);	My  <br>
+RIGHT(str, len)	Right part	SELECT RIGHT('MySQL', 3);	SQL  <br>
+
+LOCATE(substr, str)	Position of substr	SELECT LOCATE('SQL', 'MySQL Database');	3  <br>
+INSTR(str, substr)	Position (same as LOCATE)	SELECT INSTR('MySQL', 'SQL');	3  <br> 
+
+POSITION(substr IN str)	Position using keyword	SELECT POSITION('SQL' IN 'MySQL');	3 <br>
+
+SELECT LEFT('MySQL', 2) ,RIGHT('MySQL', 3);
+
+SELECT LOCATE('SQL', 'MySQL Database');
+
+select locate('', 'Mysql is my first coding'),locate(' ', 'Mysql is my first coding')
+
+select locate('@gmail.com','abc@yahoo.com')
+select locate('@','abc@gmail.com'),locate('@','abc123gmail.com');
+
+SELECT INSTR('abc@yahoo.com', '@');
+
+SELECT POSITION('@' IN 'abc@yahoo.com');
+
+select * from sales_data;
+
+select concat(upper(left(Product,1)),"-",lower(right(product,length(product)-1)))
+from sales_data
+
+SELECT SUBSTRING('MySQL Database', 1, 6),substr('MySQL Database',1,6);
+select concat(upper(substr(Product,1,1)),"-",lower(substr(Product,1,length(Product))))
+from sales_data
 
 
 # ✂️ String Trimming & Padding
@@ -80,14 +140,23 @@ LPAD(str, len, pad)	Pad on left	SELECT LPAD('7', 4, '0');	0007  <br>
 RPAD(str, len, pad)	Pad on right	SELECT RPAD('Hi', 5, '!');	Hi!!! <br>
 
 
-SELECT length('mysql is my first coding'),UPPER('mysql is my first coding'),lower('Jyoti is a coding girl!');
-select * from emp_data where length(Victims) <20;
+SELECT LPAD('abcd', 4, '@'),Rpad("1 ",5,'#'),lpad('',4,'@');
+
 SELECT TRIM('     Hello    '),	LTRIM('       Hello '),RTRIM('            Hello ')
 select trim('i' from 'Mysql is first coding')
+
 SELECT TRIM(LEADING 'x' FROM TRIM(trailing 'x' FROM 'xxxHixxx')), 
 ,trim(leading 'i' from 'iiicoding');
 
+select replace('Mysql is first coding','i','@')
 
-select replace('Mysql is first coding','i','')
 
-select REGEXP_REPLACE('Mysql is first coding', 'i', '');
+select * from bikeindia
+
+select dteday,reverse(dteday) from bikeindia;
+
+select reverse('Mysql is first coding') 
+
+-- Aeiou ( vowels ) 
+-- rest of the alphabet are consonent )
+like 'a%' or 'e%' or 'i%'
