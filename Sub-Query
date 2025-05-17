@@ -1,0 +1,236 @@
+✅ 1. Subquery
+A subquery is a query nested inside another SQL query.
+
+Types of Subqueries:
+Scalar subquery – returns a single value.
+
+Row subquery – returns a single row.
+
+Table subquery – returns a set of rows.
+
+Find Highest salary that is higher than average salary . 
+Write a query to find employees whose salary is higher than the average salary in the company.
+
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+
+SELECT dept, AVG(salary) AS avg_salary
+FROM (
+    SELECT dept, salary
+    FROM employees
+) AS dept_data
+GROUP BY dept;
+
+Find the department(s) with the highest total salary.
+SELECT dept_id
+FROM departments
+WHERE total_salary = (
+    SELECT MAX(total_salary)
+    FROM departments
+);
+
+
+Retrieve names of employees who are not assigned to any project (assume project_assignments table has emp_id).
+SELECT name
+FROM employees
+WHERE emp_id NOT IN (
+    SELECT emp_id FROM project_assignments
+);
+
+List all products where price is above average price in their category (correlated subquery).
+SELECT product_name, category, price
+FROM products p1
+WHERE price > (
+    SELECT AVG(price)
+    FROM products p2
+    WHERE p1.category = p2.category
+);
+
+Find all customers who placed more orders than the average number of orders per customer.
+SELECT customer_id
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(*) > (
+    SELECT AVG(order_count) 
+    FROM (
+        SELECT COUNT(*) AS order_count 
+        FROM orders 
+        GROUP BY customer_id
+    ) AS avg_orders
+);
+
+Get employees whose salary is equal to the second highest salary.
+SELECT name, salary
+FROM employees
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM employees
+    WHERE salary < (
+        SELECT MAX(salary)
+        FROM employees
+    )
+);
+
+
+✅ 2. Common Table Expression (CTE)
+Introduced in MySQL 8.0+, a CTE is a temporary named result set that can be referenced within a SELECT, INSERT, UPDATE, or DELETE statement.
+
+WITH cte_name AS (
+    SELECT ...
+)
+SELECT * FROM cte_name;
+
+
+Eg... Basic ETC 
+WITH high_paid AS (
+    SELECT name, salary
+    FROM employees
+    WHERE salary > 50000
+)
+SELECT * FROM high_paid;
+
+
+ Example 2: CTE vs Subquery
+Using the same logic with a CTE instead of a subquery:
+WITH avg_salary AS (
+    SELECT AVG(salary) AS avg_sal FROM employees
+)
+SELECT name, salary
+FROM employees, avg_salary
+WHERE employees.salary > avg_salary.avg_sal;
+
+✅ Recursive CTE Example (Advanced)
+Find hierarchy or parent-child relationships like organization chart:
+
+WITH RECURSIVE emp_hierarchy AS (
+    SELECT id, name, manager_id
+    FROM employees
+    WHERE manager_id IS NULL  -- root node
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id
+    FROM employees e
+    INNER JOIN emp_hierarchy h ON e.manager_id = h.id
+)
+SELECT * FROM emp_hierarchy;
+
+Use a CTE to find all employees who earn more than the average salary.
+WITH avg_salary AS (
+    SELECT AVG(salary) AS avg_sal FROM employees
+)
+SELECT name, salary
+FROM employees, avg_salary
+WHERE salary > avg_sal;
+
+Write a CTE to show the top 5 customers by order count.
+WITH customer_orders AS (
+    SELECT customer_id, COUNT(*) AS order_count
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT *
+FROM customer_orders
+ORDER BY order_count DESC
+LIMIT 5;
+
+
+Using a recursive CTE, get the hierarchical path of managers from the CEO down to employees.
+WITH RECURSIVE emp_tree AS (
+    SELECT id, name, manager_id, 1 AS level
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id, et.level + 1
+    FROM employees e
+    JOIN emp_tree et ON e.manager_id = et.id
+)
+SELECT * FROM emp_tree;
+
+Use a CTE to find employees who report directly or indirectly to a manager with id = 1.
+WITH RECURSIVE reportees AS (
+    SELECT id, name, manager_id
+    FROM employees
+    WHERE manager_id = 1
+
+    UNION ALL
+
+    SELECT e.id, e.name, e.manager_id
+    FROM employees e
+    JOIN reportees r ON e.manager_id = r.id
+)
+SELECT * FROM reportees;
+
+
+
+
+🧠 Conceptual (MCQs)
+Q11. What is the main advantage of a CTE over a subquery?
+a) More readable and reusable
+b) Can be used in any version of MySQL
+c) Can return only one row
+d) Cannot be recursive
+
+✅ Answer: a) More readable and reusable
+
+Q12. Which MySQL version introduced CTEs?
+a) 5.1
+b) 5.7
+c) 8.0
+d) 7.0
+
+✅ Answer: c) 8.0
+
+
+
+
+
+✅ True/False
+Q9. A subquery in the FROM clause is also called a derived table.
+
+✅ Answer: True
+
+Q10. A correlated subquery can refer to columns from the outer query.
+
+✅ Answer: True
+
+🔸 Subquery-Based Questions
+🧠 Conceptual (MCQs)
+Q1. Which of the following subquery types can return more than one row?
+a) Scalar Subquery
+b) Correlated Subquery
+c) Table Subquery
+d) Both b and c
+
+Q2. What will happen if a scalar subquery returns more than one row?
+a) It will return all rows
+b) It will return only the first row
+c) It will throw an error
+d) It will be ignored
+✅ Answer: c) It will throw an error
+
+
+
+✅ True/False
+Q17. CTEs can be recursive.
+
+✅ Answer: True
+
+Q18. You can use multiple CTEs in the same query.
+
+✅ Answer: True
+
+🧩 Fill in the Blank
+Q19. The syntax to define a recursive CTE is WITH ______ CTEName AS (...).
+
+✅ Answer: RECURSIVE
+
+Q20. The temporary result of a CTE is only available to the query that defines it.
+
+✅ Answer: True
