@@ -133,6 +133,10 @@ from sales_data
 ## Notes ### 
 FIND_IN_SET(str, str_list)	Position in comma list	SELECT FIND_IN_SET('B', 'A,B,C');	2 <br>
 FORMAT(num, d)	Format number with commas	SELECT FORMAT(12345.6789, 2);	12,345.68  <br>
+select person_income,format(person_income,0),format(person_income,2) , format(person_income,3)from quiz_app.loan_data
+
+SELECT FIND_IN_SET(LOWER('manager'), LOWER('Engineer,Manager,Associate'));
+select position("manager" in "Engineer,Manager,Associate");
 
 
 # ✂️ String Trimming & Padding
