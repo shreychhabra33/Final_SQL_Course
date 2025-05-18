@@ -130,6 +130,11 @@ select concat(upper(substr(Product,1,1)),"-",lower(substr(Product,1,length(Produ
 from sales_data
 
 
+## Notes ### 
+FIND_IN_SET(str, str_list)	Position in comma list	SELECT FIND_IN_SET('B', 'A,B,C');	2 <br>
+FORMAT(num, d)	Format number with commas	SELECT FORMAT(12345.6789, 2);	12,345.68  <br>
+
+
 # ✂️ String Trimming & Padding
 # --Function	Description	Example	Output
 TRIM(str)	Remove leading/trailing spaces	SELECT TRIM(' Hello ');	Hello <br>
