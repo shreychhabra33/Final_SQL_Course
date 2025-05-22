@@ -106,4 +106,12 @@ The act of sharing the same data resource with multiple applications or users is
 2. -- Retrieve Product along with the total and average quantity of their purchases.
 3. -- Retrieve product with an average sales quantity  whose sum is less than 2.
 
+## 22-05-2025
+## Notes ### 
+FIND_IN_SET(str, str_list)	Position in comma list	SELECT FIND_IN_SET('B', 'A,B,C');	2 <br>
+FORMAT(num, d)	Format number with commas	SELECT FORMAT(12345.6789, 2);	12,345.68  <br>
+select person_income,format(person_income,0),format(person_income,2) , format(person_income,3)from quiz_app.loan_data
+
+SELECT FIND_IN_SET(LOWER('manager'), LOWER('Engineer,Manager,Associate'));
+select position("manager" in "Engineer,Manager,Associate");
 
