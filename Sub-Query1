@@ -1,0 +1,58 @@
+use sql_course;
+
+select * from customers ;
+select * from emp_manager;
+-- select * from emp_details;
+
+select * from customers as cus 
+join emp_manager as emp on emp.Emp_Name = cus.name 
+
+select Emp_Name from emp_manager;
+select * from customers where name in(select Emp_Name from emp_manager)
+
+select Emp_Name from emp_manager  where Emp_Id %2!=0;
+select * from customers where name in(select Emp_Name from emp_manager where Emp_Id %2!=0)
+
+
+select * from quiz_app.loan_data
+
+-- Highest loan amount 
+select distinct loan_amnt from quiz_app.loan_data order by loan_amnt desc limit 1
+
+-- Second Highest loan amount
+
+select max(loan_amnt) from quiz_app.loan_data
+
+select distinct loan_amnt 
+from quiz_app.loan_data 
+where loan_amnt < (select max(loan_amnt) from quiz_app.loan_data)
+order by loan_amnt desc limit 1;
+
+-- Third Highest loan amount 
+
+select max(loan_amnt) from quiz_app.loan_data
+where loan_amnt < 
+( select max(loan_amnt) from quiz_app.loan_data 
+ where loan_amnt < (select max(loan_amnt) from quiz_app.loan_data)
+);
+
+select distinct loan_amnt 
+from quiz_app.loan_data order by loan_amnt desc limit 1 offset 2;
+
+
+select * from quiz_app.loan_data where loan_amnt in(select * from
+
+select * from bikeindia;
+
+select * from bikeindia where 
+
+select ( 1+2+3+4+5+6+7+8+9+10) / 10
+
+-- Find Highest atemp that is higher than average atemp . 
+-- Write a query to find employees whose salary is higher than the average salary in the company.
+
+
+Select `Cost Price` 
+from sales_data where `Cost Price` > ( select avg(`Cost Price`) from sales_data);
+
+Select `Cost Price` from sales_data where `Cost Price` > ( select avg(`Cost Price`) from sales_data);
