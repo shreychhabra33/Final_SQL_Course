@@ -56,3 +56,16 @@ Select `Cost Price`
 from sales_data where `Cost Price` > ( select avg(`Cost Price`) from sales_data);
 
 Select `Cost Price` from sales_data where `Cost Price` > ( select avg(`Cost Price`) from sales_data);
+
+-- Find the Product with the highest cost price.
+
+Select Product, max(`Cost price`) 
+from sales_data group by Product order by max(`Cost price`) desc ;
+
+select max(`Cost price`) from sales_data;
+
+select * from sales_data where `Cost price` = (
+select max(`Cost price`) from sales_data )
+
+# Second Hight salary 
+https://leetcode.com/problems/second-highest-salary/post-solution/?submissionId=1431016647
