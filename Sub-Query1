@@ -69,3 +69,93 @@ select max(`Cost price`) from sales_data )
 
 # Second Hight salary 
 https://leetcode.com/problems/second-highest-salary/post-solution/?submissionId=1431016647
+
+
+
+
+SELECT DISTINCT Customers.Name
+FROM Customers
+where CustomerID in( select CustomerID from Orders ) 
+-- INNER JOIN Orders
+-- ON Customers.CustomerID = Orders.CustomerID;
+
+
+
+Select distinct city from employee 
+where city = (select count(employee_id) from employee);
+
+Select city , count(employee_id) as total from employee
+group by city order by total desc limit 1
+
+
+
+select city, max(emp) 
+from (select city,count(employee_id) as emp from employees group by city) as number;
+
+
+
+
+
+-- ✅ 2. Common Table Expression (CTE)
+-- Introduced in MySQL 8.0+, a CTE is a temporary named result 
+-- set that can be referenced within a SELECT, INSERT, UPDATE, or DELETE statement.
+
+select * from quiz_app.loan_data;
+
+with etc as (
+select * from quiz_app.loan_data where loan_amnt >10000
+)
+-- select * from etc
+select * from quiz_app.loan_data where loan_amnt in(select loan_amnt from etc);
+
+
+WITH high_paid AS (
+    SELECT name, salary
+    FROM employees
+    WHERE salary > 50000
+)
+SELECT * FROM high_paid;
+
+-- SELECT name, salary FROM employees WHERE salary = high_paid.salary
+
+-- Using the same logic with a CTE instead of a subquery:
+WITH avg_salary AS (
+    SELECT AVG(salary) AS avg_sal FROM employees
+)
+SELECT name, salary
+FROM employees, avg_salary
+WHERE employees.salary > avg_salary.avg_sal;
+
+
+--  Retrieve names of employees who are not assigned to 
+--  any project (assume project_assignments table has emp_id).
+
+Employees ( id , Emp_name , salary )
+Project (p_Id, emp_Id , Project_name , department )
+
+With No_project (
+Select * from employees where id not in (select emp_id from Project);
+)
+Select Emp_name from Employees where id = Select id from No_project;
+
+-- with p as (
+--  select * from project
+-- )
+
+select * from employees e
+left join p
+on e.id = p.emp_id
+where p.p_id is null;
+
+select * from A 
+join B on B.id = A.id
+
+-- Get employees whose salary is equal to the second highest salary.
+with second_highest_salary as ( 
+select distinct salary from employees order by salary desc limit 1 offset 1
+)
+
+select * from employees where salary = (select salary from second_highest_salary)
+
+
+select sysdate(),now(),current_timestamp()
