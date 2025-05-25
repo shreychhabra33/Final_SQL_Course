@@ -1,0 +1,117 @@
+# 📌 What Are SQL Window Functions?
+Window functions perform calculations across a set of table rows that are somehow related to the current row. Unlike aggregate functions, window functions do not collapse rows.
+
+SELECT 
+    column1, 
+    window_function() OVER (PARTITION BY col2 ORDER BY col3)
+FROM table_name;
+
+# 🔍 1. ROW_NUMBER()
+Gives each row a unique sequential number within a partition.
+SELECT 
+    employee_id, department_id, salary,
+    ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rank
+FROM employees;
+
+# 🔍 2. RANK()
+Ranks rows with the same value sharing the same rank, but gaps are left.
+
+SELECT 
+    employee_id, salary,
+    RANK() OVER (ORDER BY salary DESC) AS salary_rank
+FROM employees;
+
+# 🔍 3. DENSE_RANK()
+Same as RANK() but no gaps in rank values.
+
+SELECT 
+    employee_id, salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS dense_rank
+FROM employees;
+
+
+# 🔍 4. NTILE(n)
+Divides rows into n buckets and assigns a bucket number.
+
+SELECT 
+    employee_id, salary,
+    NTILE(4) OVER (ORDER BY salary DESC) AS salary_quartile
+FROM employees;
+
+# 🔍 5. LAG()
+Returns the value of a previous row in the same result set.
+SELECT 
+    employee_id, salary,
+    LAG(salary) OVER (ORDER BY employee_id) AS previous_salary
+FROM employees;
+
+# 🔍 6. LEAD()
+Returns the value of a following row.
+SELECT 
+    employee_id, salary,
+    LEAD(salary) OVER (ORDER BY employee_id) AS next_salary
+FROM employees;
+
+# 🔍 7. FIRST_VALUE() / LAST_VALUE()
+Returns the first or last value in a window partition.
+
+SELECT 
+    employee_id, department_id, salary,
+    FIRST_VALUE(salary) OVER (PARTITION BY department_id ORDER BY salary DESC) AS top_salary
+FROM employees;
+
+🔍 8. CUME_DIST()
+Cumulative distribution (percentile) of a value in a partition.
+
+SELECT 
+    employee_id, salary,
+    CUME_DIST() OVER (ORDER BY salary) AS percentile
+FROM employees;
+
+# 🔍 9. PERCENT_RANK()
+Relative rank of a row between 0 and 1.
+
+SELECT 
+    employee_id, salary,
+    PERCENT_RANK() OVER (ORDER BY salary) AS percent_rank
+FROM employees;
+
+
+# 🔍 10. SUM() / AVG() / COUNT() OVER()
+Can be used as rolling aggregates.
+
+SELECT 
+    employee_id, department_id, salary,
+    SUM(salary) OVER (PARTITION BY department_id ORDER BY employee_id) AS running_total
+FROM employees;
+
+# 🔍 11. Moving Average (Rolling Window)
+🔸 Example: 3-row moving average
+
+SELECT 
+    employee_id, salary,
+    AVG(salary) OVER (ORDER BY employee_id ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg
+FROM employees;
+
+
+
+🛠️ Practice Table: employees
+employee_id	department_id	salary
+1	10	50000
+2	10	60000
+3	20	55000
+4	10	70000
+5	20	65000
+
+
+🧠 Tips to Remember
+Function	Use Case
+ROW_NUMBER()	Unique row ordering
+RANK()	Rankings with gaps
+DENSE_RANK()	Rankings without gaps
+NTILE(n)	Bucketing (e.g., quartiles)
+LAG()	Previous row value
+LEAD()	Next row value
+FIRST_VALUE()	First value in window
+SUM() OVER()	Running totals
+MOVING_AVG()	Rolling calculations
