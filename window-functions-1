@@ -1,0 +1,120 @@
+#2025 - 05 - 30 \ 
+
+use sql_course;
+
+show tables
+
+select * from bikeindia;
+select * from data_loan;
+
+-- Get max value from each purpose 
+select purpose , max(`installment`) as m_inst, max(`revol.util`) as m_revol
+from data_loan 
+group by purpose
+
+select * from bikeindia;
+select * from data_loan;
+select * from emp_data;
+select * from salaries;
+select * from quiz_app.loan_data;
+select * from retail_sales_dataset;
+
+# 🔍 1. ROW_NUMBER()
+-- Gives each row a unique sequential number within a partition.
+SELECT 
+    employee_id, department_id, salary,
+    ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rank_val
+FROM employees;
+
+select * , row_number() over() as rn
+from salaries;
+
+select * , row_number() over(order by amount desc) as rn
+from salaries;
+
+select * from (
+select purpose,installment,`revol.bal`,
+row_number() over(partition by purpose order by `revol.bal` desc ) as rn
+from data_loan )  as common_val 
+where rn <=10
+
+
+# 🔍 2. RANK()
+-- Ranks rows with the same value sharing the same rank, but gaps are left.
+
+SELECT 
+    employee_id, salary,
+    RANK() OVER (ORDER BY salary DESC) AS salary_rank
+FROM employees;
+
+
+# 🔍 3. DENSE_RANK()
+-- Same as RANK() but no gaps in rank values.
+
+SELECT 
+    employee_id, salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS dense_rank_val
+FROM employees;
+
+
+select * from quiz_app.loan_data;
+
+select * from (
+select person_education, person_income,loan_amnt,
+row_number() over( partition by person_education order by loan_amnt desc ) as rows_number,
+rank() over( partition by person_education order by loan_amnt desc ) as rank_number,
+dense_rank() over( partition by person_education order by loan_amnt desc ) as unique_rank_number
+from quiz_app.loan_data ) as etc 
+where rows_number <=10
+
+
+# 🔍 5. LAG()
+-- Returns the value of a previous row in the same result set.
+SELECT 
+    employee_id, salary,
+    LAG(salary) OVER (ORDER BY employee_id) AS previous_salary
+FROM employees;
+
+
+# 🔍 6. LEAD()
+-- Returns the value of a following row.
+SELECT 
+    employee_id, salary,
+    LEAD(salary) OVER (ORDER BY employee_id) AS next_salary
+FROM employees;
+
+select * from bikeindia;
+
+SELECT 
+    dteday, temp, atemp,
+    LAG(dteday) OVER (ORDER BY temp) AS previous_temp
+FROM bikeindia;
+
+SELECT 
+    dteday, temp, atemp,
+    LAG(dteday,2) OVER (ORDER BY temp) AS previous_temp
+FROM bikeindia
+
+select * from (
+SELECT 
+    dteday, temp, atemp,
+    LAG(dteday) OVER (ORDER BY temp) AS previous_temp
+FROM bikeindia ) as etc
+where date_add(dteday,interval 1 day) = previous_temp
+
+SELECT 
+    dteday, temp, atemp,
+    Lead(dteday) OVER (ORDER BY temp) AS previous_temp
+FROM bikeindia;
+
+SELECT 
+    dteday, temp, atemp,
+    Lead(dteday,2) OVER (ORDER BY temp) AS previous_temp
+FROM bikeindia;
+
+select * from (
+SELECT 
+    dteday, temp, atemp,
+    Lead(dteday) OVER (ORDER BY temp) AS previous_temp
+FROM bikeindia ) as etc
+where date_add(dteday,interval 1 day) = previous_temp
