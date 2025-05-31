@@ -1,4 +1,4 @@
-#2025 - 05 - 30 \ 
+#2025 - 05 - 30 \ 31
 
 use sql_course;
 
@@ -93,28 +93,103 @@ FROM bikeindia;
 SELECT 
     dteday, temp, atemp,
     LAG(dteday,2) OVER (ORDER BY temp) AS previous_temp
-FROM bikeindia
+FROM bikeindia;
 
 select * from (
 SELECT 
     dteday, temp, atemp,
     LAG(dteday) OVER (ORDER BY temp) AS previous_temp
 FROM bikeindia ) as etc
-where date_add(dteday,interval 1 day) = previous_temp
+-- where dteday in( adddate(previous_temp,interval 1 day));
+where datediff(date_format(dteday,'%Y-%m-%d'),date_format(previous_temp,'%Y-%m-%d')) = 1;
+
 
 SELECT 
     dteday, temp, atemp,
-    Lead(dteday) OVER (ORDER BY temp) AS previous_temp
+    Lead(dteday) OVER (ORDER BY temp) AS next_temp
 FROM bikeindia;
 
 SELECT 
     dteday, temp, atemp,
-    Lead(dteday,2) OVER (ORDER BY temp) AS previous_temp
+    Lead(dteday,2) OVER (ORDER BY temp) AS next_temp
 FROM bikeindia;
 
 select * from (
 SELECT 
     dteday, temp, atemp,
-    Lead(dteday) OVER (ORDER BY temp) AS previous_temp
+    Lead(dteday) OVER (ORDER BY temp) AS next_temp
 FROM bikeindia ) as etc
-where date_add(dteday,interval 1 day) = previous_temp
+where date_add(dteday,interval 1 day) = next_temp
+
+
+select * from retail_sales_dataset;
+
+-- Get all product who's order date have equal to deliver date
+select * from (
+select Date,`Product Category`,`Price per Unit` , `Total Amount`,
+lead(Date) over(partition by`Product Category` order by Date) as delivery_date,
+rank() over(partition by`Product Category` order by Date) as rn
+from retail_sales_dataset ) as etc 
+where date_add(Date,interval 1 day) = delivery_date 
+and rn = 1;
+
+
+select 
+-- Date,`Product Category`,`Price per Unit` , `Total Amount`,
+row_number(Date) as av
+from retail_sales_dataset
+
+# 🔍 10. SUM() / AVG() / COUNT() OVER()
+-- Can be used as rolling aggregates.
+SELECT 
+    Date,`Product Category`,`Price per Unit` , `Total Amount`,
+    SUM(`Total Amount`) OVER () AS product_total
+    from retail_sales_dataset
+
+select SUM(`Total Amount`) from retail_sales_dataset;
+
+with etc as (
+SELECT 
+    Date,`Product Category`,`Price per Unit` , `Total Amount`,
+    -- SUM(`Total Amount`) OVER (partition by `Product Category` order by`Total Amount` desc) AS sum_total,
+    SUM(`Total Amount`) OVER (partition by `Product Category`) AS product_total,
+    avg(`Total Amount`) OVER (partition by `Product Category`) AS product_avg,
+	count(`Total Amount`) OVER (partition by `Product Category`) AS total_count,
+    row_number() over(partition by `Product Category`) as rn
+FROM retail_sales_dataset)
+select * from etc where rn = 1;
+
+
+select * from (
+Select `Product Category` ,`Price per Unit`,
+Sum(`Price per Unit`) Over(Partition by `Product Category`) as Count_num,
+Avg(`Price per Unit`) Over(Partition by `Product Category`) as Avg_num,
+Count(`Price per Unit`) Over(Partition by `Product Category`) as Total_num,
+row_number() Over(Partition by `Product Category`) as rn
+From retail_sales_dataset ) as etc 
+where rn = 1;
+
+
+select sum(`Total Amount`) from retail_sales_dataset where `Product Category`='Beauty'
+select count(`Total Amount`) from retail_sales_dataset where `Product Category`='Beauty'
+
+
+# 🔍 7. FIRST_VALUE() / LAST_VALUE()
+Returns the first or last value in a window partition.
+
+select * from (
+SELECT 
+    Date,`Product Category`,`Price per Unit` , `Total Amount`,
+    FIRST_VALUE(`Total Amount`) OVER (partition by`Product Category` order by `Total Amount` desc) AS top_amount,
+    first_VALUE(`Total Amount`) OVER (partition by`Product Category` order by `Total Amount`) AS bottom_amount,
+    row_number() over (partition by`Product Category`) as rn
+FROM retail_sales_dataset) as common_records 
+where rn = 1;
+
+select max(`Total Amount`) , min(`Total Amount`) from retail_sales_dataset;
+-- select * from (
+-- select *,rank() over () as rn from retail_sales_dataset where `Product Category` = 'Beauty') as etc 
+-- order by rn desc limit 1 
+
+select *,row_number() over () as rn from retail_sales_dataset where `Product Category` = 'Beauty'
+
