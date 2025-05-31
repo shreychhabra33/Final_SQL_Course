@@ -115,3 +115,41 @@ LEAD()	Next row value
 FIRST_VALUE()	First value in window
 SUM() OVER()	Running totals
 MOVING_AVG()	Rolling calculations
+
+
+
+# 🔍 8. CUME_DIST(): Cumulative Distribution
+CUME_DIST(x) = (Number of rows with value ≤ x) / (Total number of rows)
+
+🔢 Calculation:
+3000: 1 row ≤ 3000 → 1/5 = 0.20
+
+4000: 2 rows ≤ 4000 → 2/5 = 0.40
+
+5000 (both rows): 4 rows ≤ 5000 → 4/5 = 0.80
+
+7000: 5 rows ≤ 7000 → 5/5 = 1.00
+
+🔍 9. PERCENT_RANK(): Relative Rank
+PERCENT_RANK(x) = (Rank of x - 1) / (Total rows - 1)
+
+Total rows = 5
+
+Now apply formula:
+
+3000: (1 - 1) / (5 - 1) = 0.00
+
+4000: (2 - 1) / 4 = 0.25
+
+5000: (3 - 1) / 4 = 0.50
+
+5000: (3 - 1) / 4 = 0.50
+
+
+
+🆚 Summary: Difference Between CUME_DIST() and PERCENT_RANK()
+Function	Range	Includes duplicates	Description
+CUME_DIST()	(0, 1]	✅ Yes	Percentile position (inclusive)
+PERCENT_RANK()	[0, 1]	❌ No	Relative rank (exclusive)
+
+7000: (5 - 1) / 4 = 1.00
