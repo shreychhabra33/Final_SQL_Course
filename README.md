@@ -120,3 +120,8 @@ select * from sales_data;  <br>
 
 select find_in_set(lower('Wired Headphones'),lower(Product)) from sales_data;  <br>
 
+## 01-06-2025 
+1. https://leetcode.com/problems/last-person-to-fit-in-the-bus/?envType=study-plan-v2&envId=top-sql-50
+2. https://leetcode.com/problems/primary-department-for-each-employee/?envType=study-plan-v2&envId=top-sql-50
+3. https://leetcode.com/problems/game-play-analysis-iv/?envType=study-plan-v2&envId=top-sql-50
+4. https://leetcode.com/problems/restaurant-growth/?envType=study-plan-v2&envId=top-sql-50
