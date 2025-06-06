@@ -258,3 +258,42 @@ FROM bikeindia;
 # Pending Topic 
 case statement  forreing key + primary + index, rejex , github or Project + TCL, DTC ,view => trigger, procedure and Functions
 
+
+select * ,row_number() over() as row_numbers from (
+SELECT 
+    Date,`Product Category`,`Price per Unit` , `Total Amount`,
+    AVG(`Total Amount`) OVER (partition by `Product Category` order by `Total Amount` ROWS BETWEEN 7 PRECEDING AND CURRENT ROW) AS moving_avg,
+    sum(`Total Amount`) OVER (partition by `Product Category` order by `Total Amount` ROWS BETWEEN 7 PRECEDING AND CURRENT ROW) AS moving_sum,
+   --  row_number() over ( partition by `Product Category` order by `Total Amount` ROWS BETWEEN 7 PRECEDING AND CURRENT ROW) as rn
+   dense_rank() over (partition by `Product Category` order by `Total Amount` ROWS BETWEEN 7 PRECEDING AND CURRENT ROW) as rn
+FROM retail_sales_dataset) as etc 
+where rn >=7 and rn % 7=0
+
+
+select * from bikeindia;
+
+select * from (
+SELECT 
+    dteday, temp,atemp,workingday,
+    AVG(atemp) OVER ( partition by workingday ORDER BY dteday ROWS BETWEEN 7 PRECEDING AND CURRENT ROW) AS moving_avg,
+    dense_rank() over(partition by workingday ORDER BY dteday ROWS BETWEEN 7 PRECEDING AND CURRENT ROW) as rn
+FROM bikeindia ) as etc 
+
+where rn =7;
+
+select avg(atemp) from (
+select dteday, temp,atemp,workingday,row_number() over() as rn
+from bikeindia where workingday=0 order by dteday ) as etc 
+where rn <=7;
+
+-- select avg(atemp)  from bikeindia where workingday=0 order by dteday
+
+
+SELECT 
+    dteday, temp,atemp,workingday,
+    PERCENT_RANK() OVER (ORDER BY atemp) AS percent_rank_val,
+    cume_dist() OVER (ORDER BY atemp) AS percentile,
+    sum(atemp) over( order by atemp) as cumulative_sum
+FROM bikeindia;
+
+update bikeindia set atemp = 5.0830 where atemp = 5.0830 and workingday=0 and temp = 
