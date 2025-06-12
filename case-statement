@@ -1,0 +1,38 @@
+# 2025 - 06 - 12
+
+  use quiz_app;
+
+select * from quiz_app.loan_data;
+
+with etc as (
+select person_age ,person_gender,person_education,person_income, loan_amnt,loan_status,
+case when loan_amnt between 0 and 10000 then 'Lower Loan Amount'
+     when loan_amnt between 10000 and 20000 then 'Middle Loan Amount' 
+     else 'Higher Amont' end as `loan category`
+from loan_data) 
+
+select `loan category`, person_education, loan_status, count(person_income) as t_records, max(person_income) as maximun,avg(person_income) as average,sum(person_income) as total
+
+from etc group by `loan category` ,person_education , loan_status
+order by t_records desc
+
+
+use algo;
+
+CREATE OR REPLACE VIEW price_band_classification AS
+SELECT 
+    d.datetime,
+    d.close,
+    i.upper,
+    i.lower,
+    CASE 
+        WHEN d.close > i.upper THEN 'Above Upper Band'
+        WHEN d.close < i.lower THEN 'Below Lower Band'
+        ELSE 'Inside Band'
+    END AS band_position
+FROM data d
+JOIN indicators i ON d.datetime = i.datetime
+ORDER BY d.datetime;
+
+
+select * from price_band_classification;
