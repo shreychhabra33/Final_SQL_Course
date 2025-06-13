@@ -1,0 +1,72 @@
+# 2025 - 06 - 13 
+
+SELECT * FROM sql_course.loan_data_view;
+drop view if exists person_loan;
+create or replace view person_loan as (
+select 
+person_age,
+person_gender,
+person_education,
+
+count(
+case 
+when person_education ='Master' then 1 else null end ) 
+as master_count,
+
+count(
+case 
+when person_education ='Bachelor' then 1 else null end ) 
+as Bachelor_count,
+
+count(
+case 
+when person_education ='High School' then 1 else null end ) 
+as high_count,
+
+count(
+case 
+when person_education ='Associate' then 1 else null end ) 
+as associate_count
+
+FROM sql_course.loan_data_view
+group by person_age,person_gender,person_education
+);
+
+
+create or replace view person_loan as (
+select 
+person_education,
+
+count(
+case 
+when person_education ='Master' then 1 else null end ) 
+as master_count,
+
+count(
+case 
+when person_education ='Bachelor' then 1 else null end ) 
+as Bachelor_count,
+
+count(
+case 
+when person_education ='High School' then 1 else null end ) 
+as high_count,
+
+count(
+case 
+when person_education ='Associate' then 1 else null end ) 
+as associate_count
+
+FROM sql_course.loan_data_view
+group by person_education
+);
+
+select * from person_loan;
+
+
+select 
+person_age,
+person_gender,
+person_education,
+count(*) over(partition by person_age,person_gender,person_education) as total_counts
+FROM sql_course.loan_data_view
