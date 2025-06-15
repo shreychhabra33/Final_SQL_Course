@@ -1,0 +1,89 @@
+#2025 - 06 - 15 
+
+use sql_course;
+
+-- TCL ( Transaction control language ) 
+
+-- # COMMIT, ROLLBACK, and SAVEPOINT
+These commands are crucial for maintaining data integrity by managing transactions. A transaction is a sequence of operations that should be treated as one unit.
+
+## ///////// 1. COMMIT:
+Makes changes permanent
+Ends current transaction
+Releases locks
+Can't be rolled back
+
+-- Saves all changes permanently
+COMMIT;
+
+# eg -1 
+select * from employees;
+commit ;
+
+select * from joyti;
+
+commit;  -- 
+
+select * from employees;
+
+##//-- Example transaction
+-- set autocommit=0;
+start TRANSACTION;
+    UPDATE employees SET salary = salary - 20 WHERE Emp_ID = 3;
+    UPDATE employees SET salary = salary + 15 WHERE id = 5;
+COMMIT;
+
+
+## 2. ////////// ROLLBACK:
+Cancels all changes since last COMMIT
+Releases locks
+Ends transaction
+
+-- Undoes all changes since last COMMIT
+ROLLBACK;
+
+#  1. -- Example of error handling
+
+START TRANSACTION;
+
+UPDATE employees SET salary = salary - 120 WHERE Emp_ID = 3;
+UPDATE employees SET salary = salary + 115 WHERE id = 5;
+
+-- If no error:
+COMMIT;
+
+-- If error occurred (manually trigger or detect):
+ROLLBACK;
+
+
+## 3. ///////////////// SAVEPOINT:
+Creates markers within transaction
+Allows partial rollbacks
+Multiple savepoints possible
+
+-- Creates a point to roll back to
+SAVEPOINT order_inserted;
+ROLLBACK TO inventory_updated;
+
+-- Example with multiple savepoints
+select * from orders;
+select * from employees;
+
+
+start TRANSACTION;
+    INSERT INTO orders VALUES (2002,5,102,3,current_timestamp());
+    
+    SAVEPOINT order_inserted;
+    
+    savepoint testing;
+    UPDATE employees SET salary = salary + 5000;
+    SAVEPOINT inventory_updated;
+    
+    -- Problem detected, roll back to specific point
+    ROLLBACK TO order_inserted;
+    COMMIT;
+    
+    
+savepoint testing;
+    UPDATE employees SET salary = salary - 5000;
+    rollback to testing;
