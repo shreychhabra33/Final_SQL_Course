@@ -306,6 +306,32 @@ SELECT * FROM orders;
 -- ON UPDATE CASCADE	Automatically updates child FK when parent key updates
 
 
+Insert into orders(id,customer_id,product) value (105,3 , 'Laptom I-9')
+
+delete from orders where id = 104;
+
+-- truncate customers;
+-- 🔁 3. Cascade Example – UPDATE
+-- ✅ Change id=1 in customers → it will cascade to orders.customer_id
+
+
+-- truncate customers \
+-- Cannot truncate a table referenced in a foreign key constraint (`quiz_app`.`orders`, CONSTRAINT `orders_ibfk_1`)	0.015 sec
+
+-- Error Code: 1452. Cannot add or update a child row: 
+-- a foreign key constraint fails (`ig_clone`.`orders`, 
+-- CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) 
+-- REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)	
+-- 0.000 sec
+
+DELETE FROM customers WHERE id = 2;
+
+-- Check results
+SELECT * FROM customers;
+SELECT * FROM orders;
+
+
+
 Great question — let’s clear up a common confusion in SQL around:
 
 ❓ Can you use TRUNCATE with ON DELETE CASCADE?
