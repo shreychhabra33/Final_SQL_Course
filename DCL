@@ -1,0 +1,66 @@
+Data Control Language (DCL)
+
+-- 1. Data Control Language (DCL) is used to control access 
+-- and manage user permissions within a database. 
+
+-- DCL stands for Data Control Language, which is a subset of 
+SQL (Structured Query Language) used to control access to data in a database. 
+
+-- 2. It ensures data security and determines who can perform operations 
+-- like data manipulation and retrieval.
+
+-- 3. DCL commands manage user permissions and security by granting or revoking privileges on database objects.
+
+-- 4. GRANT: Assigns specific privileges (like SELECT, INSERT, UPDATE, DELETE) to users or roles.
+-- 5. REVOKE: Removes previously granted privileges from users or roles.
+-- 6. DCL ensures that only authorized individuals have access to sensitive data.
+
+
+-- Create analyst user
+CREATE USER 'joyti'@'localhost' IDENTIFIED BY 'joyti123';
+
+-- Create inventory manager user
+CREATE USER 'shrey'@'localhost' IDENTIFIED BY 'shrey123';
+
+-- Create full access admin user
+CREATE USER 'jroshan'@'localhost' IDENTIFIED BY 'jroshan';
+
+-- 📊 GRANT SELECT to Analyst
+GRANT SELECT ON sql_course.* TO 'joyti'@'localhost';
+
+GRANT SELECT ON sql_course.data_loan TO 'shrey'@'localhost';
+
+-- 📦 GRANT SELECT, INSERT, UPDATE on inventory to Inventory Manager
+GRANT SELECT, INSERT, UPDATE ON sql_course.retail_sales_dataset TO 'shrey'@'localhost';
+
+-- 🧪 Bonus: See user current permissions
+
+SHOW GRANTS FOR 'joyti'@'localhost';
+SHOW GRANTS FOR 'shrey'@'localhost';
+show grants for 'jroshan'@'localhost';
+
+-- Joyti as Login and Run SELECT
+USE sql_course;
+-- Try selecting from a real table
+SELECT * FROM employees;
+
+-- Shrey as Login and Run SELECT,update,Insert +> retail_sale_dataset
+USE sql_course;
+-- Try selecting from a real table
+SELECT * FROM data_loan;
+
+INSERT INTO employees (emp_id, emp_name) VALUES (999, 'Test');
+
+-- ❌ REVOKE ALL from analyst
+
+REVOKE ALL PRIVILEGES ON sql_course.* FROM 'joyti'@'localhost';
+
+REVOKE update ON sql_course.retail_sales_dataset FROM 'shrey'@'localhost';
+
+-- Optional - Verify user's privileges
+SHOW GRANTS FOR 'joyti'@'localhost';
+SHOW GRANTS FOR 'shrey'@'localhost';
+
+
+
+
