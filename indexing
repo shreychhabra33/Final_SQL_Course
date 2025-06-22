@@ -1,0 +1,36 @@
+-- 🧠 What is an Index in MySQL?
+An index improves query performance by allowing faster lookups 
+on one or more columns. 
+It is  like a book index — find the page faster!
+
+-- 🛠️ Basic Syntax
+use sql_course;
+
+select * from employees;
+
+CREATE INDEX index_name ON table_name (column_name);
+
+CREATE INDEX idx_salary ON employees(salary);
+
+describe employees;
+
+select * from employees;
+
+-- 🔍 How to Check Indexes
+SHOW INDEX FROM employees;
+
+select * from employees where salary = 0
+MySQL will now use the index on salary (if suitable) to optimize performance.
+
+-- 🧹 To Drop an Index
+drop index idx_salary ON employees;
+
+SHOW INDEX FROM employees;
+
+
+❗ When NOT to Use Indexes
+On very small tables (performance gain is negligible)
+
+On columns with high duplication (e.g., gender, status)
+
+If you're doing lots of INSERT/UPDATE, indexes slow down writes
