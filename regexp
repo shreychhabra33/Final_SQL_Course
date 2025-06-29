@@ -1,0 +1,74 @@
+
+use sql_course;
+
+select * from employees;
+
+select * from employees where Emp_Name like 'a%';
+select * from employees where Emp_Name like '%e';
+select * from employees where Emp_Name like 'a%e';
+select * from employees where Emp_Name like '_l%';
+select * from employees where Emp_Name like 'd%i_';
+
+
+-- 📘 MySQL REGEXP Concepts
+-- MySQL uses POSIX Regular Expressions for pattern matching via:
+
+-- REGEXP or RLIKE: Matches a pattern
+
+-- NOT REGEXP: Does not match a pattern
+
+-- 🔸 REGEXP is case-insensitive by default in MySQL (unless BINARY is used).
+
+
+SELECT 'apple' REGEXP 'a';       -- 1 (true)
+SELECT 'apple' REGEXP '^a';      -- 1 (starts with a) ^ 
+SELECT 'apple' REGEXP 'e$';      -- 1 (ends with e) $ 
+SELECT 'apple' REGEXP 'p+';      -- 1 (one or more p) + 
+SELECT 'apple' REGEXP 'x+';      -- 0 (one or more p) 
+SELECT 'apple' REGEXP 'x';       -- 0 (x not in string)
+SELECT 'apple' REGEXP 'l*';      -- 1 (zero or more l) *
+SELECT 'apple' REGEXP 'm*';      -- 1 (zero or more m)
+
+select 'abcdefghijklmnopqrstuvwxyz';
+select 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+select '0123456789';
+
+-- [a-z]: Matches any lowercase letter from a to z.
+select 'abcdefghijklmnopqrstuvwxyz' regexp '[a-z]';
+select 'abcdefghijklmnopqrstuvwxyz' regexp '[A-z]';
+select 'abcdefghijklmno' regexp '[p-z]';
+select 'abcdefghijklmnoqrstuvwxy' regexp '[p-z]';
+
+-- Start with [a-z] 
+select 'abcdefghijklmnopqrstuvwxyz' regexp '^[a-z]';
+select 'Abcdefghijklmnopqrstuvwxyz' regexp '^[a-z]';
+select '123bcdefghijklmnopqrstuvwxyz' regexp '^[a-z]';
+
+-- Start with [A-Z]
+select 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' regexp '[A-Z]$';
+select 'ABCDEFGHIJKLMNOPQRSTUVWXYz' regexp '[A-Z]$';
+select 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234' regexp '[A-Z]$';
+
+
+-- start with [a-zA-Z0-9] 
+select '1234ABCDEFGHIJKLMNOPQRSTUVWXYZ' regexp '^[a-zA-Z0-9]';
+select '@1234ABCDEFGHIJKLMNOPQRSTUVWXYZ' regexp '^[a-zA-Z0-9]';
+
+select '1234ABCDEFGHIJKLMNOPQRSTUVWXYZ123' regexp '^[a-zA-Z0-9]$';
+select '_ABCDEFGHIJKLMNOPQRSTUVWXYZ' regexp '^[a-zA-Z0-9]';
+select '1234ABCDEFGHIJKLMNOPQRSTUVWXYZ.' regexp '[a-zA-Z0-9]$';
+
+select '0123456789' 
+-- @ -_. 
+
+select '!@#$%^&*();:'"<,>.?/\-_';
+
+
+
+-- abc-123@gmail.com 
+-- abc@gmil.com 
+-- abc12345@gmail.com
+-- jroshan731@gmail.com 
+-- jroshancode@gmail;
+
+
