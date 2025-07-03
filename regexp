@@ -58,8 +58,48 @@ select '1234ABCDEFGHIJKLMNOPQRSTUVWXYZ123' regexp '^[a-zA-Z0-9]$';
 select '_ABCDEFGHIJKLMNOPQRSTUVWXYZ' regexp '^[a-zA-Z0-9]';
 select '1234ABCDEFGHIJKLMNOPQRSTUVWXYZ.' regexp '[a-zA-Z0-9]$';
 
-select '0123456789' 
+select '0123456789' regexp '^[0-9]'
 -- @ -_. 
+
+-- . ( anythings ) 
+select 'abcABC@#$%^&*0987654321' regexp '.*';
+
+select '123shrey' regexp '^[a-zA-Z]';
+select 'shrey1234' regexp '^[a-zA-Z].*[0-9@]$';
+select 'jyoti123@' regexp '^[a-zA-Z].*[0-9@]$';
+select 'jroshan#' regexp '^[a-zA-Z].+[0-9@]$';
+select 'jroshan#98' regexp '^[a-zA-Z]*[0-9@]$';
+select 'jroshan#98@' regexp '^[a-zA-Z]*[0-9@]$';
+select '123jroshan@98' regexp '^[a-zA-Z].*[0-9@]$';
+select '123jroshan@98#' regexp '^[a-zA-Z].*[0-9@]$';
+
+
+-- {n,}: Matches n or more occurrences.
+-- Example: a{2,} matches two or more a's.
+
+select 'ababab' regexp 'a{2,}';
+select 'aa' regexp 'a{2,}';
+select 'aabababc' regexp 'a{2,}';
+select 'aabababc' regexp 'a{3,}';
+
+
+-- {n,m}: Matches between n and m occurrences.
+-- Example: a{2,3} matches two or three a's.
+
+select 'ababab' regexp 'a{2,3}';
+select 'aa' regexp 'a{2,3}';
+select 'aabababc' regexp 'a{2,3}';
+select 'abababc' regexp 'ab{3,4}';
+
+
+select '123-456-7890' regexp '^[0-9]*[-0-9]$';
+select '123-456-7890' regexp '^[0-9]+[-0-9]$';
+select '123-456-7890' regexp '^[0-9].*[-0-9]+[0-9]$';
+select '123-456-7890' regexp '^[0-9]*[-0-9]+[0-9]$';
+
+-- shrey
+-- jyoti123
+-- jroshan@98
 
 select '!@#$%^&*();:'"<,>.?/\-_';
 
@@ -70,5 +110,3 @@ select '!@#$%^&*();:'"<,>.?/\-_';
 -- abc12345@gmail.com
 -- jroshan731@gmail.com 
 -- jroshancode@gmail;
-
-
