@@ -125,3 +125,13 @@ select find_in_set(lower('Wired Headphones'),lower(Product)) from sales_data;  <
 2. https://leetcode.com/problems/primary-department-for-each-employee/?envType=study-plan-v2&envId=top-sql-50
 3. https://leetcode.com/problems/game-play-analysis-iv/?envType=study-plan-v2&envId=top-sql-50
 4. https://leetcode.com/problems/restaurant-growth/?envType=study-plan-v2&envId=top-sql-50
+
+
+## 06-07-2025 
+Valid email addresses must follow these rules:
+
+It must have the username@websitename.extension format type.
+The username can only contain letters, digits, dashes and underscores . [a-z],[A-Z],[0-9],[-_]
+The website name can only have letters and digits . [a-Z],[A-Z],[0-9]
+The extension can only contain letters . [a-z],[A-Z]
+The maximum length of the extension is 3. 
