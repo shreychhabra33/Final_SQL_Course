@@ -1,0 +1,74 @@
+#2025 - 07 - 10
+
+
+use sql_course;
+
+select * from departments ;
+select * from employees;
+
+
+CREATE TABLE dep (
+  dept_id INT PRIMARY KEY,
+  dept_name VARCHAR(50)
+);
+
+CREATE TABLE emp (
+  emp_id INT PRIMARY KEY,
+  emp_name VARCHAR(50),
+  salary DECIMAL(10,2),
+  join_date DATE,
+  dept_id INT,
+  FOREIGN KEY (dept_id) REFERENCES dep(dept_id)
+);
+
+INSERT INTO dep VALUES
+(1, 'Engineering'),
+(2, 'Marketing'),
+(3, 'Finance'),
+(4, 'Sales'),
+(5, 'IT'),
+(6, 'HR');
+
+INSERT INTO emp VALUES
+(101, 'Alice', 80000, '2022-01-15', 1),
+(102, 'Bob', 75000, '2021-11-05', 1),
+(103, 'Charlie', 65000, '2023-02-20', 2),
+(104, 'Diana', 90000, '2020-06-10', 3),
+(105, 'Ethan', 72000, '2019-09-25', 1),
+(106, 'Fiona', 58000, '2021-04-30', 2),
+(107, 'Alice', 80000, '2022-01-16', 4),
+(108, 'Bob', 75000, '2021-11-06', 4),
+(109, 'Charlie', 65000, '2023-02-21', 5),
+(110, 'Diana', 90000, '2020-07-11', 6),
+(111, 'Ethan', 72000, '2019-10-28', 4),
+(112, 'Fiona', 58000, '2021-05-31', 5);
+
+
+select * from emp;
+select * from dep;
+
+-- created view 
+
+Drop view if exists employee_overview;
+
+CREATE OR REPLACE VIEW employee_overview AS (
+select d.dept_id,d.dept_name,count(e.emp_id) as total,max(e.salary) as max_salary
+from emp as e join dep as d on d.dept_id = e.dept_id
+group by d.dept_id,d.dept_name order by total desc
+);
+
+select * from employee_overview;
+
+-- functions 
+
+create function employee_overview_fun(id int)
+BEGIN
+select * from 
+END $$
+
+DELIMITER ;
+-- 
+
+
+
+
