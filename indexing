@@ -34,3 +34,10 @@ On very small tables (performance gain is negligible)
 On columns with high duplication (e.g., gender, status)
 
 If you're doing lots of INSERT/UPDATE, indexes slow down writes
+
+
+
+
+In database design, a composite key is a candidate key that consists of two or more attributes, 
+(table columns) that together uniquely identify an entity occurrence (table row). 
+A compound key is a composite key for which each attribute that makes up the key is a foreign key in its own right.
