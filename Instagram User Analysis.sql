@@ -140,3 +140,172 @@ with base as(
 select u.username, count(l.photo_id) as likess from likes l inner join users u on u.id=l.user_id
 group by u.username)
 select username,likess from base where likess=(select count(*) from photos) order by username;
+
+
+-- vw_user_activity_summary
+Aggregates a user’s overall activity.
+
+
+/* View: overall activity per user */
+CREATE OR REPLACE VIEW vw_user_activity_summary AS
+SELECT
+    u.id            AS user_id,
+    u.username,
+    COUNT(DISTINCT p.id)                    AS photos_posted,
+    COUNT(DISTINCT c.id)                    AS comments_written,
+    COUNT(DISTINCT l.photo_id)              AS likes_given,
+    COALESCE(rc.received_likes, 0)          AS likes_received
+FROM        users u
+LEFT JOIN   photos          p  ON p.user_id = u.id
+LEFT JOIN   comments        c  ON c.user_id = u.id
+LEFT JOIN   likes           l  ON l.user_id = u.id
+LEFT JOIN  (
+
+/* likes received on user’s photos */
+      SELECT  p.user_id, COUNT(*) AS received_likes
+      FROM    photos p
+      JOIN    likes  l ON l.photo_id = p.id
+      GROUP BY p.user_id
+) rc ON rc.user_id = u.id
+GROUP BY u.id, u.username;
+
+-- vw_photo_engagement
+Shows every photo with engagement metrics and tags in a CSV list.
+
+/* View: engagement per photo */
+CREATE OR REPLACE VIEW vw_photo_engagement AS
+SELECT
+    p.id                     AS photo_id,
+    p.image_url,
+    u.username               AS owner,
+    COUNT(DISTINCT l.user_id) AS likes_count,
+    COUNT(DISTINCT c.id)      AS comments_count,
+    GROUP_CONCAT(DISTINCT t.tag_name  ORDER BY t.tag_name) AS tags_csv
+FROM        photos p
+JOIN        users  u ON u.id = p.user_id
+LEFT JOIN   likes  l ON l.photo_id = p.id
+LEFT JOIN   comments c ON c.photo_id = p.id
+LEFT JOIN   photo_tags pt ON pt.photo_id = p.id
+LEFT JOIN   tags      t  ON t.id = pt.tag_id
+GROUP BY p.id, p.image_url, u.username;
+
+
+
+-- get follower count 
+DELIMITER $$
+
+/* Followers a user HAS */
+CREATE FUNCTION get_followers_count(p_user_id INT)
+RETURNS INT DETERMINISTIC
+BEGIN
+    DECLARE follower_cnt INT;
+    SELECT COUNT(*) INTO follower_cnt
+    FROM follows
+    WHERE followee_id = p_user_id;
+    RETURN follower_cnt;
+END$$
+
+/* Accounts a user FOLLOWS */
+CREATE FUNCTION get_following_count(p_user_id INT)
+RETURNS INT DETERMINISTIC
+BEGIN
+    DECLARE following_cnt INT;
+    SELECT COUNT(*) INTO following_cnt
+    FROM follows
+    WHERE follower_id = p_user_id;
+    RETURN following_cnt;
+END$$
+
+DELIMITER ;
+
+-- ike_photo – idempotent Like action + live likes count
+
+DELIMITER $$
+
+CREATE PROCEDURE like_photo (
+    IN  p_user_id  INT,
+    IN  p_photo_id INT,
+    OUT p_total_likes INT
+)
+BEGIN
+    /* avoid duplicate likes (primary‑key guarantees, but IF NOT EXISTS is friendlier) */
+    INSERT IGNORE INTO likes(user_id, photo_id)
+    VALUES (p_user_id, p_photo_id);
+
+    SELECT COUNT(*) INTO p_total_likes
+    FROM likes
+    WHERE photo_id = p_photo_id;
+END$$
+
+DELIMITER ;
+
+-- add_comment – add comment & return new comment count
+DELIMITER $$
+
+CREATE PROCEDURE add_comment (
+    IN  p_user_id      INT,
+    IN  p_photo_id     INT,
+    IN  p_comment_text VARCHAR(255),
+    OUT p_total_comments INT
+)
+BEGIN
+    INSERT INTO comments(comment_text, user_id, photo_id)
+    VALUES (p_comment_text, p_user_id, p_photo_id);
+
+    SELECT COUNT(*) INTO p_total_comments
+    FROM comments
+    WHERE photo_id = p_photo_id;
+END$$
+
+DELIMITER ;
+
+-- top_photos_by_engagement – combined likes + comments scoreboard
+DELIMITER $$
+
+CREATE PROCEDURE top_photos_by_engagement (
+    IN  p_limit INT
+)
+BEGIN
+    SELECT
+        v.photo_id,
+        v.image_url,
+        v.owner,
+        v.likes_count,
+        v.comments_count,
+        (v.likes_count + v.comments_count) AS engagement_score
+    FROM vw_photo_engagement v
+    ORDER BY engagement_score DESC
+    LIMIT p_limit;
+END$$
+
+DELIMITER ;
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+/* Like a photo and see running total */
+CALL like_photo(1, 10, @likes);
+SELECT @likes AS current_likes;
+
+/* Leave a comment */
+CALL add_comment(1, 10, 'Awesome shot!', @comments);
+SELECT @comments AS current_comments;
+
+/* Quick follower stats */
+SELECT  id,
+        username,
+        get_followers_count(id)  AS followers,
+        get_following_count(id)  AS following
+FROM users
+LIMIT 5;
+
+/* Most engaging 10 photos */
+CALL top_photos_by_engagement(10);
+
+/* User dashboard */
+SELECT * FROM vw_user_activity_summary
+ORDER BY likes_received DESC
+LIMIT 10;
+
+
