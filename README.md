@@ -130,8 +130,25 @@ select find_in_set(lower('Wired Headphones'),lower(Product)) from sales_data;  <
 ## 06-07-2025 
 Valid email addresses must follow these rules:
 
-It must have the username@websitename.extension format type.
-The username can only contain letters, digits, dashes and underscores . [a-z],[A-Z],[0-9],[-_]
-The website name can only have letters and digits . [a-Z],[A-Z],[0-9]
-The extension can only contain letters . [a-z],[A-Z]
-The maximum length of the extension is 3. 
+1. It must have the username@websitename.extension format type.
+2. The username can only contain letters, digits, dashes and underscores . [a-z],[A-Z],[0-9],[-_]
+3. The website name can only have letters and digits . [a-Z],[A-Z],[0-9]
+4. The extension can only contain letters . [a-z],[A-Z]
+5. The maximum length of the extension is 3. 
+
+
+# Notes ** 
+
+End-to-end Data Analytics Projects
+End-to-end projects are great for your resume and understanding of the data analytic project life cycle. 
+
+In general, you will be:
+
+1. Dealing with multiple datasets
+2. Understanding the data distribution
+3. Applying data cleaning and manipulation
+4. Applying probability and statical techniques
+5. Performing data analysis and visualization
+6. Using machine learning model for predictive analysis
+7. Creating the report or dashboard
+
