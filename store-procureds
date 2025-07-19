@@ -1,0 +1,158 @@
+
+use sql_course;
+
+select * from emp;
+select * from dep;
+
+-- created view 
+
+Drop view if exists employee_overview;
+
+CREATE OR REPLACE VIEW employee_overview AS (
+select d.dept_id,d.dept_name,count(e.emp_id) as total,max(e.salary) as max_salary
+from emp as e join dep as d on d.dept_id = e.dept_id
+group by d.dept_id,d.dept_name order by total desc
+);
+
+select * from employee_overview;
+
+-- functions 
+
+-- MySQL functions are pre-defined or user-defined blocks of code that 
+-- perform specific tasks and return a single value.
+
+drop function if exists calculate_bonus;
+
+DELIMITER $$
+CREATE FUNCTION calculate_bonus(joyti DECIMAL(10,2))
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    DECLARE bonus DECIMAL(10,2);
+    SET bonus = joyti * 0.10;
+    RETURN bonus;
+END$$
+DELIMITER ;
+
+select calculate_bonus(5000.00);
+
+select * ,calculate_bonus(salary) from emp;
+
+select * from emp;
+select * from dep;
+
+
+drop function if exists employee_overview_fun;
+
+DELIMITER $$
+create function employee_overview_fun(id int)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE emp_count int ;
+    SELECT max(salary) INTO emp_count
+    FROM emp
+    WHERE dept_id = id;
+    RETURN emp_count;
+END$$
+DELIMITER ;
+
+select * from employee_overview;
+
+select * from emp;
+select employee_overview_fun(3);
+select employee_overview_fun(1);
+select employee_overview_fun(2);
+
+select * , employee_overview_fun(dept_id) from emp
+
+DROP TABLE IF EXISTS sales_data;
+
+CREATE TABLE sales_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    city VARCHAR(100),
+    customer_name VARCHAR(100),
+    sales_amount DECIMAL(10,2),
+    sales_date DATE
+);
+
+INSERT INTO sales_data (city, customer_name, sales_amount, sales_date) VALUES
+('New York', 'Alice Johnson', 250.75, '2025-07-01'),
+('Los Angeles', 'Bob Smith', 540.00, '2025-07-02'),
+('Chicago', 'Charlie Brown', 310.50, '2025-07-03'),
+('Houston', 'David Lee', 150.00, '2025-07-04'),
+('Phoenix', 'Eva Green', 425.25, '2025-07-05'),
+('Philadelphia', 'Frank White', 620.00, '2025-07-06'),
+('San Antonio', 'Grace Kim', 275.60, '2025-07-07'),
+('San Diego', 'Hannah Patel', 390.00, '2025-07-08'),
+('Dallas', 'Ian Wright', 510.20, '2025-07-09'),
+('San Jose', 'Jane Doe', 345.80, '2025-07-10'),
+('Austin', 'Kevin Hart', 289.40, '2025-07-11'),
+('Jacksonville', 'Laura King', 610.75, '2025-07-12'),
+('Fort Worth', 'Mike Tyson', 420.00, '2025-07-13'),
+('Columbus', 'Nina Simone', 335.90, '2025-07-14'),
+('Charlotte', 'Oscar Wilde', 180.50, '2025-07-15'),
+('San Francisco', 'Paula Abdul', 760.00, '2025-07-16'),
+('Indianapolis', 'Quentin Blake', 280.00, '2025-07-17'),
+('Seattle', 'Rachel Green', 490.25, '2025-07-18'),
+('Denver', 'Steve Rogers', 399.99, '2025-07-19'),
+('Boston', 'Tina Fey', 535.55, '2025-07-20');
+
+select * from sales_data;
+-- Create Function to Get Sales of a Specific City
+
+drop function if exists get_city_sales;
+
+delimiter $$ 
+create function get_city_sales(city_name varchar(30))
+returns decimal(10,2)
+deterministic 
+begin 
+declare total_sales decimal(10,2);
+select sum(sales_amount) into total_sales 
+from sales_data where city = city_name;
+return total_sales;
+
+end$$
+delimiter ;
+
+
+-- In MySQL, a stored procedure is a prepared set of SQL statements 
+-- that are stored on the database server and can be executed repeatedly. 
+-- They are essentially reusable code blocks designed to perform specific tasks, 
+-- offering benefits like improved performance, reduced network traffic, 
+-- and better code organization. 
+
+
+-- call funciton 
+select get_city_sales('New York');
+
+select * , get_city_sales(city) from sales_data ;
+
+
+-- store procedures 
+
+drop procedure if exists update_salary;
+
+-- Step 1: Change delimiter so MySQL understands the procedure body
+DELIMITER $$
+-- Step 2: Create the procedure
+CREATE PROCEDURE update_salary (
+    IN p_emp_id INT,
+    IN p_percentage DECIMAL(5,2)
+)
+BEGIN
+    UPDATE employees
+    SET salary = salary + (salary * p_percentage / 100)
+    WHERE emp_id = p_emp_id;
+END $$
+
+-- Step 3: Reset delimiter to default
+DELIMITER ;
+
+call update_salary(2,2.5)
+-- 25 
+
+select * from employees;
+
+
