@@ -134,9 +134,9 @@ select * , get_city_sales(city) from sales_data ;
 
 drop procedure if exists update_salary;
 
--- Step 1: Change delimiter so MySQL understands the procedure body
+-- Change delimiter so MySQL understands the procedure body
 DELIMITER $$
--- Step 2: Create the procedure
+-- Create the procedure
 CREATE PROCEDURE update_salary (
     IN p_emp_id INT,
     IN p_percentage DECIMAL(5,2)
@@ -147,7 +147,7 @@ BEGIN
     WHERE emp_id = p_emp_id;
 END $$
 
--- Step 3: Reset delimiter to default
+-- Reset delimiter to default
 DELIMITER ;
 
 call update_salary(2,2.5)
