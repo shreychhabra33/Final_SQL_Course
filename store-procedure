@@ -156,3 +156,106 @@ call update_salary(2,2.5)
 select * from employees;
 
 
+--  #2025 - 07 - 22
+
+
+-- Create a dummy database
+CREATE DATABASE IF NOT EXISTS parameter_examples;
+USE parameter_examples;
+
+-- Create a dummy table for employees
+CREATE TABLE IF NOT EXISTS employees (
+    employee_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    salary DECIMAL(10, 2) NOT NULL
+);
+
+-- Insert some dummy data
+INSERT INTO employees (first_name, last_name, salary) VALUES
+('Alice', 'Smith', 60000.00),
+('Bob', 'Johnson', 75000.00),
+('Charlie', 'Brown', 50000.00),
+('David', 'Lee', 90000.00);
+
+
+SELECT * FROM employees;
+
+
+drop PROCEDURE if exists Get_emp_salary;
+
+DELIMITER $$
+CREATE PROCEDURE Get_emp_salary(in e_employee_id INT)
+-- in salary float
+BEGIN
+    SELECT first_name, last_name, salary
+    FROM employees
+    WHERE employee_id = e_employee_id ;
+    -- and salary = salary
+END$$
+DELIMITER ;
+
+SELECT * FROM employees;
+-- Call the procedure
+CALL Get_emp_salary(2); -- This will return Bob Johnson's salary
+CALL Get_emp_salary(1); -- This will return Alice Smith's salary
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE GetCompanySummary(OUT p_total_employees INT, OUT p_total_salary DECIMAL(10, 2))
+BEGIN
+    SELECT COUNT(*) INTO p_total_employees FROM employees;
+    SELECT SUM(salary) INTO p_total_salary FROM employees;
+END //
+
+DELIMITER ;
+
+-- Call the procedure and retrieve the OUT values
+CALL GetCompanySummary(@num_employees, @sum_salary);
+
+-- Display the results from the session variables
+SELECT @num_employees AS TotalEmployees, @sum_salary AS TotalSalary;
+
+
+DELIMITER //
+
+CREATE PROCEDURE CalculateNewSalary(IN p_employee_id INT, 
+                       INOUT p_salary_to_update DECIMAL(10, 2), 
+                       IN p_bonus_percentage DECIMAL(5, 2))
+BEGIN
+    DECLARE current_salary DECIMAL(10, 2);
+
+    -- Get the current salary of the employee
+    SELECT salary INTO current_salary
+    FROM employees
+    WHERE employee_id = p_employee_id;
+
+    -- Calculate the new salary
+    SET p_salary_to_update = current_salary * (1 + p_bonus_percentage / 100);
+
+    -- Optionally, update the employee's salary in the table
+    UPDATE employees
+    SET salary = p_salary_to_update
+    WHERE employee_id = p_employee_id;
+END //
+
+DELIMITER ;
+
+-- Before calling: Let's see Bob Johnson's current salary (employee_id = 2)
+SELECT salary FROM employees WHERE employee_id = 2; -- Should be 75000.00
+
+-- Call the procedure with an INOUT parameter
+SET @bob_salary = 0.00; -- Initialize the session variable (its initial value won't matter for the calculation, but it will hold the *result*)
+CALL CalculateNewSalary(2, @bob_salary, 10.00); -- Give Bob a 10% bonus
+
+-- Display the new salary from the session variable
+SELECT @bob_salary AS BobNewSalary;
+
+-- Verify the update in the table
+SELECT salary FROM employees WHERE employee_id = 2; -- Should now be 82500.00 (75000 * 1.10)
+
+
+
