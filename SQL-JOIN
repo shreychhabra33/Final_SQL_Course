@@ -103,3 +103,138 @@ Student_ID	Name	Course_ID	Course_Name
 
 
 
+use sql_course;
+
+use quiz_app
+select * from quiz_app.loan_data;
+
+-- total recored for each categorie
+select person_education , count(person_education)
+from loan_data group by person_education;
+
+select count(person_education)
+from loan_data ;
+
+select person_education , count(person_education)
+from loan_data group by person_education;
+
+select person_education , count(person_education) , 
+round(sum(loan_amnt),2) as total_sum, round(avg(loan_amnt),2) as average_amount
+from loan_data group by person_education having count(person_education)>22000
+order by average_amount desc limit 1 offset 1
+
+
+-- Join ( column ) 
+
+select * from customers;
+select * from orders ;
+select * from products
+
+-- INNER 
+select cus.*,o.*
+from Customers cus 
+inner join Orders o on o.customer_id = cus.Customer_id
+
+
+-- total numer of records for each customer
+select cus.customer_id,count(o.order_id)
+from Customers cus 
+inner join Orders o on o.customer_id = cus.Customer_id
+group by cus.customer_id
+
+--  Find total order and sum of quantity for each product id
+select o.product_id,count(o.order_id) , sum(quantity) as total_val
+from Customers cus 
+inner join Orders o on o.customer_id = cus.Customer_id
+group by o.product_id 
+
+
+--  Find total order and sum of quantity for each product id whose produt by more than 2 
+select o.product_id,count(o.order_id) as total, sum(quantity) as total_val
+from Customers cus 
+inner join Orders o on o.customer_id = cus.Customer_id
+group by o.product_id having count(o.order_id) > 2
+
+
+-- self join
+
+drop table Stu;
+-- Create the Students table
+CREATE TABLE Stu (
+    stu_id INT PRIMARY KEY,
+    Stu_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    salary DECIMAL(10, 2),
+    teacher_id INT,
+    mentor_id int
+);
+
+-- Insert top ten records
+INSERT INTO Stu (stu_id, Stu_name, email, salary, teacher_id) VALUES
+(1, 'Alice Smith', 'alice.smith@example.com', 50000.00, 101),
+(2, 'Bob Johnson', 'bob.j@example.com', 55000.00, 102),
+(3, 'Charlie Brown', 'charlie.b@example.com', 48000.00, 101),
+(4, 'Diana Prince', 'diana.p@example.com', 60000.00, 103),
+(5, 'Eve Adams', 'eve.a@example.com', 52000.00, 102),
+(6, 'Frank White', 'frank.w@example.com', 49000.00, 101),
+(7, 'Grace Lee', 'grace.l@example.com', 58000.00, 103),
+(8, 'Harry Potter', 'harry.p@example.com', 51000.00, 104),
+(9, 'Ivy Green', 'ivy.g@example.com', 53000.00, 102),
+(10, 'Jack Black', 'jack.b@example.com', 56000.00, 104);
+
+truncate stu;
+
+-- Insert top ten records
+INSERT INTO Stu (stu_id, Stu_name, email, salary, teacher_id, mentor_id) VALUES
+(1, 'Alice Smith', 'alice.smith@example.com', 50000.00, 101, NULL), -- Alice is a top-level mentor
+(2, 'Bob Johnson', 'bob.j@example.com', 55000.00, 102, NULL),    -- Bob is a top-level mentor
+(3, 'Charlie Brown', 'charlie.b@example.com', 48000.00, 101, 1), -- Charlie is mentored by Alice (stu_id 1)
+(4, 'Diana Prince', 'diana.p@example.com', 60000.00, 103, NULL),  -- Diana is a top-level mentor
+(5, 'Eve Adams', 'eve.a@example.com', 52000.00, 102, 2),     -- Eve is mentored by Bob (stu_id 2)
+(6, 'Frank White', 'frank.w@example.com', 49000.00, 101, 1),    -- Frank is mentored by Alice (stu_id 1)
+(7, 'Grace Lee', 'grace.l@example.com', 58000.00, 103, 4),     -- Grace is mentored by Diana (stu_id 4)
+(8, 'Harry Potter', 'harry.p@example.com', 51000.00, 104, NULL), -- Harry is a top-level mentor
+(9, 'Ivy Green', 'ivy.g@example.com', 53000.00, 102, 2),     -- Ivy is mentored by Bob (stu_id 2)
+(10, 'Jack Black', 'jack.b@example.com', 56000.00, 104, 8);    -- Jack is mentored by Harry (stu_id 8)
+
+
+-- Self join 
+select * from stu;
+
+select s1.stu_id,s1.Stu_name,s1.salary , s2.salary,s2.teacher_id,s2.mentor_id
+from Stu as s1 
+left join Stu as s2 on s2.mentor_id = s1.stu_id
+
+
+
+select * from customers;
+select * from orders ;
+select * from products;
+
+-- left , left , left 
+-- left , left , right 
+-- right, right , right 
+-- right , left , left 
+-- inner , inner ,inner 
+
+select cus.customer_id,cus.email,o.order_id,o.customer_id ,o.product_id, p.product_id,p.price
+from customers cus 
+join orders o on o.customer_id = cus.customer_id
+left join products p on p.product_id = o.product_id
+
+-- total order and total revenue for each product
+select o.product_id,count(o.product_id), sum(p.price) ,avg(p.price) 
+from customers cus 
+join orders o on o.customer_id = cus.customer_id
+left join products p on p.product_id = o.product_id
+group by o.product_id
+
+-- total order and total revenue for each customer
+select o.customer_id,count(o.product_id),count(o.customer_id), sum(p.price) ,avg(p.price) 
+from customers cus 
+join orders o on o.customer_id = cus.customer_id
+left join products p on p.product_id = o.product_id
+group by o.customer_id
+
+
+
