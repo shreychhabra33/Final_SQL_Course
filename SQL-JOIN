@@ -12,6 +12,7 @@
 -- Left join , Right Join , Full outer join ( left join union Right join ) 
 -- Inner join ( join ) and self join, cross join 
 
+-- Number of column should be same
 Union - Combine rows from both queries. No duplicates.
 Intersect - keep only rows that are common in both queries.
 Except- keep rows only from left query that are not present in right query.
@@ -65,7 +66,7 @@ Person_ID	Name	Passport_ID	Passport_Number
 2. One-to-Many (1:N)
 One row in Table A can relate to many rows in Table B.
 
-📌 Example: Customer → Orders
+📌 Example: Customer → Orders  or Teacher have teech multiple course or Studenrt buy multiple coruse
 Customer_ID	Name	Order_ID	Product
 1	John	201	Laptop
 1	John	202	Mouse
@@ -77,7 +78,7 @@ Customer_ID	Name	Order_ID	Product
 3. Many-to-One (N:1)
 Many rows in Table A relate to one row in Table B (inverse of 1:N).
 
-📌 Example: Employee → Department
+📌 Example: Employee → Department or ( Employee have one manager ) or  ( Many student have same course ) or ( Many customer buy same product ) 
 
 Employee_ID	Name	Dept_ID	Department
 101	Rahul	10	HR
