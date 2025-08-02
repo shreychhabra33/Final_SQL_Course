@@ -1,0 +1,116 @@
+#2025 - 08 - 02 
+
+use sql_course;
+
+drop table customers1;
+drop table orders1;
+-- Create parent table
+CREATE TABLE customers1 (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+-- Create child table with ON DELETE and ON UPDATE CASCADE
+CREATE TABLE orders1 (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    product VARCHAR(100),
+    FOREIGN KEY (customer_id)
+        REFERENCES customers1(id)
+        on delete cascade on update cascade
+);
+
+
+-- Insert customers
+INSERT INTO customers1 (id, name) VALUES
+(1, 'Alice'),
+(2, 'Bob');
+
+-- Insert orders (linked to customers)
+INSERT INTO orders1 (id, customer_id, product) VALUES
+(101, 1, 'Laptop'),
+(102, 1, 'Mouse'),
+(103, 2, 'Keyboard');
+
+-- Insert customers
+INSERT INTO customers1 (id, name) VALUES
+(4, 'Joyti'),
+(5, 'Shrey'),
+(6,"Jroshan");
+
+-- Insert orders (linked to customers)
+INSERT INTO orders1 (id, customer_id, product) VALUES
+(104, 6, 'Ghar'),
+(105, 4, 'Gaddi'),
+(106, 5, 'paisa');
+
+select * from customers1;
+select * from orders1;
+
+-- UPDATE customers1 SET name = 'abc-alice' WHERE id = 1;
+UPDATE customers1 SET id = 10 WHERE id = 1;
+
+-- Check results
+SELECT * FROM customers1;
+SELECT * FROM orders1;
+
+
+| Trigger Type    | Purpose                         |
+| --------------- | ------------------------------- |
+| `BEFORE INSERT` | Format or validate data         |
+| `AFTER INSERT`  | Log or notify on insert         |
+| `BEFORE UPDATE` | Auto-correct or validate change |
+| `AFTER UPDATE`  | Track audit trail               |
+| `BEFORE DELETE` | Block/prevent deletion          |
+| `AFTER DELETE`  | Log deleted record              |
+
+
+-- 
+| action\_type | old\_name | new\_name | old\_salary | new\_salary | changed\_on |
+| ------------ | --------- | --------- | ----------- | ----------- | ----------- |
+| INSERT       | NULL      | CHARLIE   | NULL        | 75000.00    | ...         |
+| UPDATE       | CHARLIE   | CHARLIE   | 75000.00    | 80000.00    | ...         |
+| DELETE       | CHARLIE   | NULL      | 80000.00    | NULL        | ...         |
+
+
+select * from emp;
+
+-- Audit log table
+CREATE TABLE audit_log (
+  log_id INT AUTO_INCREMENT PRIMARY KEY,
+  action_type VARCHAR(20),
+  old_name VARCHAR(100),
+  new_name VARCHAR(100),
+  old_salary DECIMAL(10,2),
+  new_salary DECIMAL(10,2),
+  old_join_date datetime, 
+  new_join_date datetime,
+  changed_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+drop trigger before_insert_employee;
+
+DELIMITER $$
+CREATE TRIGGER before_insert_employee
+BEFORE INSERT ON emp
+FOR EACH ROW
+BEGIN
+  SET NEW.emp_name = UPPER(NEW.emp_name); -- Capitalize names
+  
+  insert into audit_log(action_type,old_name,new_name,old_salary,new_salary,
+  old_join_date,new_join_date) 
+  values("Inser new recordd",null,new.emp_name,null,new.salary,null,
+  new.join_date);
+
+END$$
+
+DELIMITER ;
+
+
+select * from audit_log;
+
+INSERT INTO emp (emp_id,emp_name, salary,join_date,dept_id)
+VALUES (203,'Alice2', 65000,'2025-03-01',2), (204,'Bob2', 75000,'2025-05-01',4);
+
+
+select * from emp;
