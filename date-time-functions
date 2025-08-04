@@ -163,6 +163,8 @@ SELECT now(),DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),DATE_FORMAT(NOW(), '%y-%m-%
 -- %I -> Hour number ( 12 hours time ) 
 -- %p -> Am/Pm ( 12 hours time )
 -- %r -> %h:%i:%s Am/Pm
+-- %a -> short week name days name 
+-- %W -> full week name
 select now(),date_format(now(),"%H:%i:%s") , date_format(now(),"%H:%I:%S")
 
 select * from sales_data;
