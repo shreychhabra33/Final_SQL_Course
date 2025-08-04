@@ -1,4 +1,6 @@
-#2025 - 08 - 02 
+#2025 - 08 - 02   / 2025 -08 - 04 
+
+
 
 use sql_course;
 
@@ -65,7 +67,7 @@ SELECT * FROM orders1;
 | `AFTER DELETE`  | Log deleted record              |
 
 
--- 
+-- 📚 Summary of Triggers
 | action\_type | old\_name | new\_name | old\_salary | new\_salary | changed\_on |
 | ------------ | --------- | --------- | ----------- | ----------- | ----------- |
 | INSERT       | NULL      | CHARLIE   | NULL        | 75000.00    | ...         |
@@ -96,21 +98,74 @@ BEFORE INSERT ON emp
 FOR EACH ROW
 BEGIN
   SET NEW.emp_name = UPPER(NEW.emp_name); -- Capitalize names
-  
-  insert into audit_log(action_type,old_name,new_name,old_salary,new_salary,
-  old_join_date,new_join_date) 
-  values("Inser new recordd",null,new.emp_name,null,new.salary,null,
-  new.join_date);
+  -- insert into audit_log(action_type,old_name,new_name,old_salary,new_salary,
+--   old_join_date,new_join_date) 
+--   values("Inser new recordd",null,new.emp_name,null,new.salary,null,
+--   new.join_date);
 
 END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER after_insert_employee
+AFTER INSERT ON emp
+FOR EACH ROW
+BEGIN
+  INSERT INTO audit_log(action_type, new_name, new_salary,new_join_date)
+  VALUES ('INSERT', NEW.emp_name, NEW.salary,New.join_date);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER before_update_employee
+BEFORE UPDATE ON emp
+FOR EACH ROW
+BEGIN
+  -- Automatically cap name updates
+  SET NEW.emp_name = UPPER(NEW.emp_name);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER after_update_employee
+AFTER UPDATE ON emp
+FOR EACH ROW
+BEGIN
+  INSERT INTO audit_log(action_type, old_name, new_name, old_salary, new_salary,
+  old_join_date,new_join_date)
+  VALUES ('UPDATE', OLD.emp_name, NEW.emp_name, OLD.salary, NEW.salary,Old.join_date,new.join_date);
+END $$
 
 DELIMITER ;
 
 
+truncate audit_log;
 select * from audit_log;
 
+delete from emp where emp_id = 205;
 INSERT INTO emp (emp_id,emp_name, salary,join_date,dept_id)
-VALUES (203,'Alice2', 65000,'2025-03-01',2), (204,'Bob2', 75000,'2025-05-01',4);
+VALUES (205,'Shrey', 65000,'2025-03-01',2), (206,'jroshan', 75000,'2025-05-01',4);
+
+-- For updated 
+update emp set emp_name ='abc' where emp_id = 206;
 
 
 select * from emp;
+
+
+SHOW TRIGGERS;
+SHOW TRIGGERS FROM sql_course;
+
+SHOW TRIGGERS FROM sql_course WHERE Table = 'emp';
+
+SELECT
+    trigger_schema,
+    trigger_name,
+    event_manipulation,
+    event_object_table,
+    action_statement,
+    action_timing
+FROM
+    INFORMATION_SCHEMA.TRIGGERS;
